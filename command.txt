@@ -1,0 +1,60 @@
+
+※注意！！！
+作業を行う可能性がある人は統計情報ページを開かないでください！！
+ページ起動時に、グラフを保存した画像を生成しているので、
+複数人が変更を加えた判定になり、衝突します
+
+
+プル
+git pull
+
+ファイルのステージ(一覧用)
+git add .
+
+コミット
+git commit -m "コミットメッセージ"
+
+プッシュ
+git push
+
+手順
+１.プル
+２.ステージ
+３.コミット
+４.プッシュ
+(プッシュとコミットは、衝突の可能性あるから、一声かけてやろう！)
+
+
+モジュールのimportについて
+多分、オーナー以外も出来ると思う。
+
+手順
+１.必要なモジュールをpipする。
+２.pip freeze -> requirements.txt　このコマンドを実行する
+３.終わり(requirements.txtにモジュール情報が保存される)
+
+
+ここら辺はDB用
+前準備(1回実行すれば、今後やる必要はない)
+flask db init
+
+更新の都度実行するコマンド
+flask db migrate
+flask db upgrade
+
+
+新規プロジェクト用モジュール
+pip install flask
+pip install python-dotenv
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask-wtf
+pip install flask-login
+
+現在の変更をコミットまたはスタッシュ：
+git commit -am "Save changes"
+# または
+git stash
+
+リモートブランチを手動でマージ：
+git pull --no-rebase

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'KDPS',  # KDPSアプリを追加
+    'accounts', 
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,73 @@
+<!-- templates/accounts/register.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録</title>
+    {% load static %}  <!-- staticタグをロード -->
+    <link rel="stylesheet" href="{% static '/register.css' %}">  <!-- CSSファイルをリンク -->
+</head>
+<body>
+    <h2>新規登録</h2>
+
+    <form method="POST" class="form-container">
+        {% csrf_token %}
+        
+        <!-- 1行目の左寄り: 氏名 -->
+        <p class="form-row-1-left">
+            <label class="form-label" for="id_username">氏名</label>
+            {{ form.username }}
+        </p>
+
+        <!-- 1行目の右寄り: メールアドレス -->
+        <p class="form-row-1-right">
+            <label class="form-label" for="id_email">メールアドレス</label>
+            {{ form.email }}
+        </p>
+
+        <!-- 3行目の左寄り: パスワード -->
+        <p class="form-row-3-left">
+            <label class="form-label" for="id_password1">パスワード</label>
+            {{ form.password1 }}
+            <button type="button" class="toggle-password" onclick="togglePassword()">表示</button>
+        </p>
+
+        <!-- 3行目の右寄り: 学籍番号(ID) -->
+        <p class="form-row-3-right">
+            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
+            {{ form.student_id }}
+        </p>
+
+        <!-- 5行目の左寄り: 学年 -->
+        <p class="form-row-5-left">
+            <label class="form-label" for="id_grade">学年</label>
+            {{ form.grade }}
+        </p>
+
+        <!-- 5行目の右寄り: クラス -->
+        <p class="form-row-5-right">
+            <label class="form-label" for="id_class_name">クラス</label>
+            {{ form.class_name }}
+        </p>
+
+        <button type="submit">登録</button>
+    </form>
+
+    <script>
+        // パスワード表示・非表示の切り替え機能
+        function togglePassword() {
+            var passwordField = document.querySelector('input[name="password1"]');
+            var toggleButton = document.querySelector('.toggle-password');
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "隠す";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "表示";
+            }
+        }
+    </script>
+</body>
+</html>

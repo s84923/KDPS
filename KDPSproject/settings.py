@@ -53,7 +53,7 @@ ROOT_URLCONF = 'KDPSproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # プロジェクト全体のテンプレートディレクトリを指定
+        'DIRS': [BASE_DIR / 'KDPS/templates'],  # プロジェクト全体のテンプレートディレクトリを指定
         'APP_DIRS': True,  # アプリケーション内のテンプレートディレクトリも使用
         'OPTIONS': {
             'context_processors': [
@@ -96,11 +96,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'  # 日本語設定
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'  # 日本時間に設定
 
 USE_I18N = True
+
+USE_L10N = True  # ローカライズを有効に
 
 USE_TZ = True
 

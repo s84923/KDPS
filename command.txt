@@ -32,15 +32,9 @@ git push
 １.必要なモジュールをpipする。
 ２.pip freeze -> requirements.txt　このコマンドを実行する
 ３.終わり(requirements.txtにモジュール情報が保存される)
+４.インストールする場合
+５.pip install -r requirements.txt
 
-
-ここら辺はDB用
-前準備(1回実行すれば、今後やる必要はない)
-flask db init
-
-更新の都度実行するコマンド
-flask db migrate
-flask db upgrade
 
 
 新規プロジェクト用モジュール
@@ -58,3 +52,7 @@ git stash
 
 リモートブランチを手動でマージ：
 git pull --no-rebase
+
+自分の変更をリセットして最新の状態にするときは
+git reset --hard
+git pull

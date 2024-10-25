@@ -1,56 +1,122 @@
-<!-- templates/accounts/register.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新規登録</title>
-    {% load static %}  <!-- staticタグをロード -->
-    <link rel="stylesheet" href="{% static '/register.css' %}">  <!-- CSSファイルをリンク -->
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* タイトルのスタイル */
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* フォームコンテナのスタイル */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 各行のスタイル */
+        .form-row-1-left, .form-row-1-right,
+        .form-row-3-left, .form-row-3-right,
+        .form-row-5-left, .form-row-5-right {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        /* ラベルのスタイル */
+        .form-label {
+            margin-right: 10px;
+            align-self: center;
+        }
+
+        /* 入力フィールドのスタイル */
+        input[type="text"], input[type="email"], input[type="password"], select {
+            width: 60%; /* 小さくするために幅を設定 */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* ボタンのスタイル */
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* トグルボタンのスタイル */
+        .toggle-password {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h2>新規登録</h2>
+    <h1>新規登録</h1>
 
     <form method="POST" class="form-container">
         {% csrf_token %}
         
         <!-- 1行目の左寄り: 氏名 -->
         <p class="form-row-1-left">
-            <label class="form-label" for="id_username">氏名</label>
+            <label class="form-label" for="id_username">氏名</label></p>
             {{ form.username }}
-        </p>
+        
 
         <!-- 1行目の右寄り: メールアドレス -->
         <p class="form-row-1-right">
-            <label class="form-label" for="id_email">メールアドレス</label>
+            <label class="form-label" for="id_email">メールアドレス</label></p>
             {{ form.email }}
-        </p>
+        
 
         <!-- 3行目の左寄り: パスワード -->
         <p class="form-row-3-left">
-            <label class="form-label" for="id_password1">パスワード</label>
+            <label class="form-label" for="id_password1">パスワード</label></p>
             {{ form.password1 }}
             <button type="button" class="toggle-password" onclick="togglePassword()">表示</button>
-        </p>
+        
 
         <!-- 3行目の右寄り: 学籍番号(ID) -->
         <p class="form-row-3-right">
-            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
+            <label class="form-label" for="id_student_id">学籍番号(ID)</label></p>
             {{ form.student_id }}
-        </p>
+        
 
         <!-- 5行目の左寄り: 学年 -->
         <p class="form-row-5-left">
-            <label class="form-label" for="id_grade">学年</label>
+            <label class="form-label" for="id_grade">学年</label></p>
             {{ form.grade }}
-        </p>
 
         <!-- 5行目の右寄り: クラス -->
         <p class="form-row-5-right">
-            <label class="form-label" for="id_class_name">クラス</label>
+            <label class="form-label" for="id_class_name">クラス</label></p>
             {{ form.class_name }}
-        </p>
-
+      
+        <br>
+        <br>
         <button type="submit">登録</button>
     </form>
 
@@ -71,3 +137,5 @@
     </script>
 </body>
 </html>
+
+

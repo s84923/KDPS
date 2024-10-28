@@ -5,4 +5,3 @@ def index(request):
 
 def admin_page(request):
     return render(request, 'KDPS/admin.html')  # admin.html をレンダリング
-

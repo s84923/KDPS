@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <h1>自動採点</h1>
+        {% load static %} <!-- static タグをロード -->
+    </head>
+    <body>
+        {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
+        <h3>試験名の選択</h3>
+        <select mame="Exam selection" id="Exam selection">
+            <option value="">試験名を選択してください</option>
+            <option value="java">Java試験</option>
+            <option value="python">Python試験</option>
+            <option value="JavaScript">JavaScript試験</option>
+        </select>
+        <img src="{% static 'img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン">
+        <button type="button">採点開始</button>
+        <h3>生徒指名</h3>
+        <textarea name="Student Name" id="Student Name"></textarea>
+        <h3>クラス</h3>
+        <textarea name="class" id="class"></textarea>
+        <h3>出席番号</h3>
+        <textarea name="attendance number" id="attendance number"></textarea>
+    </body>
+</html>

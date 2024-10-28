@@ -36,15 +36,6 @@ git push
 ５.pip install -r requirements.txt
 
 
-
-新規プロジェクト用モジュール
-pip install flask
-pip install python-dotenv
-pip install flask-sqlalchemy
-pip install flask-migrate
-pip install flask-wtf
-pip install flask-login
-
 現在の変更をコミットまたはスタッシュ：
 git commit -am "Save changes"
 # または

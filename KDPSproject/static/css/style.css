@@ -4,71 +4,73 @@
     box-sizing: border-box;
 }
 
+/* --- 全体設定 --- */
 body {
     font-family: 'Arial', sans-serif;
 }
 
-body a {
-    color: black; 
-    text-decoration: none; 
+a {
+    color: black;
+    text-decoration: none;
 }
 
-body a:hover {
-    color: black; 
-    text-decoration: underline; 
+a:hover {
+    text-decoration: underline;
 }
 
+/* --- コンテナレイアウト --- */
 .container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
 
+/* --- サイドバー設定 --- */
 .sidebar {
     background-color: black;
     color: white;
     width: 310px;
-    padding: 90px;
+    padding: 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .sidebar h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    margin-bottom: 30px;
 }
 
 .sidebar ul {
     list-style: none;
-    margin-bottom: 20px;
+    width: 100%;
 }
 
 .sidebar ul li {
     margin: 15px 0;
     font-size: 16px;
+    text-align: center;
 }
 
 .sidebar a {
-    color: white; 
-    text-decoration: none; 
-}
-
-.sidebar a:visited {
-    color: white; 
+    color: white;
+    display: block;
+    padding: 10px;
 }
 
 .sidebar a:hover {
-    color: inherit;
-    text-decoration: underline; 
+    background-color: #333;
 }
 
 .logout {
-    margin-top: 20px;
+    margin-top: auto;
+    padding: 10px;
 }
 
 .logout a {
     color: white;
-    text-decoration: none;
-    font-size: 16px;
 }
 
+/* --- メインコンテンツ設定 --- */
 .main-content {
     flex: 1;
     padding: 20px;
@@ -76,7 +78,111 @@ body a:hover {
     justify-content: center;
     align-items: center;
 }
+/* --スケジュールコンテンツ */
+.scheduls-content {
+    flex: 1;
+    padding: 30px;
+}
 
+.scheduls-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --- カレンダー設定 --- */
+.calendar-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.calendar th, .calendar td {
+    width: 14.28%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.calendar th {
+    font-weight: bold;
+}
+
+.calendar th:nth-child(1) {
+    color: red;  /* 日曜日 */
+}
+
+.calendar th:nth-child(7) {
+    color: blue; /* 土曜日 */
+}
+
+/* --- イベント表示 --- */
+.day-box {
+    padding: 5px;
+}
+
+.event-item {
+    background-color: #e0f7fa;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.delete-button {
+    color: red;
+    font-size: 10px;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.delete-button:hover {
+    color: darkred;
+}
+
+/* --- フォームの設定 --- */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+form select, form input[type="text"] {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 14px;
+    width: 200px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* --- グリッド表示用スタイル（メインメニュー） --- */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 180px);

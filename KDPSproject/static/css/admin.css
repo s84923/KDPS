@@ -8,6 +8,16 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
+body a{
+    color: black; 
+    text-decoration: none; 
+}
+
+body a:hover{
+    color: black; 
+    text-decoration: underline; 
+}
+
 .container {
     display: flex;
     height: 100vh; /* 高さをフルに取る */

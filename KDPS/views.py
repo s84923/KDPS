@@ -76,3 +76,5 @@ def delete_schedule(request, event_id):
     return redirect('schedule')
 def admin_page(request):
     return render(request, 'KDPS/admin.html')
+def index(request):
+    return render(request, 'KDPS/index.html')  # メインメニュー画面

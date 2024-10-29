@@ -28,29 +28,46 @@
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
-        /* 各行のスタイル */
-        .form-row-1-left, .form-row-1-right,
-        .form-row-3-left, .form-row-3-right,
-        .form-row-5-left, .form-row-5-right {
+        /* ラベルと入力フィールドの配置 */
+        .form-row {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
+            flex-direction: column;
+        }
+
+        /* パスワードフィールドのスタイル（ボタンを横並びに配置） */
+        .password-container {
+            display: flex;
+            align-items: center;
         }
 
         /* ラベルのスタイル */
         .form-label {
-            margin-right: 10px;
-            align-self: center;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
         /* 入力フィールドのスタイル */
-        input[type="text"], input[type="email"], input[type="password"], select {
-            width: 60%; /* 小さくするために幅を設定 */
+        input[type="text"], input[type="email"], input[type="password"] {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            width: 70%;
+        }
+
+        /* 学年とクラスの左寄せ */
+        .grade-class-container {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* 学年とクラスの入力フィールドのスタイル */
+        .grade-class-container .form-row {
+            margin-right: 10px;
         }
 
         /* ボタンのスタイル */
@@ -61,17 +78,27 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 20%;
+            margin-top: 15px;
+            grid-column: 2; /* 2列目に配置 */
+            justify-self: end; /* ボタンを右寄せ */
         }
 
         button:hover {
             background-color: #45a049;
         }
 
-        /* トグルボタンのスタイル */
+        /* 表示ボタン（トグルボタン）のスタイル */
         .toggle-password {
-            margin-left: 10px;
+            margin-left: 8px;
             cursor: pointer;
+            background-color: #ddd;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
         }
+
     </style>
 </head>
 <body>
@@ -79,43 +106,45 @@
 
     <form method="POST" class="form-container">
         {% csrf_token %}
-        
-        <!-- 1行目の左寄り: 氏名 -->
-        <p class="form-row-1-left">
-            <label class="form-label" for="id_username">氏名</label></p>
+
+        <!-- 1行目左: 氏名 -->
+        <div class="form-row">
+            <label class="form-label" for="id_username">氏名</label>
             {{ form.username }}
-        
+        </div>
 
-        <!-- 1行目の右寄り: メールアドレス -->
-        <p class="form-row-1-right">
-            <label class="form-label" for="id_email">メールアドレス</label></p>
+        <!-- 1行目右: メールアドレス -->
+        <div class="form-row">
+            <label class="form-label" for="id_email">メールアドレス</label>
             {{ form.email }}
-        
+        </div>
 
-        <!-- 3行目の左寄り: パスワード -->
-        <p class="form-row-3-left">
-            <label class="form-label" for="id_password1">パスワード</label></p>
-            {{ form.password1 }}
-            <button type="button" class="toggle-password" onclick="togglePassword()">表示</button>
-        
+        <!-- 2行目左: パスワード（表示ボタンを横に配置） -->
+        <div class="form-row">
+            <label class="form-label" for="id_password1">パスワード</label>
+            <div class="password-container">
+                {{ form.password1 }}
+                <button type="button" class="toggle-password" onclick="togglePassword()">表示</button>
+            </div>
+        </div>
 
-        <!-- 3行目の右寄り: 学籍番号(ID) -->
-        <p class="form-row-3-right">
-            <label class="form-label" for="id_student_id">学籍番号(ID)</label></p>
+        <!-- 2行目右: 学籍番号(ID) -->
+        <div class="form-row">
+            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
             {{ form.student_id }}
-        
+        </div>
 
-        <!-- 5行目の左寄り: 学年 -->
-        <p class="form-row-5-left">
-            <label class="form-label" for="id_grade">学年</label></p>
-            {{ form.grade }}
-
-        <!-- 5行目の右寄り: クラス -->
-        <p class="form-row-5-right">
-            <label class="form-label" for="id_class_name">クラス</label></p>
-            {{ form.class_name }}
-      
-        <br>
+        <!-- 3行目左: 学年とクラス（横並びに配置） -->
+        <div class="grade-class-container">
+            <div class="form-row">
+                <label class="form-label" for="id_grade">学年</label>
+                <input type="text" name="grade" id="id_grade">
+            </div>
+            <div class="form-row">
+                <label class="form-label" for="id_class_name">クラス</label>
+                {{ form.class_name }}
+            </div>
+        </div>
         <br>
         <button type="submit">登録</button>
     </form>
@@ -137,5 +166,3 @@
     </script>
 </body>
 </html>
-
-

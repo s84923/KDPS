@@ -47,3 +47,6 @@ git pull --no-rebase
 自分の変更をリセットして最新の状態にするときは
 git reset --hard
 git pull
+
+仮想環境
+source venv/bin/activate

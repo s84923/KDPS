@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* タイトルのスタイル */
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* フォームコンテナのスタイル */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ラベルと入力フィールドの配置 */
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* パスワードフィールドのスタイル（ボタンを横並びに配置） */
+        .password-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* ラベルのスタイル */
+        .form-label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* 入力フィールドのスタイル */
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 70%;
+        }
+
+        /* 学年とクラスの左寄せ */
+        .grade-class-container {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* 学年とクラスの入力フィールドのスタイル */
+        .grade-class-container .form-row {
+            margin-right: 10px;
+        }
+
+        /* ボタンのスタイル */
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 20%;
+            margin-top: 15px;
+            grid-column: 2; /* 2列目に配置 */
+            justify-self: end; /* ボタンを右寄せ */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 表示ボタン（トグルボタン）のスタイル */
+        .toggle-password {
+            margin-left: 8px;
+            cursor: pointer;
+            background-color: #ddd;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>新規登録</h1>
+
+    <form method="POST" class="form-container">
+        {% csrf_token %}
+
+        <!-- 1行目左: 生徒氏名 -->
+        <div class="form-row">
+            <label class="form-label" for="id_username">生徒氏名</label>
+            {{ form.username }}
+        </div>
+
+        <!-- 1行目右: クラス -->
+        <div class="form-row">
+            <label class="form-label" for="id_class_name">クラス</label>
+            {{ form.class_name }}
+        </div>
+
+        <!-- 2行目左: パスワード（表示ボタンを横に配置） -->
+        <div class="form-row">
+            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
+            {{ form.student_id }}
+        </div>
+
+        <!-- 2行目右: 学籍番号(ID) -->
+        <div class="form-row">
+            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
+            {{ form.student_id }}
+        </div>
+
+        <!-- 3行目左: 学年とクラス（横並びに配置） -->
+        <div class="grade-class-container">
+            <div class="form-row">
+                <label class="form-label" for="id_grade">学年</label>
+                <input type="text" name="grade" id="id_grade">
+            </div>
+            <div class="form-row">
+                <label class="form-label" for="id_class_name">クラス</label>
+                {{ form.class_name }}
+            </div>
+        </div>
+        <br>
+        <button type="submit">登録</button>
+    </form>
+
+    <script>
+        // パスワード表示・非表示の切り替え機能
+        function togglePassword() {
+            var passwordField = document.querySelector('input[name="password1"]');
+            var toggleButton = document.querySelector('.toggle-password');
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "隠す";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "表示";
+            }
+        }
+    </script>
+</body>
+</html>

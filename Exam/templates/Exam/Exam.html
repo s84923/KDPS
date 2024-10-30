@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDPS 試験管理画面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS のパスを修正 -->
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左側のメニューをテンプレートからインクルード -->
+        {% include 'KDPS/menu.html' %} <!-- これで menu.html を読み込み -->
+
+        <div class="main-content">
+            <div class="grid-container">
+                <div class="grid-item">
+                    <a href="#">試験新規作成</a>
+                    <img src="{% static 'img/自動採点_教員メインメニュー.png' %}" alt="自動採点">
+                </div>
+                <div class="grid-item">
+                    <a href="#">試験情報編集</a>
+                    <img src="{% static 'img/成績管理_教員メインメニュー.png' %}" alt="成績管理">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/your_font_awesome_kit.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

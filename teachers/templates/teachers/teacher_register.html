@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教員新規登録</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* タイトルのスタイル */
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* フォームコンテナのスタイル */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ラベルと入力フィールドの配置 */
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* パスワードフィールドのスタイル（ボタンを横並びに配置） */
+        .password-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* ラベルのスタイル */
+        .form-label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* 入力フィールドのスタイル */
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 70%;
+        }
+
+        /* 学年とクラスの左寄せ */
+        .grade-class-container {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* 学年とクラスの入力フィールドのスタイル */
+        .grade-class-container .form-row {
+            margin-right: 10px;
+        }
+
+        /* ボタンのスタイル */
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 20%;
+            margin-top: 15px;
+            grid-column: 2; /* 2列目に配置 */
+            justify-self: end; /* ボタンを右寄せ */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 表示ボタン（トグルボタン）のスタイル */
+        .toggle-password {
+            margin-left: 8px;
+            cursor: pointer;
+            background-color: #ddd;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>教員新規登録</h1>
+
+    <form method="POST" class="form-container">
+        
+        <!-- 1行目左: 教員氏名 -->
+        <div class="form-row">
+            <label class="form-label" for="id_teacher_name">教員氏名</label>
+            {{ form.teacher_name }}
+        </div>
+
+        <!-- 1行目右: 担当学年 -->
+        <div class="form-row">
+            <label class="form-label" for="id_grade">担当学年</label>
+            {{ form.grade }}
+        </div>
+
+        <!-- 2行目左: メールアドレス -->
+        <div class="form-row">
+            <label class="form-label" for="id_teacher_mail">メールアドレス</label>
+            {{ form.teacher_mail }}
+        </div>
+
+	<!-- 2行目右: 担当クラス -->
+        <div class="form-row">
+            <label class="form-label" for="id_class_name">担当クラス</label>
+            {{ form.class_name }}
+        </div>
+
+
+        <!-- 3行目左: パスワード -->
+        <div class="form-row">
+            <label class="form-label" for="id_password">パスワード</label>
+            {{ form.password }}
+        </div>
+
+	<!-- 3行目右: 役職 -->
+        <div class="form-row">
+            <label class="form-label" for="id_role">役職</label>
+            {{ form.role }}
+        </div>
+
+	<!-- 4行目左: 教員ID -->
+        <div class="form-row">
+            <label class="form-label" for="id_teacher_id">教員ID</label>
+            {{ form.teacher_id }}
+        </div>
+
+	
+	<br>
+	<button type="submit">登録</button>
+   </form>
+
+    </body>
+</html>

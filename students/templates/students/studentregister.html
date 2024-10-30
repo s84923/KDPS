@@ -105,8 +105,7 @@
     <h1>新規登録</h1>
 
     <form method="POST" class="form-container">
-        {% csrf_token %}
-
+        
         <!-- 1行目左: 生徒氏名 -->
         <div class="form-row">
             <label class="form-label" for="id_username">生徒氏名</label>
@@ -119,47 +118,27 @@
             {{ form.class_name }}
         </div>
 
-        <!-- 2行目左: パスワード（表示ボタンを横に配置） -->
+        <!-- 2行目左: 学籍番号 -->
         <div class="form-row">
-            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
+            <label class="form-label" for="id_student_id">学籍番号</label>
             {{ form.student_id }}
         </div>
 
-        <!-- 2行目右: 学籍番号(ID) -->
+	<!-- 2行目右: 保護者メールアドレス -->
         <div class="form-row">
-            <label class="form-label" for="id_student_id">学籍番号(ID)</label>
-            {{ form.student_id }}
+            <label class="form-label" for="id_parent_mail">保護者メールアドレス</label>
+            {{ form.parent_mail }}
         </div>
 
-        <!-- 3行目左: 学年とクラス（横並びに配置） -->
-        <div class="grade-class-container">
-            <div class="form-row">
-                <label class="form-label" for="id_grade">学年</label>
-                <input type="text" name="grade" id="id_grade">
-            </div>
-            <div class="form-row">
-                <label class="form-label" for="id_class_name">クラス</label>
-                {{ form.class_name }}
-            </div>
+
+        <!-- 3行目左: 住所 -->
+        <div class="form-row">
+            <label class="form-label" for="id_address">住所</label>
+            {{ form.address }}
         </div>
-        <br>
-        <button type="submit">登録</button>
-    </form>
+	<br>
+	<button type="submit">登録</button>
+   </form>
 
-    <script>
-        // パスワード表示・非表示の切り替え機能
-        function togglePassword() {
-            var passwordField = document.querySelector('input[name="password1"]');
-            var toggleButton = document.querySelector('.toggle-password');
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButton.textContent = "隠す";
-            } else {
-                passwordField.type = "password";
-                toggleButton.textContent = "表示";
-            }
-        }
-    </script>
-</body>
+    </body>
 </html>

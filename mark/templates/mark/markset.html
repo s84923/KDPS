@@ -5,23 +5,115 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <h1>自動採点</h1>
         {% load static %} <!-- static タグをロード -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS ファイルのパスを指定 -->
     </head>
     <body>
         {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
-        <h3>試験名の選択</h3>
-        <select mame="Exam selection" id="Exam selection">
-            <option value="">試験名を選択してください</option>
-            <option value="java">Java試験</option>
-            <option value="python">Python試験</option>
-            <option value="JavaScript">JavaScript試験</option>
-        </select>
-        <img src="{% static 'img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン">
-        <button type="button">採点開始</button>
-        <h3>生徒指名</h3>
-        <textarea name="Student Name" id="Student Name"></textarea>
-        <h3>クラス</h3>
-        <textarea name="class" id="class"></textarea>
-        <h3>出席番号</h3>
-        <textarea name="attendance number" id="attendance number"></textarea>
+    
+    <h1>問題数を入力してください</h1>
+    <input type="text" id="textInput" value="0問">
+    <br><br>
+    <button onclick="decrease()">-</button>
+    <button onclick="increase()">+</button>
+    <h2>整数: <span id="intValue">0</span></h2>
+    <h2>文字: <span id="charValue">問</span></h2>
+
+    <script>
+        const queChar = "問"; // 固定の文字部分
+        const queInput = document.getElementById('queInput');
+
+        function updateValues() {
+            const input = queInput.value;
+            const intValue = parseInt(input) || 0; // 数値部分を取得
+            
+            document.getElementById('intValue').textContent = intValue;
+            document.getElementById('charValue').textContent = queChar;
+        }
+
+        function increase() {
+            const currentInt = parseInt(queInput.value) || 0;
+            queInput.value = (currentInt + 1).toString() + queChar;
+            updateValues();
+        }
+
+        function decrease() {
+            const currentInt = parseInt(queInput.value) || 0;
+            queInput.value = (currentInt - 1).toString() + queChar;
+            updateValues();
+        }
+
+        // 初期値の更新
+        updateValues();
+    </script>
+    
+    <h1>満点になる点数を入力してください</h1>
+    <button onclick="decrease()">-</button>
+    <input type="text" id="textInput" value="0点">
+    <button onclick="increase()">+</button>
+    <h2>整数: <span id="intValue">0</span></h2>
+    <h2>文字: <span id="charValue">点</span></h2>
+    <script>
+        const scoreChar = "文字"; // 固定の文字部分
+        const scoreInput = document.getElementById('scoreInput');
+        
+        function updateValues() {
+            const input = scoreInput.value;
+            const intValue = parseInt(input) || 0; // 数値部分を取得
+            
+            document.getElementById('intValue').textContent = intValue;
+            document.getElementById('charValue').textContent = scoreChar;
+        }
+        
+        function increase() {
+            const currentInt = parseInt(scoreInput.value) || 0;
+            scoreInput.value = (currentInt + 1).toString() + scoreChar;
+            updateValues();
+        }
+        
+        function decrease() {
+            const currentInt = parseInt(scoreInput.value) || 0;
+            scoreInput.value = (currentInt - 1).toString() + scoreChar;
+            updateValues();
+        }
+        
+        // 初期値の更新
+        updateValues();
+
+
+        
+        // 表のデータを配列として定義
+        const data = [
+            { number: "①", age: 10, city: "東京" },
+            { number: "②", age: 10, city: "大阪" },
+            { number: "③", age: 10, city: "名古屋" }
+        ];
+
+        // 表のヘッダーを作成
+        const table = document.getElementById("myTable");
+        const header = table.createTHead();
+        const headerRow = header.insertRow(0);
+        const headers = ["問題", "点数", "部分点"];
+        
+        headers.forEach((headerText) => {
+            const cell = headerRow.insertCell();
+            cell.textContent = headerText;
+        });
+
+        // 表のデータ行を作成
+        const tbody = table.createTBody();
+        data.forEach((item) => {
+            const row = tbody.insertRow();
+            Object.values(item).forEach((text) => {
+                const cell = row.insertCell();
+                cell.textContent = text;
+            });
+        });
+        </script>
+        <button type="button">登録</button>
+        <input type="checkbox" id="Using Grading Criteria" name="Using Grading Criteria" value="Option3">
+        <label for="option3">次回もこの採点基準を使用する</label><br>
     </body>
 </html>
+
+  
+        

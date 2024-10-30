@@ -15,13 +15,14 @@
             <option value="python">Python試験</option>
             <option value="JavaScript">JavaScript試験</option>
         </select>
-        <img src="{% static 'img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン">
+        <img src="{% static 'KDPSproject/static/img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン">
         <button type="button">採点開始</button>
-        <h3>生徒指名</h3>
-        <textarea name="Student Name" id="Student Name"></textarea>
-        <h3>クラス</h3>
-        <textarea name="class" id="class"></textarea>
-        <h3>出席番号</h3>
-        <textarea name="attendance number" id="attendance number"></textarea>
+        <label class="form-label" for="id_username">氏名</label>
+            {{ form.username }}
+        <label class="form-label" for="id_class_name">クラス</label>
+            {{ form.class_name }}
+        <label class="form-label" for="id_attendance_number">出席番号</label>
+            {{ form.attendance_number}}
+        <button type="button">採点開始</button>
     </body>
 </html>

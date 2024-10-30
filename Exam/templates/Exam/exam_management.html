@@ -6,14 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KDPS 試験管理画面</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS のパスを修正 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* h1 をサイドバーとメインコンテンツに中央揃え */
+        .title-container {
+            width: 105%;               /* 横幅全体に展開 */
+            text-align: center;         /* 中央揃え */
+            padding: 20px 0;           /* 上下の余白を追加 */
+            position: absolute;        /* 親要素に対する位置指定 */
+            top: 0;                    /* サイドバーの上端に揃える */
+            left: 0;
+        }
+        .title {
+            font-size: 2em;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <!-- 左側のメニューをテンプレートからインクルード -->
-        {% include 'KDPS/menu.html' %} <!-- これで menu.html を読み込み -->
+        <!-- タイトルをサイドバーとメインコンテンツの中央に表示 -->
+        <div class="title-container">
+            <h1 class="title">試験管理</h1>
+        </div>
 
+        <!-- サイドバーとメインコンテンツ -->
+        {% include 'KDPS/menu.html' %}
+        
         <div class="main-content">
             <div class="grid-container">
                 <div class="grid-item">

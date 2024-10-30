@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'KDPS',  # KDPSアプリを追加
     'accounts', 
+    'Exam',
 ]
 
 MIDDLEWARE = [

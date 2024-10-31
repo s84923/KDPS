@@ -7,6 +7,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),  # Django 認証URLをインクルード
     path('', include('Exam.urls')),  # Exam のURLをインクルード
-    
+    path('', include('studentmenu.urls')),
 
 ]

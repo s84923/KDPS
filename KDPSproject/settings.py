@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'KDPS',  # KDPSアプリを追加
     'accounts', 
     'Exam',
+    'studentmenu',
 ]
 
 MIDDLEWARE = [

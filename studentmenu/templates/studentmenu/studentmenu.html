@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メインメニュー画面</title>
+    {% load static %} <!-- static タグをロード -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS ファイルのパスを指定 -->
+</head>
+
+<body>
+    <div class="container">
+        {% include 'studentmenu/studentsidebar.html' %} <!-- サイドバーの読み込み -->
+
+        <div class="main-content">
+            <div class="grid-container">
+                <div class="grid-item">
+                    <a href="#">成績表示</a>
+                    <img src="{% static 'img/生徒01成績表示_生徒メインメニュー.png' %}" alt="自動採点">
+                </div>
+                <div class="grid-item">
+                    <a href="#">スケジュール表示</a>
+                    <img src="{% static 'img/07スケジュール管理_教員メインメニュー.png' %}" alt="成績管理">
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

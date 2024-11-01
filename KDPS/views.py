@@ -17,7 +17,7 @@ def save_schedule(schedule_data):
         json.dump(schedule_data, file, ensure_ascii=False, indent=4)
 
 def index(request):
-    return render(request, 'KDPS/index.html')
+    return render(request, 'KDPS/index.html')  # メインメニュー画面
 
 def schedule(request):
     if request.method == 'POST':
@@ -74,9 +74,11 @@ def delete_schedule(request, event_id):
     schedule_data = [event for event in schedule_data if event["id"] != event_id]
     save_schedule(schedule_data)
     return redirect('schedule')
+
 def admin_page(request):
     return render(request, 'KDPS/admin.html')
-def index(request):
-    return render(request, 'KDPS/index.html')  # メインメニュー画面
+
 def mark(request):
     return render(request, 'KDPS/mark.html')
+def report(request):
+    return render(request, 'KDPS/report.html')  # report.htmlを表示

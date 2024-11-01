@@ -78,3 +78,5 @@ def admin_page(request):
     return render(request, 'KDPS/admin.html')
 def index(request):
     return render(request, 'KDPS/index.html')  # メインメニュー画面
+def mark(request):
+    return render(request, 'KDPS/mark.html')

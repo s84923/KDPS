@@ -8,4 +8,5 @@ urlpatterns = [
     path('schedule/', views.schedule, name='schedule'),  # /schedule/ URLでスケジュールページを表示
     path('schedule/delete/<int:event_id>/', views.delete_schedule, name='delete_schedule'),  # イベント削除URL
     path('', views.index, name='index'),  # メインメニュー（トップページ）
+    path('mark.html',views.mark, name='mark'),
 ]

@@ -13,23 +13,25 @@
 
         <div class="main-content individual-report-container"> <!-- メインコンテンツ -->
             <h2>個人成績レポート</h2>
-            
-            <div class="student-select">
-                <label for="student-select">試験名の選択</label>
-                <select id="student-select">
-                    <option>試験名を選択してください</option>
-                    <option>Java試験</option>
-                    <option>Python試験</option>
-                    <option>JavaScript試験</option>
-                </select>
-            </div>
 
-            <div class="score-input">
-                <label for="score-input">試験の点数を入力してください</label>
-                <button>-</button>
-                <input type="number" id="score-input" value="80" />
-                <button>+</button>
-                <button id="add-score-button">追加</button>
+            <div class="report-content">
+                <div class="student-select">
+                    <label for="student-select">試験名の選択</label>
+                    <select id="student-select">
+                        <option>試験名を選択してください</option>
+                        <option>Java試験</option>
+                        <option>Python試験</option>
+                        <option>JavaScript試験</option>
+                    </select>
+                </div>
+
+                <div class="score-input">
+                    <label for="score-input">試験の点数を入力してください</label>
+                    <button class="decrease">-</button>
+                    <input type="number" id="score-input" value="80" />
+                    <button class="increase">+</button>
+                    <button id="add-score-button">追加</button>
+                </div>
             </div>
 
             <h3>大原 太郎</h3>
@@ -59,7 +61,7 @@
                 <button id="save-button">一時保存</button>
                 <button id="distribute-button">配信</button>
             </div>
-            <a href="#">全体成績レポートへ</a>
+            <a href="#" class="link-report">全体成績レポートへ</a>
         </div>
     </div>
 </body>

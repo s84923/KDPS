@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'accounts', 
     'Exam',
     'studentmenu',
+    'Grades',  # Gradesアプリを追加
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'KDPSproject.urls'
+
 
 TEMPLATES = [
     {

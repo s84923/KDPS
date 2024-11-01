@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績検索</title>
+</head>
+<body>
+    <h1>生徒の成績検索</h1>
+    
+    <form method="get">
+        {{ form.student_name.label_tag }}: {{ form.student_name }}
+        <button type="submit" name="search">検索</button>
+    </form>
+    
+    {% if results %}
+        <table border="1">
+            <tr>
+                <th>テスト名</th>
+                <th>得点</th>
+                <th>編集</th>
+            </tr>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.test_name }}</td>
+                    <td>{{ result.score }}</td>
+                    <td><a href="{% url 'edit_score' student_id=result.student_id %}">編集</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+        <form method="get">
+            {{ form.export_format.label_tag }}: {{ form.export_format }}
+            <button type="submit" name="export">保存</button>
+        </form>
+    {% else %}
+        <p>成績が見つかりません。</p>
+    {% endif %}
+</body>
+</html>

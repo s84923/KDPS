@@ -8,5 +8,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # Django 認証URLをインクルード
     path('', include('Exam.urls')),  # Exam のURLをインクルード
     path('', include('studentmenu.urls')),
+    path('', include('Grades.urls')), #Grades
 
 ]

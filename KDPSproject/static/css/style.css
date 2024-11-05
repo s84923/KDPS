@@ -35,6 +35,7 @@ a:hover {
     align-items: center;
     max-height: 100vh;
     overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .sidebar h1 {

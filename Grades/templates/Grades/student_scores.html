@@ -1,40 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成績検索</title>
+    <title>個人成績確認</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* h1 をサイドバーとメインコンテンツに中央揃え */
+        .title-container {
+            width: 108%;               /* 横幅全体に展開 */
+            text-align: center;         /* 中央揃え */
+            padding: 20px 0;           /* 上下の余白を追加 */
+            position: absolute;        /* 親要素に対する位置指定 */
+            top: 0;                    /* サイドバーの上端に揃える */
+            left: 0;
+            z-index: -1; 
+        }
+        .title {
+            font-size: 2em;
+            color: #333;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>生徒の成績検索</h1>
-    
-    <form method="get">
-        {{ form.student_name.label_tag }}: {{ form.student_name }}
-        <button type="submit" name="search">検索</button>
-    </form>
-    
-    {% if results %}
-        <table border="1">
-            <tr>
-                <th>テスト名</th>
-                <th>得点</th>
-                <th>編集</th>
-            </tr>
-            {% for result in results %}
-                <tr>
-                    <td>{{ result.test_name }}</td>
-                    <td>{{ result.score }}</td>
-                    <td><a href="{% url 'edit_score' student_id=result.student_id %}">編集</a></td>
-                </tr>
-            {% endfor %}
-        </table>
-        
+    <!-- サイドバー -->
+    {% include 'KDPS/menu.html' %}
+
+    <!-- メインコンテンツ -->
+    <div class="main-content">
+        <h1>個人成績確認</h1>
+
+        <!-- 検索フォーム -->
         <form method="get">
-            {{ form.export_format.label_tag }}: {{ form.export_format }}
-            <button type="submit" name="export">保存</button>
+            {{ form.student_name.label_tag }}: {{ form.student_name }}
+            <button type="submit" name="search">検索</button>
         </form>
-    {% else %}
-        <p>成績が見つかりません。</p>
-    {% endif %}
+
+        <!-- 結果表示 -->
+        {% if results %}
+            <table>
+                <tr>
+                    <th>テスト名</th>
+                    <th>得点</th>
+                    <th>編集</th>
+                </tr>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.test_name }}</td>
+                        <td>{{ result.score }}</td>
+                        <td><a href="{% url 'edit_score' student_id=result.student_id %}">編集</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            
+            <!-- エクスポートフォーム -->
+            <form method="get">
+                {{ form.export_format.label_tag }}: {{ form.export_format }}
+                <button type="submit" name="export">保存</button>
+            </form>
+        {% else %}
+            <p>成績が見つかりません。</p>
+        {% endif %}
+    </div>
 </body>
 </html>

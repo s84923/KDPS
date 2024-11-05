@@ -14,9 +14,19 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
+/* .no-hover クラスのホバー効果を無効にする */
+.no-hover a {
+    color: white !important; 
+    text-decoration: none !important;
 }
+
+.no-hover a:hover {
+    background-color: transparent !important; /* 背景色の変更を無効にする */
+    color: white !important; 
+    cursor: default !important; 
+    text-decoration: none !important;
+}
+
 
 /* --- コンテナレイアウト --- */
 .container {
@@ -62,6 +72,7 @@ a:hover {
 
 .sidebar a:hover {
     background-color: #333;
+    text-decoration: none;
 }
 
 .logout {
@@ -71,6 +82,11 @@ a:hover {
 
 .logout a {
     color: white;
+}
+
+.logout a:hover{
+    background-color: transparent !important; 
+    text-decoration: underline;
 }
 
 /* --- メインコンテンツ設定 --- */
@@ -359,6 +375,9 @@ button:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 180px;
     height: 180px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
 }
 
 .grid-item a {
@@ -375,6 +394,11 @@ button:hover {
 .grid-item p {
     font-size: 16px;
     color: black;
+    margin-top: 10px;
+}
+
+.grid-item:hover {
+    background-color: #f0f0f0;
 }
 
 /* --- 全体成績レポート用スタイル --- */
@@ -518,3 +542,4 @@ table th {
     max-width: 600px;
     text-align: center;
 }
+

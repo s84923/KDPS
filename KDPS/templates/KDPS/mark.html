@@ -17,12 +17,15 @@
             <option value="JavaScript">JavaScript試験</option>
         </select>
         <img src="{% static 'KDPSproject/static/img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン">
-        <button type="button">採点開始</button>
+        <a href="" class="button">採点基準の設定</a>
         <label class="form-label" for="id_username">氏名</label>
+        <input type="text" name="username" id="id_username">
             {{ form.username }}
         <label class="form-label" for="id_class_name">クラス</label>
+        <input type="text" name="class_name" id="id_class_name">
             {{ form.class_name }}
         <label class="form-label" for="id_attendance_number">出席番号</label>
+        <input type="text" name="attendance_number" id="id_attendance_number">
             {{ form.attendance_number}}
         <button type="button">採点開始</button>
     </body>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全体成績レポート</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSSファイルのリンク -->
+</head>
+<body>
+    <div class="container">
+        {% include "KDPS/menu.html" %} <!-- サイドバーの読み込み -->
+
+        <div class="main-content overall-report-container">
+            <h2>全体成績レポート</h2>
+
+            <div class="report-content">
+                <div class="student-select">
+                    <label for="student-select">生徒名の選択</label>
+                    <select id="student-select">
+                        <option>生徒名を選択してください</option>
+                        <option>大原 太郎</option>
+                        <option>大原 花子</option>
+                        <option>大原 三郎</option>
+                        <option>大原 五郎</option>
+                    </select>
+                </div>
+
+                <div class="exam-select">
+                    <label for="exam-select">試験名</label>
+                    <select id="exam-select">
+                        <option>Java試験</option>
+                        <option>Python試験</option>
+                        <option>JavaScript試験</option>
+                    </select>
+                </div>
+
+                <div class="score-input">
+                    <label for="score-input">試験の点数を入力してください</label>
+                    <button class="decrease">-</button>
+                    <input type="number" id="score-input" value="80" />
+                    <button class="increase">+</button>
+                    <button id="add-score-button">追加</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>試験名</th>
+                        <th>点数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>大原 太郎</td>
+                        <td>75</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>大原 花子</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>大原 三郎</td>
+                        <td>70</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="buttons">
+                <button id="save-button">一時保存</button>
+                <button id="distribute-button">配信</button>
+            </div>
+            <a href="#" class="link-report">個人成績レポートへ</a>
+
+            <!-- グラフのプレースホルダー（グラフ描画ライブラリを追加予定） -->
+            <div class="chart-container">
+                <img src="{% static 'img/placeholder_chart.png' %}" alt="グラフ">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

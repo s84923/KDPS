@@ -375,3 +375,145 @@ button:hover {
     font-size: 16px;
     color: black;
 }
+
+/* --- 全体成績レポート用スタイル --- */
+.overall-report-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overall-report-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.report-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.student-select, .exam-select, .score-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.student-select label, .exam-select label, .score-input label {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.student-select select, .exam-select select, .score-input input {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    margin-top: 5px;
+}
+
+.score-input {
+    display: flex;
+    align-items: center;
+}
+
+.score-input button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.score-input .decrease {
+    color: red;
+}
+
+.score-input .increase {
+    color: green;
+}
+
+#add-score-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#add-score-button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #0056b3;
+}
+
+.link-report {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: center;
+}
+
+.link-report:hover {
+    color: #0056b3;
+}
+
+/* グラフのプレースホルダー */
+.chart-container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}

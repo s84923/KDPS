@@ -1,69 +1,140 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人成績確認</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSSを読み込み -->
+    
     <style>
-        /* h1 をサイドバーとメインコンテンツに中央揃え */
-        .title-container {
-            width: 108%;               /* 横幅全体に展開 */
-            text-align: center;         /* 中央揃え */
-            padding: 20px 0;           /* 上下の余白を追加 */
-            position: absolute;        /* 親要素に対する位置指定 */
-            top: 0;                    /* サイドバーの上端に揃える */
-            left: 0;
-            z-index: -1; 
-        }
+        /* タイトルのスタイル */
         .title {
             font-size: 2em;
             color: #333;
+            margin-left: -20px; /* タイトルを少し左に寄せる */
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: -280px;
+        }
+
+        /* コンテナの設定 */
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* メインコンテンツの設定 */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 0; /* マージンを削除 */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 検索フォームのスタイル */
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* ボタンのスタイル */
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* テーブルのスタイル */
+        table {
+            width: 80%;
+            margin: 0 auto 20px;
+            border-collapse: collapse;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #555;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        /* メッセージのスタイル */
+        p {
+            text-align: center;
+            color: #666;
+            font-size: 1em;
         }
     </style>
 </head>
-
 <body>
-    <!-- サイドバー -->
-    {% include 'KDPS/menu.html' %}
-
-    <!-- メインコンテンツ -->
-    <div class="main-content">
-        <h1>個人成績確認</h1>
-
-        <!-- 検索フォーム -->
-        <form method="get">
-            {{ form.student_name.label_tag }}: {{ form.student_name }}
-            <button type="submit" name="search">検索</button>
-        </form>
-
-        <!-- 結果表示 -->
-        {% if results %}
-            <table>
-                <tr>
-                    <th>テスト名</th>
-                    <th>得点</th>
-                    <th>編集</th>
-                </tr>
-                {% for result in results %}
-                    <tr>
-                        <td>{{ result.test_name }}</td>
-                        <td>{{ result.score }}</td>
-                        <td><a href="{% url 'edit_score' student_id=result.student_id %}">編集</a></td>
-                    </tr>
-                {% endfor %}
-            </table>
+    <div class="container">
+        
+        <!-- サイドバー -->
+        {% include 'KDPS/menu.html' %}
+        
+        <!-- タイトルとメインコンテンツ -->
+        <div class="main-content">
+            <h1 class="title">個人成績確認</h1>
             
-            <!-- エクスポートフォーム -->
+            <!-- 検索フォーム -->
             <form method="get">
-                {{ form.export_format.label_tag }}: {{ form.export_format }}
-                <button type="submit" name="export">保存</button>
+                {{ form.student_name.label_tag }} {{ form.student_name }}
+                <button type="submit" name="search">検索</button>
             </form>
-        {% else %}
-            <p>成績が見つかりません。</p>
-        {% endif %}
+
+            <!-- 結果表示 -->
+            {% if results %}
+                <table>
+                    <tr>
+                        <th>テスト名</th>
+                        <th>得点</th>
+                        <th>編集</th>
+                    </tr>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ result.test_name }}</td>
+                            <td>{{ result.score }}</td>
+                            <td><a href="{% url 'edit_score' student_id=result.student_id %}">編集</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                
+                <!-- エクスポートフォーム -->
+                <form method="get">
+                    {{ form.export_format.label_tag }}: {{ form.export_format }}
+                    <button type="submit" name="export">保存</button>
+                </form>
+            {% else %}
+                <p>成績が見つかりません。</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* 背景色 */
+        }
+
+        .login-container {
+            background-color: white; /* フォームの背景色 */
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 影 */
+            width: 300px; /* フォームの幅 */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF; /* ボタンの背景色 */
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* ボタンホバー時の色 */
+        }
+
+        .toggle-password {
+            margin-top: 5px;
+            text-align: right; /* 表示ボタンを右寄せ */
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF; /* リンクの色 */
+        }
+
+        a:hover {
+            text-decoration: underline; /* リンクホバー時のスタイル */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>ログイン</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="student_ID">学籍番号(ID):</label>
+                <input type="text" id="student_ID" name="student_ID" placeholder="学籍番号(ID)を入力して下さい" required>
+            </div>
+
+            <div class="form-group">
+                <label for="input_pass">パスワード:</label>
+                <input type="password" id="input_pass" name="input_pass" placeholder="パスワードを入力して下さい" required>
+                <div class="toggle-password">
+                    <button type="button" id="btn_passview">表示</button>
+                </div>
+            </div>
+
+            <div>
+                <a href="New Registration.html">新規登録はこちら</a>
+            </div>
+            <button type="submit">ログイン</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('btn_passview').addEventListener('click', function () {
+            const input_pass = document.getElementById('input_pass');
+            if (input_pass.type === 'password') {
+                input_pass.type = 'text';
+                this.textContent = '非表示';
+            } else {
+                input_pass.type = 'password';
+                this.textContent = '表示';
+            }
+        });
+    </script>
+</body>
+
+</html>

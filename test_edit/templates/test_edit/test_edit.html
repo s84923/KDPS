@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>試験編集画面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin-top: 10px;
+        }
+        .update-button {
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>試験編集画面</h2>
+
+    <form method="POST">
+        {% csrf_token %}  <!-- CSRFトークン -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>試験名</th>
+                    <th>対象学年</th>
+                    <th>対象クラス</th>
+                    <th>作成教員</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ form.exam_name }}</td>  <!-- 試験名 -->
+                    <td>{{ form.target_grade }}</td>  <!-- 対象学年 -->
+                    <td>{{ form.target_class }}</td>  <!-- 対象クラス -->
+                    <td>{{ form.created_by }}</td>  <!-- 作成教員 -->
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="update-button" type="submit">更新</button>
+    </form>
+</body>
+
+</html>

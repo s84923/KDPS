@@ -27,7 +27,6 @@ a {
     text-decoration: none !important;
 }
 
-
 /* --- コンテナレイアウト --- */
 .container {
     display: flex;
@@ -261,6 +260,14 @@ table th {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.scheduls-content a{
+    color: #0056b3;
+}
+
+.scheduls-content a:hover{
+    text-decoration: underline;
 }
 
 /* --- カレンダー設定 --- */
@@ -542,4 +549,3 @@ table th {
     max-width: 600px;
     text-align: center;
 }
-

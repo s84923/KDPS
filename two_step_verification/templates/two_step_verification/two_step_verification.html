@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2段階認証</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* 背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* ビューポートの高さ */
+        }
+
+        .otp-container {
+            background-color: white; /* フォームの背景色 */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 影 */
+            text-align: center; /* テキストを中央揃え */
+            width: 300px; /* コンテナの幅 */
+        }
+
+        h2, h3 {
+            margin: 10px 0; /* ヘッダーのマージン */
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px; /* 入力フィールドの下にスペース */
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF; /* ボタンの背景色 */
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%; /* ボタンの幅を100%に */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* ホバー時の色 */
+        }
+
+        .resend {
+            margin-top: 5px; /* 再送信ボタンのマージン */
+            font-size: 0.9em; /* フォントサイズを少し小さく */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="otp-container">
+        <h2>本人確認</h2>
+        <h3>メールに送信されたコードを入力して下さい</h3>
+        <h3>コードの入力</h3>
+        <form id="otpForm">
+            <input type="text" id="otp" placeholder="認証コードを入力してください" required>
+            <button type="submit">確認</button>
+        </form>
+        <button id="resendButton" class="resend">再送信</button>
+    </div>
+
+    <script>
+        document.getElementById("otpForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const otp = document.getElementById("otp").value;
+
+            // ここでサーバーにOTPを確認する処理を行う
+            alert("認証が完了しました！");
+            // window.location.href = 'dashboard.html'; // ダッシュボードに遷移
+        });
+
+        document.getElementById("resendButton").addEventListener("click", function () {
+            // ここで再送信の処理を行う
+            alert("認証コードを再送信しました！");
+            // 例: fetch('/resend', { method: 'POST' })
+        });
+    </script>
+</body>
+
+</html>

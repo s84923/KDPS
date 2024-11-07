@@ -11,5 +11,6 @@ urlpatterns = [
     path('', include('Grades.urls')), #Grades
     path('', include('Grademenu.urls')), 
     path('', include('login.urls')), 
+    path('', include('two_step_verification.urls')), 
 
 ]

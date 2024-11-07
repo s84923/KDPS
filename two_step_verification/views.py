@@ -1,5 +1,5 @@
 # views.py
 from django.shortcuts import render
 
-def otp_verification(request):
-    return render(request, 'otp_verification.html')  # 'otp_verification.html'はテンプレート名
+def two_step_verification(request):
+    return render(request, 'two_step_verification/two_step_verification.html')  # 'two_step_verification.html'はテンプレート名

@@ -3,5 +3,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('otp-verification/', views.otp_verification, name='otp_verification'),  # 2段階認証ページへのURL
+    path('two_step_verification/', views.two_step_verification, name='two_step_verification'),
 ]

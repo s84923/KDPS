@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'two_step_verification',
     'login',
     'student_register',
+    'new_tests',
 ]
 
 MIDDLEWARE = [

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>試験新規作成</title>
     <style>
-        /* 全体のスタイル */
-        body {
+         /* 全体のスタイル */
+         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
@@ -98,51 +98,39 @@
             border-radius: 4px;
             font-size: 0.9em;
         }
-
     </style>
 </head>
 <body>
     <h1>試験新規作成</h1>
 
     <form method="POST" class="form-container">
+        {% csrf_token %}
         
         <!-- 1行目左: 学年 -->
         <div class="form-row">
             <label for="grade">学年:</label>
-            <select id="grade_select" name="grade_select" required>
-                <option value="">選択してください</option>
-                <option value="1">1年</option>
-                <option value="2">2年</option>
-                <option value="3">3年</option>
-            </select>
+            {{ form.grade_select }}
         </div>
 
         <!-- 1行目右: クラス -->
         <div class="form-row">
-            <label for="grade">学年:</label>
-            <select id="class_select" name="class_grade" required>
-                <option value="">選択してください</option>
-                <option value="1">A組</option>
-                <option value="2">B組</option>
-                <option value="3">C組</option>
-            </select>
+            <label for="class_grade">クラス:</label>
+            {{ form.class_grade }}
         </div>
 
-        <!-- 2行目左: メールアドレス -->
+        <!-- 2行目左: 試験名 -->
         <div class="form-row">
             <label class="form-label" for="exam">試験名</label>
             {{ form.teacher_mail }}
         </div>
 
-	<!-- 2行目右: 担当クラス -->
+        <!-- 2行目右: 教員ID -->
         <div class="form-row">
             <label class="form-label" for="teacher_id">教員ID</label>
             {{ form.class_name }}
         </div>
-	
-	<br>
-	<button type="submit">作成</button>
-   </form>
 
-    </body>
+        <button type="submit">作成</button>
+   </form>
+</body>
 </html>

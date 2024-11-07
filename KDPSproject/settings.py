@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Exam',
     'studentmenu',
     'Grades',  # Gradesアプリを追加
+    'Grademenu',
 ]
 
 MIDDLEWARE = [

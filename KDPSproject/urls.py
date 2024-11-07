@@ -9,5 +9,7 @@ urlpatterns = [
     path('', include('Exam.urls')),  # Exam のURLをインクルード
     path('', include('studentmenu.urls')),
     path('', include('Grades.urls')), #Grades
+    path('', include('Grademenu.urls')), 
+    
 
 ]

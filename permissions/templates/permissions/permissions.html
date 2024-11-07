@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>権限編集画面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin-top: 10px;
+        }
+        .update-button {
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>権限編集画面</h2>
+    <h3>編集者名</h3>
+    <h3>吉田樹生</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>名前</th>
+                <th>管理者ID</th>
+                <th>役職</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>山田太郎</td>
+                <td>admin001</td>
+                <td>
+                    <select>
+                        <option value="teacher">教師</option>
+                        <option value="student">生徒</option>
+                    </select>
+                </td>
+                <td>
+                    <button>削除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>佐藤花子</td>
+                <td>admin002</td>
+                <td>
+                    <select>
+                        <option value="teacher">教師</option>
+                        <option value="student">生徒</option>
+                    </select>
+                </td>
+                <td>
+                    <button>削除</button>
+                </td>
+            </tr>
+            <!-- 追加の行をここに挿入できます -->
+        </tbody>
+    </table>
+
+    <button class="update-button">更新</button>
+
+    <script>
+        document.querySelector('.update-button').addEventListener('click', function() {
+            // 更新処理をここに追加できます
+            alert('更新機能はまだ実装されていません。');
+        });
+    </script>
+</body>
+
+</html>

@@ -48,5 +48,10 @@ git pull --no-rebase
 git reset --hard
 git pull
 
+分岐が発生した場合
+git fetch origin
+git reset --hard origin/main
+
+
 仮想環境
 source venv/bin/activate

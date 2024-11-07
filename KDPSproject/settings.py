@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'student_register',
     'teacher_register',
     'new_tests',
+    'permissions',
 ]
 
 MIDDLEWARE = [

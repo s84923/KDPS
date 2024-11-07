@@ -10,6 +10,6 @@ urlpatterns = [
     path('', include('studentmenu.urls')),
     path('', include('Grades.urls')), #Grades
     path('', include('Grademenu.urls')), 
-    
+    path('', include('login.urls')), 
 
 ]

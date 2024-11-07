@@ -13,6 +13,7 @@ urlpatterns = [
     path('', include('login.urls')), 
     path('', include('two_step_verification.urls')), 
     path('', include('student_register.urls')),
+    path('', include('teacher_register.urls')),
     path('', include('new_tests.urls')),
 
 ]

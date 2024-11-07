@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Grades',  # Gradesアプリを追加
     'Grademenu',
     'two_step_verification',
+    'login',
 ]
 
 MIDDLEWARE = [

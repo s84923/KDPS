@@ -3,11 +3,12 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),  # メインメニュー
-    path('admin.html', views.admin_page, name='admin_page'),  # /admin.html で admin.html を表示
-    path('schedule/', views.schedule, name='schedule'),  # スケジュールページ
-    path('schedule/delete/<int:event_id>/', views.delete_schedule, name='delete_schedule'),  # イベント削除URL
+    path('admin.html', views.admin_page, name='admin_page'),  # 管理者画面
+    path('schedule_view/', views.schedule_view, name='schedule_view'),  # 閲覧専用スケジュール
+    path('schedule/', views.schedule, name='schedule'),  # スケジュール設定（編集用）
+    path('schedule/delete/<int:event_id>/', views.delete_schedule, name='delete_schedule'),  # イベント削除
     path('mark.html', views.mark, name='mark'),  # 採点画面
-    path('report/', views.individual_report, name='report'),  # 個人成績レポートを'report'として定義
+    path('report/', views.individual_report, name='report'),  # 個人成績レポート
     path('overall_report/', views.overall_report, name='overall_report'),  # 全体成績レポート
-    path('upload.html', views.upload, name='upload'),
+    path('upload/', views.upload, name='upload'),  # ファイルアップロード
 ]

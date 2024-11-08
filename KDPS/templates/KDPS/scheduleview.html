@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>スケジュール閲覧</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container">
+    {% include 'KDPS/menu.html' %}
+
+    <div class="scheduls-content">
+        <h1>スケジュール閲覧</h1>
+        
+        <div>
+            <a href="?year={{ previous_year }}&month={{ previous_month }}">前の月</a>
+            <span>{{ selected_year }}年{{ selected_month }}月</span>
+            <a href="?year={{ next_year }}&month={{ next_month }}">次の月</a>
+        </div>
+
+        <form method="get">
+            <label for="year">年の選択</label>
+            <select name="year" id="year" onchange="this.form.submit()">
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}年</option>
+                {% endfor %}
+            </select>
+            <label for="month">月の選択</label>
+            <select name="month" id="month" onchange="this.form.submit()">
+                {% for month in months %}
+                    <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}月</option>
+                {% endfor %}
+            </select>
+        </form>
+
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th style="color:red;">日</th>
+                    <th>月</th>
+                    <th>火</th>
+                    <th>水</th>
+                    <th>木</th>
+                    <th>金</th>
+                    <th style="color:blue;">土</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in calendar %}
+                    <tr>
+                        {% for day in week %}
+                            <td>
+                                {% if day != 0 %}
+                                    {{ day }}
+                                    {% for event in schedules %}
+                                        {% if event.month == selected_month and event.day == day %}
+                                            <div>{{ event.event_name }}</div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>スケジュール一覧</h2>
+        {% for event in schedules %}
+            <div>
+                {{ event.month }}月{{ event.day }}日: {{ event.event_name }}
+            </div>
+        {% empty %}
+            <p>スケジュールはありません。</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

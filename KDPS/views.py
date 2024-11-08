@@ -72,6 +72,34 @@ def schedule(request):
         'years': years,
     })
 
+def schedule_view(request):
+    selected_year = int(request.GET.get('year', 2024))
+    selected_month = int(request.GET.get('month', 1))
+    
+    previous_month = selected_month - 1 if selected_month > 1 else 12
+    next_month = selected_month + 1 if selected_month < 12 else 1
+    previous_year = selected_year - 1 if selected_month == 1 else selected_year
+    next_year = selected_year + 1 if selected_month == 12 else selected_year
+    
+    schedules = load_schedule()
+    month_calendar = calendar.Calendar().monthdayscalendar(selected_year, selected_month)
+    years = list(range(2024, 2031))
+    months = list(range(1, 13))
+    
+    context = {
+        'schedules': schedules,
+        'calendar': month_calendar,
+        'years': years,
+        'months': months,
+        'selected_year': selected_year,
+        'selected_month': selected_month,
+        'previous_month': previous_month,
+        'next_month': next_month,
+        'previous_year': previous_year,
+        'next_year': next_year,
+    }
+    return render(request, 'KDPS/scheduleview.html', context)
+
 def delete_schedule(request, event_id):
     schedule_data = load_schedule()
     schedule_data = [event for event in schedule_data if event["id"] != event_id]
@@ -82,11 +110,9 @@ def mark(request):
     return render(request, 'KDPS/mark.html')
 
 def individual_report(request):
-    # 個人成績レポートのデータ取得（必要であれば）
     return render(request, 'KDPS/report.html')
 
 def overall_report(request):
-    # 全体成績レポートのデータ取得（必要であれば）
     return render(request, 'KDPS/overall_report.html')
 
 def upload(request):

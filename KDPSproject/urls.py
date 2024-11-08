@@ -8,7 +8,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # Django 認証URLをインクルード
     path('', include('Exam.urls')),  # Exam のURLをインクルード
     path('', include('studentmenu.urls')),
-    path('', include('Grades.urls')), #Grades
+    path('', include('Grades.urls')), # Grades
     path('', include('Grademenu.urls')), 
     path('', include('login.urls')), 
     path('', include('two_step_verification.urls')), 
@@ -17,6 +17,4 @@ urlpatterns = [
     path('', include('new_tests.urls')),
     path('', include('permissions.urls')),
     path('', include('test_edit.urls')),
-    path('students/', include('StudentList.urls')),
-
 ]

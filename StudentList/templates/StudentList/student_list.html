@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生徒一覧</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
+
+    <style>
+        .title {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+
+        <div class="main-content">
+            <h1 class="title">生徒一覧</h1>
+
+            <!-- 検索フォーム -->
+            <form method="get">
+                <select name="class_name">
+                    <option value="">クラス</option>
+                    <option value="1-71">1-71</option>
+                    <option value="2-71">2-71</option>
+                    <option value="1-72">1-72</option>
+                    <option value="2-72">2-72</option>
+                </select>
+                <input type="text" name="student_id" placeholder="学籍番号">
+                <button type="submit">検索</button>
+            </form>
+
+            <!-- 生徒一覧表示テーブル -->
+            {% if Students %}
+                <table>
+                    <tr>
+                        <th>名前</th>
+                        <th>クラス</th>
+                        <th>学籍番号</th>
+                        <th>保護者メールアドレス</th>
+                        <th>住所</th>
+                        <th>編集</th>
+                    </tr>
+                    {% for Student in students %}
+                        <tr>
+                            <td>{{ student.student_name }}</td>
+                            <td>{{ student.student_class }}</td>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.parent_email }}</td>
+                            <td>{{ student.address }}</td>
+                            <td><a href="{% url 'edit_student' student_id=student.student_id %}">編集</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>該当する生徒が見つかりません。</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

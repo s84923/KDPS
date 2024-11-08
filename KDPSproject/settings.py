@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'new_tests',
     'permissions',
     'test_edit',
+    'StudentList',
+
 ]
 
 MIDDLEWARE = [

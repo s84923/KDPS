@@ -1,0 +1,9 @@
+# StudentList/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('list/', views.student_list, name='student_list'),
+    path('edit/<int:student_id>/', views.edit_student, name='edit_student'),  # 編集ページへのパス
+]

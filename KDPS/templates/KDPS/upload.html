@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>答案アップロード</title>
+    {% load static %} <!-- static タグをロード -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .uploadcontainer {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content-individual-upload-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .h1 {
+            font-size: large;
+        }
+
+        .box {
+            border: 1px solid #007BFF;
+            /* ボーダーの太さ、スタイル、色 */
+            display: flex;
+            /* Flexboxを使用 */
+            justify-content: center;
+            /* 横方向の中央揃え */
+            align-items: center;
+            /* 縦方向の中央揃え */
+            height: 240px;
+            /* ボックスの高さ */
+            width: 240px;
+            /*ボックスの幅*/
+            background-color: #f8f9fa;
+            /* 背景色 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="uploadcontainer">
+        {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
+        <div class="main-content-individual-upload-container">
+            <h1>答案のアップロード</h1>
+            <div class="box">
+                <img src="{% static 'img/05答案アップロード_教員メインメニュー.png' %}" alt="採点アイコン" title="採点アイコン">
+                <button type="button">または答案を選択</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +27,6 @@
             padding-top: 20px;
         }
 
-        /* 外枠と背景色、ボックスシャドウを削除 */
         .container {
             width: 100%;
             max-width: 800px;
@@ -50,6 +48,15 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+        }
+
+        /* 列の幅を指定 */
+        th:nth-child(5), td:nth-child(5) {
+            width: 10%; /* 操作列を小さめに */
+        }
+
+        th:nth-child(4), td:nth-child(4) {
+            width: 20%; /* 作成教員列を少し大きめに */
         }
 
         th {
@@ -108,5 +115,4 @@
         </div>
     </div>
 </body>
-
 </html>

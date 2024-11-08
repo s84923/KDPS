@@ -88,3 +88,6 @@ def individual_report(request):
 def overall_report(request):
     # 全体成績レポートのデータ取得（必要であれば）
     return render(request, 'KDPS/overall_report.html')
+
+def upload(request):
+    return render(request, 'KDPS/upload.html')

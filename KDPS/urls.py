@@ -9,4 +9,5 @@ urlpatterns = [
     path('mark.html', views.mark, name='mark'),  # 採点画面
     path('report/', views.individual_report, name='report'),  # 個人成績レポートを'report'として定義
     path('overall_report/', views.overall_report, name='overall_report'),  # 全体成績レポート
+    path('upload.html', views.upload, name='upload'),
 ]

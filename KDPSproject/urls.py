@@ -16,5 +16,6 @@ urlpatterns = [
     path('', include('teacher_register.urls')),
     path('', include('new_tests.urls')),
     path('', include('permissions.urls')),
+    path('', include('test_edit.urls')),
 
 ]

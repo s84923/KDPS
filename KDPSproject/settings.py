@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'teacher_register',
     'new_tests',
     'permissions',
+    'test_edit',
 ]
 
 MIDDLEWARE = [

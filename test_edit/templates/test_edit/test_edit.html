@@ -8,57 +8,89 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* 横方向の中央揃え */
+            align-items: center; /* 縦方向の中央揃え */
+            height: 100vh; /* ビューポート全体の高さ */
+            background-color: #f0f0f0;
         }
+
+        .container {
+            width: 80%; /* コンテンツの横幅を指定 */
+            max-width: 800px; /* 最大幅を設定 */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
-        button {
-            margin-top: 10px;
-        }
+
         .update-button {
-            margin-top: 20px;
-            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .update-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <h2>試験編集画面</h2>
-
-    <form method="POST">
-        {% csrf_token %}  <!-- CSRFトークン -->
-
-        <table>
-            <thead>
-                <tr>
-                    <th>試験名</th>
-                    <th>対象学年</th>
-                    <th>対象クラス</th>
-                    <th>作成教員</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ form.exam_name }}</td>  <!-- 試験名 -->
-                    <td>{{ form.target_grade }}</td>  <!-- 対象学年 -->
-                    <td>{{ form.target_class }}</td>  <!-- 対象クラス -->
-                    <td>{{ form.created_by }}</td>  <!-- 作成教員 -->
-                </tr>
-            </tbody>
-        </table>
-
-        <button class="update-button" type="submit">更新</button>
-    </form>
+    <div class="container">
+        <h2>試験編集画面</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>試験名</th>
+                        <th>対象学年</th>
+                        <th>対象クラス</th>
+                        <th>作成教員</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ form.exam_name }}</td>
+                        <td>{{ form.target_grade }}</td>
+                        <td>{{ form.target_class }}</td>
+                        <td>{{ form.created_by }}</td>
+                        <td><button type="submit" class="update-button">更新</button></td>
+                    </tr>
+                    <!-- 他の行も同様に追加できます -->
+                </tbody>
+            </table>
+        </form>
+    </div>
 </body>
 
 </html>

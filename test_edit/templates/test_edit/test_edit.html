@@ -4,31 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>試験編集画面</title>
+    <title>権限編集画面</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSSを読み込み -->
+
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #fff;
             display: flex;
-            justify-content: center; /* 横方向の中央揃え */
-            align-items: center; /* 縦方向の中央揃え */
-            height: 100vh; /* ビューポート全体の高さ */
-            background-color: #f0f0f0;
+            height: 100vh;
+            overflow: hidden;
         }
 
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        /* 外枠と背景色、ボックスシャドウを削除 */
         .container {
-            width: 80%; /* コンテンツの横幅を指定 */
-            max-width: 800px; /* 最大幅を設定 */
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+            width: 100%;
+            max-width: 800px;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
 
         table {
@@ -52,7 +62,6 @@
             background-color: #007BFF;
             color: #fff;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
             text-align: center;
         }
@@ -64,32 +73,39 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>試験編集画面</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>試験名</th>
-                        <th>対象学年</th>
-                        <th>対象クラス</th>
-                        <th>作成教員</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ form.exam_name }}</td>
-                        <td>{{ form.target_grade }}</td>
-                        <td>{{ form.target_class }}</td>
-                        <td>{{ form.created_by }}</td>
-                        <td><button type="submit" class="update-button">更新</button></td>
-                    </tr>
-                    <!-- 他の行も同様に追加できます -->
-                </tbody>
-            </table>
-        </form>
+    <!-- サイドバー -->
+    <div class="sidebar">
+        {% include 'KDPS/menu.html' %}
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="content-wrapper">
+        <h2>権限編集画面</h2>
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>試験名</th>
+                            <th>対象学年</th>
+                            <th>対象クラス</th>
+                            <th>作成教員</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ form.exam_name }}</td>
+                            <td>{{ form.target_grade }}</td>
+                            <td>{{ form.target_class }}</td>
+                            <td>{{ form.created_by }}</td>
+                            <td><button type="submit" class="update-button">更新</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </div>
 </body>
 

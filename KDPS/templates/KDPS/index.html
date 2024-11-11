@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メインメニュー画面</title>
-    {% load static %} <!-- static タグをロード -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS ファイルのパスを指定 -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     <div class="container">
-        {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
+        {% include 'KDPS/menu.html' %}
 
         <div class="main-content">
             <div class="grid-container">
-                <div class="grid-item">
-                    <a href="{% url 'mark' %}">自動採点</a>
+                <a href="{% url 'mark' %}" class="grid-item">
                     <img src="{% static 'img/自動採点_教員メインメニュー.png' %}" alt="自動採点">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'Grademenu' %}">成績管理</a>
+                    <p>自動採点</p>
+                </a>
+                <a href="{% url 'Grademenu' %}" class="grid-item">
                     <img src="{% static 'img/成績管理_教員メインメニュー.png' %}" alt="成績管理">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'exam_management' %}">試験管理</a>
+                    <p>成績管理</p>
+                </a>
+                <a href="{% url 'exam_management' %}" class="grid-item">
                     <img src="{% static 'img/試験管理_教員メインメニュー.png' %}" alt="試験管理">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'student_list' %}">生徒一覧</a>
-                    <img src="{% static 'img/成績一覧_教員メインメニュー.png' %}" alt="成績一覧">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'upload' %}">答案アップロード</a>
+                    <p>試験管理</p>
+                </a>
+                <a href="{% url 'student_list' %}" class="grid-item">
+                    <img src="{% static 'img/成績一覧_教員メインメニュー.png' %}" alt="生徒一覧">
+                    <p>成績一覧</p>
+                </a>
+                <a href="{% url 'upload' %}" class="grid-item">
                     <img src="{% static 'img/05答案アップロード_教員メインメニュー.png' %}" alt="答案アップロード">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'student_register' %}">生徒新規登録</a>
+                    <p>答案アップロード</p>
+                </a>
+                <a href="{% url 'student_register' %}" class="grid-item">
                     <img src="{% static 'img/06生徒新規登録_教員メインメニュー.png' %}" alt="生徒新規登録">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'schedule' %}">スケジュール管理</a>
+                    <p>生徒新規登録</p>
+                </a>
+                <a href="{% url 'schedule' %}" class="grid-item">
                     <img src="{% static 'img/07スケジュール管理_教員メインメニュー.png' %}" alt="スケジュール管理">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'report' %}">レポート</a>
+                    <p>スケジュール管理</p>
+                </a>
+                <a href="{% url 'report' %}" class="grid-item">
                     <img src="{% static 'img/08レポート_教員メインメニュー.png' %}" alt="レポート">
-                </div>
-                <div class="grid-item">
-                    <a href="{% url 'admin_page' %}">管理者画面</a>
+                    <p>レポート</p>
+                </a>
+                <a href="{% url 'admin_page' %}" class="grid-item">
                     <img src="{% static 'img/09管理者画面_教員メインメニュー.png' %}" alt="管理者画面">
-
-
-                </div>
+                    <p>管理者画面</p>
+                </a>
             </div>
         </div>
     </div>
 </body>
-
 </html>

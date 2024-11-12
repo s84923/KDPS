@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>採点基準の設定</title>
+    <style>
+        .quecounter-input{
+            font-size: 15px;
+            text-align: right; /* 右詰めにする */
+            width: 100px;
+            margin: 20px;
+        }
+
+        .scorecounter-input{
+            font-size: 15px;
+            text-align: right; /* 右詰めにする */
+            width: 100px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>問題数を入力してしてください</h1>
+    <button onclick="quedecrease()">-</button>
+    <input type="text" class="quecounter-input" id="quecounter" value="0問" readonly>
+    <button onclick="queincrease()">+</button>
+
+    <h1>満点になる点数を入力してください</h1>
+    <button onclick="scoredecrease()">-</button>
+    <input type="text" class="scorecounter-input" id="scorecounter" value="0点" readonly>
+    <button onclick="scoreincrease()">+</button>
+
+    <table id="marksetTable">
+        <thead>
+            <tr>
+                <th>問題数</th>
+                <th>点数</th>
+                <th>部分点</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 行が動的に追加されます -->
+        </tbody>
+    </table>
+
+    <button>登録</button>
+
+    <script>
+        let quenumber = 0;
+
+        function queupdateCounter() {
+            document.getElementById("quecounter").value = `${quenumber}問`;
+        }
+
+        function queincrease() {
+            quenumber++;
+            queupdateCounter();
+        }
+
+        function quedecrease() {
+            quenumber--;
+            queupdateCounter();
+        }
+
+        let scorenumber = 0;
+
+        function scoreupdateCounter() {
+            document.getElementById("scorecounter").value = `${scorenumber}点`;
+        }
+
+        function scoreincrease() {
+            scorenumber++;
+            scoreupdateCounter();
+        }
+
+        function scoredecrease() {
+            scorenumber--;
+            scoreupdateCounter();
+        }
+
+        document.getElementById('quecounter').addEventListener('input', function() {
+            const quecounter = this.value;
+
+            // 入力が無効または0以下の場合は処理を終了
+            if (quecounter <= 0 || isNaN(quecounter)) {
+                alert("有効な行数を入力してください");
+                return;
+            }
+
+            // テーブルのtbody部分を取得
+            const tbody = document.getElementById('marksetTable').getElementsByTagName('tbody')[0];
+
+            // tbodyをクリア（以前の行を削除）
+            tbody.innerHTML = '';
+
+            // 指定された行数だけ新しい行を追加
+            for (let i = 0; i < quecounter; i++) {
+                // 新しい行を作成
+                const row = document.createElement('tr');
+                
+                // 3列を作成して行に追加
+                for (let j = 0; j < 3; j++) {
+                    const cell = document.createElement('td');
+                    cell.textContent = `行 ${i + 1} 列 ${j + 1}`; // 任意のデータを入れることができます
+                    row.appendChild(cell);
+                }
+                
+                // tbodyに新しい行を追加
+                tbody.appendChild(row);
+            }
+        });
+
+    </script>
+</body>
+
+</html>

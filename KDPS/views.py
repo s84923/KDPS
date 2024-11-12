@@ -117,3 +117,6 @@ def overall_report(request):
 
 def upload(request):
     return render(request, 'KDPS/upload.html')
+
+def markset(request):
+    return render(request, 'KDPS/markset.html')

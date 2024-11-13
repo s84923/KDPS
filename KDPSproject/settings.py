@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'permissions',
     'test_edit',
     'StudentList',
-
+    'DBzikken',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +68,8 @@ ROOT_URLCONF = 'KDPSproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'KDPS/templates'],  # プロジェクト全体のテンプレートディレクトリを指定
+        'DIRS': [BASE_DIR / 'KDPS/templates',
+                 BASE_DIR / 'DBzikken/templates',],  # プロジェクト全体のテンプレートディレクトリを指定
         'APP_DIRS': True,  # アプリケーション内のテンプレートディレクトリも使用
         'OPTIONS': {
             'context_processors': [

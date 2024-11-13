@@ -1,0 +1,16 @@
+<!-- DBzikken/templates/DBzikken/add_user.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー追加</title>
+</head>
+<body>
+    <h1>ユーザー追加</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">追加</button>
+    </form>
+</body>
+</html>

@@ -11,4 +11,5 @@ urlpatterns = [
     path('report/', views.individual_report, name='report'),  # 個人成績レポート
     path('overall_report/', views.overall_report, name='overall_report'),  # 全体成績レポート
     path('upload/', views.upload, name='upload'),  # ファイルアップロード
+    path('markset.html', views.markset, name='markset'),
 ]

@@ -119,18 +119,19 @@ a {
     margin-bottom: 20px;
 }
 
-.report-content .student-select,
-.report-content .score-input {
+.student-select,
+.score-input {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .student-select {
-    flex: 1;
     margin-right: 20px;
 }
 
-.student-select label {
+.student-select label,
+.score-input label {
     font-size: 18px;
     margin-right: 10px;
 }
@@ -139,37 +140,39 @@ a {
     padding: 10px;
     font-size: 16px;
     width: 200px;
-}
-
-.score-input label {
-    font-size: 18px;
-    margin-right: 10px;
-}
-
-.score-input button {
-    width: 40px;
     height: 40px;
-    font-size: 20px;
-    border: none;
-    background-color: #f2f2f2;
-    cursor: pointer;
+    box-sizing: border-box;
 }
 
-.score-input .decrease {
-    color: red;
-}
-
-.score-input .increase {
-    color: green;
+.input-button-group {
+    display: flex;
+    align-items: center;
 }
 
 .score-input input {
-    width: 80px;
+    width: 40px;
     text-align: center;
-    margin: 0 10px;
-    font-size: 18px;
+    font-size: 5px;
+    margin-right: 10px;
+    height: 15px;
+    box-sizing: border-box;
 }
 
+.score-input button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.score-input button:hover {
+    background-color: #0056b3;
+}
 
 /* 追加ボタンを横並びで表示 */
 #add-score-button {

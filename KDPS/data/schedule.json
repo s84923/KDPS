@@ -3,6 +3,12 @@
         "id": 0,
         "month": 1,
         "day": 9,
-        "event_name": "窪田、自衛隊に暗殺される"
+        "event_name": "始業式"
+    },
+    {
+        "id": 1,
+        "month": 1,
+        "day": 1,
+        "event_name": "dっk"
     }
 ]

@@ -4,11 +4,13 @@ import time
 # 各当選確率
 BIG_PROBABILITY = 1/219.9
 REG_PROBABILITY = 1/262.1
+SUPER_BIG_PROBABILITY = 1/3190
 BUDO_PROBABILITY = 1 / 5.82
 CHERRY_PROBABILITY = 1 / 32.29
 REPLAY_PROBABILITY = 1 / 7.3
 
 # メダル増減の設定
+SUPER_BIG_REWARD = 3000
 BIG_REWARD = 300
 REG_REWARD = 108
 BUDO_REWARD = 8
@@ -51,7 +53,10 @@ class SlotGame:
             self.add_investment()
 
         # 各リールの結果を判定
-        if random.random() < BIG_PROBABILITY:
+        if random.random() < SUPER_BIG_PROBABILITY:
+            self.peka_message = "SUPER BIG当たり！"
+            self.pending_reward = SUPER_BIG_REWARD
+        elif random.random() < BIG_PROBABILITY:
             self.peka_message = "BIG当たり！"
             self.pending_reward = BIG_REWARD
         elif random.random() < REG_PROBABILITY:

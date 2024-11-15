@@ -5,10 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KDPS 権限編集</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        .title {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            width: 100%;
         }
         table {
             width: 100%;
@@ -33,6 +41,10 @@
 </head>
 
 <body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+
+        <div class="main-content">
     <h2>権限編集画面</h2>
     <h3>編集者名</h3>
     <h3>吉田樹生</h3>
@@ -91,3 +103,30 @@
 </body>
 
 </html>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    button {
+        margin-top: 10px;
+    }
+    .update-button {
+        margin-top: 20px;
+        display: block;
+    }
+</style>

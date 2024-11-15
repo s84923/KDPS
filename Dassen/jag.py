@@ -23,13 +23,17 @@ class SlotGame:
         self.investment = 1000  # 初期投資額
         self.free_spin = False  # リプレイによる無料スピン
         self.pending_reward = 0  # 次の回転で追加されるメダル枚数
+        self.peka_message = None  # ペカッ！の表示メッセージ
 
     def spin(self):
-        # 前回のBIGまたはREGの当たりでペカッた場合のメダル追加
-        if self.pending_reward > 0:
-            print("ペカッ！！ メダルが追加されました！")
+        # 「ペカッ！！」の表示が必要であれば表示
+        if self.peka_message:
+            print("ペカッ！！")
+            time.sleep(0.5)
+            print(self.peka_message)
             self.medals += self.pending_reward
             self.pending_reward = 0
+            self.peka_message = None
 
         if not self.free_spin:
             # 通常スピンでメダルを消費
@@ -42,10 +46,10 @@ class SlotGame:
 
         # 各リールの結果を判定
         if random.random() < BIG_PROBABILITY:
-            result = "BIG当たり！"
+            self.peka_message = "BIG当たり！"
             self.pending_reward = BIG_REWARD
         elif random.random() < REG_PROBABILITY:
-            result = "REG当たり！"
+            self.peka_message = "REG当たり！"
             self.pending_reward = REG_REWARD
         elif random.random() < BUDO_PROBABILITY:
             result = "ぶどう！ +8枚"
@@ -59,7 +63,7 @@ class SlotGame:
         else:
             result = "ハズレ..."
 
-        return result, self.medals, self.investment
+        return result if not self.peka_message else "", self.medals, self.investment
 
     def add_investment(self):
         print("メダルが不足しています。1000円を追加投資し、46枚のメダルを追加します。")
@@ -77,7 +81,8 @@ def main():
         result, medals, investment = game.spin()
         print("スロットを回しています...")
         time.sleep(1)
-        print(result)
+        if result:
+            print(result)
         print(f"現在の持ちメダル: {medals}枚, 投資額: {investment}円")
 
 # ゲームを開始

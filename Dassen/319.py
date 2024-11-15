@@ -1,6 +1,9 @@
 import random
 import os
-from playsound import playsound
+import pygame
+
+# SDLオーディオドライバをcoreaudioに設定（Mac用）
+os.environ['SDL_AUDIODRIVER'] = 'coreaudio'
 
 # 定数設定
 CHANCE_ATARI = 205
@@ -20,13 +23,16 @@ GREEN_COLOR = "\033[92m"
 YELLOW_COLOR = "\033[93m"
 
 # 音声ファイルのパス
-sound_file_path = os.path.abspath('Dassen/kyu.wav')  # WAV形式の音声ファイル
+sound_file_path = 'Dassen/kyu.wav'  # WAV形式の音声ファイルを指定
 
 def play_sound():
-    """音声を再生"""
-    print(f"再生する音声ファイルのパス: {sound_file_path}")
+    """WAV形式の音声を再生"""
     try:
-        playsound(sound_file_path)
+        pygame.mixer.init()
+        pygame.mixer.music.load(sound_file_path)  # 音声ファイルをロード
+        pygame.mixer.music.play()  # 再生開始
+        while pygame.mixer.music.get_busy():
+            pass  # 再生終了を待つ
     except Exception as e:
         print(f"音声再生エラー: {e}")
 

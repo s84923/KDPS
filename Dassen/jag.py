@@ -24,6 +24,8 @@ class SlotGame:
         self.free_spin = False  # リプレイによる無料スピン
         self.pending_reward = 0  # 次の回転で追加されるメダル枚数
         self.peka_message = None  # ペカッ！の表示メッセージ
+        self.current_spin_count = 0  # 当たりまでの回転数
+        self.total_spin_count = 0  # 総回転数
 
     def spin(self):
         # 「ペカッ！！」の表示が必要であれば表示
@@ -34,6 +36,10 @@ class SlotGame:
             self.medals += self.pending_reward
             self.pending_reward = 0
             self.peka_message = None
+            self.current_spin_count = 0  # 当たったので回転数をリセット
+        else:
+            self.current_spin_count += 1  # 回転数を増加
+            self.total_spin_count += 1  # 総回転数を増加
 
         if not self.free_spin:
             # 通常スピンでメダルを消費
@@ -63,7 +69,7 @@ class SlotGame:
         else:
             result = "ハズレ..."
 
-        return result if not self.peka_message else "", self.medals, self.investment
+        return result if not self.peka_message else "", self.medals, self.investment, self.current_spin_count, self.total_spin_count
 
     def add_investment(self):
         print("メダルが不足しています。1000円を追加投資し、46枚のメダルを追加します。")
@@ -78,12 +84,13 @@ def main():
 
     while True:
         input("Enterキーを押してスピン！")  # プレイヤーがスピンを開始
-        result, medals, investment = game.spin()
+        result, medals, investment, current_spin_count, total_spin_count = game.spin()
         print("スロットを回しています...")
         time.sleep(1)
         if result:
             print(result)
         print(f"現在の持ちメダル: {medals}枚, 投資額: {investment}円")
+        print(f"現在の回転数: {current_spin_count}回, 総回転数: {total_spin_count}回")
 
 # ゲームを開始
 if __name__ == "__main__":

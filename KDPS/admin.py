@@ -60,6 +60,6 @@ class AuthTokensAdmin(admin.ModelAdmin):
 # ユーザープロフィール
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'student_id', 'grade', 'class_name')
+    list_display = ('student_id', 'grade', 'class_name')
     search_fields = ('user__user_id', 'student_id')
     list_filter = ('grade', 'class_name')

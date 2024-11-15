@@ -9,22 +9,31 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         .quecounter-input {
-            font-size: 15px;
+            font-size: 30px;
             text-align: right;
-            /* 右詰めにする */
             width: 100px;
             margin: 20px;
         }
 
-        .scorecounter-input {
-            font-size: 15px;
-            text-align: right;
-            /* 右詰めにする */
+        .scorecounter-input,
+        .partialscore-input {
+            font-size: 30px;
+            text-align: center;
             width: 100px;
             margin: 20px;
         }
 
-        .markcontainer {
+        .main-content-individual-markset-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .marksetcontainer {
             display: flex;
             min-height: 100vh;
         }
@@ -33,31 +42,140 @@
             width: 100%;
             border-collapse: collapse;
         }
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid black;
         }
-        th, td {
+
+        th,
+        td {
             padding: 8px;
             text-align: center;
         }
+
+        .counter-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .counter-wrapper span {
+            font-size: 30px;
+            margin-left: 10px;
+        }
+
+        input[type="number"] {
+            font-size: 30px;
+            text-align: center;
+            width: 100px;
+        }
     </style>
+
+    <script>
+        let quenumber = 0;
+
+        function queupdateCounter() {
+            document.getElementById("quecounter").value = quenumber;
+        }
+
+        function queincrease() {
+            quenumber++;
+            queupdateCounter();
+            updateTable(); // テーブル更新
+        }
+
+        function quedecrease() {
+            if (quenumber > 0) {
+                quenumber--;
+                queupdateCounter();
+                updateTable(); // テーブル更新
+            }
+        }
+
+        let scorenumber = 0;
+
+        function scoreupdateCounter() {
+            document.getElementById("scorecounter").value = scorenumber;
+        }
+
+        function scoreincrease() {
+            scorenumber++;
+            scoreupdateCounter();
+        }
+
+        function scoredecrease() {
+            if (scorenumber > 0) {
+                scorenumber--;
+                scoreupdateCounter();
+            }
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('marksetTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = ''; // tbodyをクリア
+
+            for (let i = 0; i < quenumber; i++) {
+                const row = document.createElement('tr');
+                // 問題列
+                const questionCell = document.createElement('td');
+                questionCell.textContent = `問題${i + 1}`;
+                row.appendChild(questionCell);
+
+                // 点数列：常に0を表示
+                const scoreCell = document.createElement('td');
+                scoreCell.textContent = '0'; // 常に0を表示
+                const scoreSpan = document.createElement('span');
+                scoreSpan.textContent = '点'; // 常に「点」を表示
+                scoreCell.appendChild(scoreSpan);
+                row.appendChild(scoreCell);
+
+                // 部分点列：inputフィールドを追加
+                const partialScoreCell = document.createElement('td');
+                const partialScoreInput = document.createElement('input');
+                partialScoreInput.type = 'number';
+                partialScoreInput.value = 0; // 部分点は初期0
+                partialScoreInput.min = 0; // 部分点は0以上
+                partialScoreCell.appendChild(partialScoreInput);
+                const partialScoreSpan = document.createElement('span');
+                partialScoreSpan.textContent = '点'; // 常に「点」を表示
+                partialScoreCell.appendChild(partialScoreSpan);
+                row.appendChild(partialScoreCell);
+
+                tbody.appendChild(row);
+            }
+        }
+
+        // 初期設定でテーブルを表示
+        document.addEventListener('DOMContentLoaded', () => {
+            queupdateCounter(); // 初期状態をセット
+            scoreupdateCounter(); // 初期状態をセット
+        });
+    </script>
+
 </head>
 
 <body>
-    <div class="markcontainer">
+    <div class="marksetcontainer">
         {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
-        <div class="main-content-individual-mark-container">
+        <div class="main-content-individual-markset-container">
             <h1>自動採点</h1>
 
-            <h1>問題数を入力してしてください</h1>
-            <button onclick="quedecrease()">-</button>
-            <input type="text" class="quecounter-input" id="quecounter" value="0問" readonly>
-            <button onclick="queincrease()">+</button>
+            <h3>問題数を入力してください</h3>
+            <div class="counter-wrapper">
+                <button onclick="quedecrease()">-</button>
+                <input type="number" class="quecounter-input" min="1" id="quecounter" value="0">
+                <span>問</span> <!-- 常に「問」を表示 -->
+                <button onclick="queincrease()">+</button>
+            </div>
 
-            <h1>満点になる点数を入力してください</h1>
-            <button onclick="scoredecrease()">-</button>
-            <input type="text" class="scorecounter-input" id="scorecounter" value="0点" readonly>
-            <button onclick="scoreincrease()">+</button>
+            <h3>満点になる点数を入力してください</h3>
+            <div class="counter-wrapper">
+                <button onclick="scoredecrease()">-</button>
+                <input type="number" class="scorecounter-input" min="1" id="scorecounter" value="0">
+                <span>点</span> <!-- 常に「点」を表示 -->
+                <button onclick="scoreincrease()">+</button>
+            </div>
 
             <table id="marksetTable">
                 <thead>
@@ -72,74 +190,7 @@
                 </tbody>
             </table>
 
-            <button type="button">登録</button>
-
-            <script>
-                let quenumber = 0;
-
-                function queupdateCounter() {
-                    document.getElementById("quecounter").value = `${quenumber}問`;
-                }
-
-                function queincrease() {
-                    quenumber++;
-                    queupdateCounter();
-                }
-
-                function quedecrease() {
-                    quenumber--;
-                    queupdateCounter();
-                }
-
-                let scorenumber = 0;
-
-                function scoreupdateCounter() {
-                    document.getElementById("scorecounter").value = `${scorenumber}点`;
-                }
-
-                function scoreincrease() {
-                    scorenumber++;
-                    scoreupdateCounter();
-                }
-
-                function scoredecrease() {
-                    scorenumber--;
-                    scoreupdateCounter();
-                }
-
-                document.getElementById('quecounter').addEventListener('input', function () {
-                    const quecounter = this.value;
-
-                    // 入力が無効または0以下の場合は処理を終了
-                    if (quecounter <= 0 || isNaN(quecounter)) {
-                        alert("有効な行数を入力してください");
-                        return;
-                    }
-
-                    // テーブルのtbody部分を取得
-                    const tbody = document.getElementById('marksetTable').getElementsByTagName('tbody')[0];
-
-                    // tbodyをクリア（以前の行を削除）
-                    tbody.innerHTML = '';
-
-                    // 指定された行数だけ新しい行を追加
-                    for (let i = 0; i < quecounter; i++) {
-                        // 新しい行を作成
-                        const row = document.createElement('tr');
-
-                        // 3列を作成して行に追加
-                        for (let j = 0; j < 3; j++) {
-                            const cell = document.createElement('td');
-                            cell.textContent = `行 ${i + 1} 列 ${j + 1}`; // 任意のデータを入れることができます
-                            row.appendChild(cell);
-                        }
-
-                        // tbodyに新しい行を追加
-                        tbody.appendChild(row);
-                    }
-                });
-
-            </script>
+            <button type="submit">登録</button>
         </div>
     </div>
 </body>

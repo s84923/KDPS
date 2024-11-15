@@ -55,3 +55,6 @@ git reset --hard origin/main
 
 仮想環境
 source venv/bin/activate
+
+競合した時リセットしたくない場合
+git pull origin main --rebase

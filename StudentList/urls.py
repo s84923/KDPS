@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path('student_list/', views.student_list, name='student_list'),
-    path('edit/<int:student_id>/', views.edit_student, name='edit_student'),  # 編集ページへのパス
+    path('student/edit/<int:student_id>/', views.edit_student, name='edit_student'),
 ]

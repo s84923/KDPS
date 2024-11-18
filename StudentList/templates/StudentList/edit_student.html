@@ -2,21 +2,47 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生徒情報編集</title>
+    <title>生徒編集</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container">
-        {% include 'KDPS/menu.html' %}
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+
         <div class="main-content">
-            <h1 class="title">生徒情報編集</h1>
+            <h1 class="title">生徒編集</h1>
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <table>
+                    <tr>
+                        <th>学籍番号</th>
+                        <td>{{ student.student_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>名前</th>
+                        <td>{{ form.student_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>学年</th>
+                        <td>{{ form.school_year }}</td>
+                    </tr>
+                    <tr>
+                        <th>クラス</th>
+                        <td>{{ form.student_class }}</td>
+                    </tr>
+                    <tr>
+                        <th>保護者メールアドレス</th>
+                        <td>{{ form.parent_email }}</td>
+                    </tr>
+                    <tr>
+                        <th>住所</th>
+                        <td>{{ form.address }}</td>
+                    </tr>
+                </table>
                 <button type="submit">保存</button>
             </form>
+            <a href="{% url 'student_list' %}">戻る</a>
         </div>
     </div>
 </body>

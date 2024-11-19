@@ -52,6 +52,11 @@ git pull
 git fetch origin
 git reset --hard origin/main
 
+ポート開放
+netstat -ano | findstr :8000(8000はポート番号)
+これを実行して出てきた最後の数字を<PID>に入れる
+tasklist | findstr <PID>
+
 
 仮想環境
 source venv/bin/activate

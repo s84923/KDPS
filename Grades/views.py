@@ -1,19 +1,28 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .forms import StudentSearchForm  # フォームを後ほど作成
+from KDPS.models import Student, Grades, Test
+from django.db.models import F
 import csv
-import pdfkit  # PDFエクスポートのために、別途インストールが必要です（例: pip install pdfkit）
+import pdfkit
 
 def student_scores(request):
-    form = StudentSearchForm(request.GET or None)
+    student_id = request.GET.get('student_id', '').strip()
     results = []
+    error_message = None
 
-    if form.is_valid() and 'search' in request.GET:
-        student_name = form.cleaned_data['student_name']
-        # DBが完成したら以下のようにフィルタリングに置き換える
-        # results = StudentScore.objects.filter(student__name__icontains=student_name)
-        # 仮のデータを設定
-        results = [{'test_name': 'テスト1', 'score': 80}, {'test_name': 'テスト2', 'score': 90}]
+    # 学籍番号が数字かどうかを確認
+    if student_id and not student_id.isdigit():
+        error_message = "学籍番号は数字で入力してください。"
+    elif student_id:
+        try:
+            # データベースから関連情報を取得
+            student = Student.objects.get(student_id=student_id)
+            results = Grades.objects.filter(student_id=student) \
+                .select_related('test_id') \
+                .annotate(test_name=F('test_id__test_name'), teacher_id=F('test_id__teacher_id')) \
+                .values('test_name', 'teacher_id', 'score')
+        except Student.DoesNotExist:
+            error_message = "指定された学籍番号の生徒が見つかりません。"
 
     # エクスポート処理
     if 'export' in request.GET:
@@ -23,16 +32,20 @@ def student_scores(request):
         elif export_format == 'pdf':
             return export_to_pdf(results)
 
-    return render(request, 'Grades/student_scores.html', {'form': form, 'results': results})
+    return render(request, 'Grades/student_scores.html', {
+        'results': results,
+        'student_id': student_id,
+        'error_message': error_message,
+    })
 
 def export_to_csv(results):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="student_scores.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Test Name', 'Score'])
+    writer.writerow(['Test Name', 'Teacher ID', 'Score'])
     for result in results:
-        writer.writerow([result['test_name'], result['score']])
+        writer.writerow([result['test_name'], result['teacher_id'], result['score']])
 
     return response
 
@@ -44,5 +57,15 @@ def export_to_pdf(results):
     return response
 
 def edit_score(request, student_id):
-    # 成績編集画面への遷移（後で実装）
-    return HttpResponse(f"編集画面（ID: {student_id}）")
+    # 指定された student_id の成績データを取得
+    grade = get_object_or_404(Grades, student_id=student_id)
+    
+    if request.method == 'POST':
+        form = EditScoreForm(request.POST, instance=grade)
+        if form.is_valid():
+            form.save()
+            return redirect('student_scores')  # 成績一覧画面にリダイレクト
+    else:
+        form = EditScoreForm(instance=grade)
+
+    return render(request, 'Grades/edit_score.html', {'form': form})

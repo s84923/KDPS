@@ -27,11 +27,42 @@
             background-color: #f9f9f9;
         }
 
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            /* 左右に分ける */
+            width: 100%;
+            max-width: 1200px;
+            /* 最大幅を設定 */
+        }
+
+        /* 左側のコンテンツ */
+        .left-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 48%;
+            /* 左側の幅 */
+        }
+
+        /* 右側のコンテンツ */
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 48%;
+            /* 右側の幅 */
+        }
+
         .box {
             border: 1px solid #007BFF;
             /* ボーダーの太さ、スタイル、色 */
             display: flex;
             /* Flexboxを使用 */
+            flex-direction: column;
+            /* 縦に並べる */
             justify-content: center;
             /* 横方向の中央揃え */
             align-items: center;
@@ -42,18 +73,28 @@
             /*ボックスの幅*/
             background-color: #f8f9fa;
             /* 背景色 */
+            margin: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
         }
 
-        .input_username {
-            font-size: large;
+        .box img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
         }
 
-        .input_class_name {
-            font-size: large;
+        .form-group {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 400px;
         }
 
-        .input_attendance_number {
-            font-size: large;
+        .form-label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
         }
     </style>
 </head>
@@ -63,43 +104,45 @@
         {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
         <div class="main-content-individual-mark-container">
             <h1>自動採点</h1>
-            <!--<div class="column left"> -->
-            <div class="Exam select">
-                <h3>試験名の選択</h3><br>
-                <select mame="Exam selection" id="Exam selection"><br>
-                    <option value="">試験名を選択してください</option>
-                    <option value="java">Java試験</option>
-                    <option value="python">Python試験</option>
-                    <option value="JavaScript">JavaScript試験</option>
-                </select>
+            <div class="form-container">
+                <div class="left-container">
+                    <div class="Exam select">
+                        <h3>試験名の選択</h3><br>
+                        <select name="Exam selection" id="Exam selection"><br>
+                            <option value="">試験名を選択してください</option>
+                            <option value="java">Java試験</option>
+                            <option value="python">Python試験</option>
+                            <option value="JavaScript">JavaScript試験</option>
+                        </select>
+                    </div>
+                    <div class="box">
+                        <img src="{% static 'img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン"><br>
+                        <form action="{% url 'markset' %}" method="get">
+                            <button type="submit">採点基準の設定</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="right-container">
+                    <div class="form-group input_username">
+                        <label class="form-label" for="id_username">氏名</label><br>
+                        <input type="text" name="username" id="id_username" aria-placeholder="氏名を入力してください">
+                        {{ form.username }}
+                    </div>
+                    <div class="form-group input_class_name">
+                        <label class="form-label" for="id_class_name">クラス</label><br>
+                        <input type="text" name="class_name" id="id_class_name" aria-placeholder="クラスを入力してください">
+                        {{ form.class_name }}
+                    </div>
+                    <div class="form-group input_attendance_number">
+                        <label class="form-label" for="id_attendance_number">出席番号</label><br>
+                        <input type="text" name="attendance_number" id="id_attendance_number"
+                            aria-placeholder="出席番号を入力してください">
+                        {{ form.attendance_number}}
+                    </div>
+                    <button type="button">採点開始</button>
+                </div>
             </div>
-            <div class="box">
-                <img src="{% static 'img/採点01アイコン_採点設定画面.png' %}" alt="採点アイコン" title="採点アイコン"><br>
-                <form action="{% url 'markset' %}" method="get">
-                    <button type="submit">採点基準の設定</button>
-                </form>
-            </div>
-            <!--</div> -->
-            <!--<div class="column right"> -->
-            <div class="input_username">
-                <label class="form-label" for="id_username">氏名</label><br>
-                <input type="text" name="username" id="id_username">
-                {{ form.username }}
-            </div>
-            <div class="input_class_name">
-                <label class="form-label" for="id_class_name">クラス</label><br>
-                <input type="text" name="class_name" id="id_class_name">
-                {{ form.class_name }}
-            </div>
-            <div class="input_attendance_number">
-                <label class="form-label" for="id_attendance_number">出席番号</label><br>
-                <input type="text" name="attendance_number" id="id_attendance_number">
-                {{ form.attendance_number}}
-            </div>
-            <button type="button">採点開始</button>
-            <!--</div> -->
         </div>
-    </div>
 </body>
 
 </html>

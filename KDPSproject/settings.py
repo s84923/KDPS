@@ -133,3 +133,13 @@ STATICFILES_DIRS = [
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# メール送信設定
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # SMTPサーバーアドレス
+EMAIL_PORT = 587  # SMTPポート
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'oky.KDPS@gmail.com'  # 送信元のメールアドレス
+EMAIL_HOST_PASSWORD = 'babahara0309'  # メールアカウントのパスワード
+DEFAULT_FROM_EMAIL = 'noreply@gmail.com'  # 送信元名

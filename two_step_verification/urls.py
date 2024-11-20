@@ -1,7 +1,7 @@
-# urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('two_step_verification/', views.two_step_verification, name='two_step_verification'),
+    path('send-otp/', views.send_otp, name='send_otp'),
+    path('verify-otp/', views.verify_otp, name='verify_otp'),
 ]

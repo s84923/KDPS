@@ -39,3 +39,4 @@ window.onload = function() {
         document.getElementById('event-list').innerHTML = savedEvents;
     }
 };
+

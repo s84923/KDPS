@@ -80,22 +80,16 @@
 <body>
     <div class="login-container">
         <h2>ログイン</h2>
-        <form method="POST">
             <div class="form-group">
-                <label for="student_ID">学籍番号(ID):</label>
-                <input type="text" id="student_ID" name="student_ID" placeholder="学籍番号(ID)を入力して下さい" required>
-            </div>
-
-            <div class="form-group">
-                <label for="input_pass">パスワード:</label>
-                <input type="password" id="input_pass" name="input_pass" placeholder="パスワードを入力して下さい" required>
-                <div class="toggle-password">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
                     <button type="button" id="btn_passview">表示</button>
-                </div>
+                </form>                
             </div>
 
             <div>
-                <a href="New Registration.html">新規登録はこちら</a>
+                <a href="/accounts/templates/accounts/register.html">新規登録はこちら</a>
             </div>
             <button type="submit">ログイン</button>
         </form>

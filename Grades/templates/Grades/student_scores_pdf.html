@@ -2,21 +2,55 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成績一覧</title>
+    <title>生徒の成績一覧</title>
+    <style>
+        @font-face {
+            font-family: 'Noto Sans JP';
+            src: url('file:///vsc_workspace/KDPSproject/static/fonts/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+        }
+        body {
+            font-family: 'Noto Sans JP', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .student-info {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>生徒の成績一覧</h1>
-    <table border="1">
+    <div class="student-info">
+        <p><strong>生徒名:</strong> {{ student_name }}</p>
+    </div>
+    <table>
         <tr>
             <th>テスト名</th>
-            <th>得点</th>
+            <th>担当教員</th>
+            <th>点数</th>
         </tr>
         {% for result in results %}
-            <tr>
-                <td>{{ result.test_name }}</td>
-                <td>{{ result.score }}</td>
-            </tr>
+        <tr>
+            <td>{{ result.test_name }}</td>
+            <td>{{ result.teacher_id }}</td>
+            <td>{{ result.score }}</td>
+        </tr>
         {% endfor %}
     </table>
 </body>

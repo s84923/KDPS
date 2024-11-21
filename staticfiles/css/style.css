@@ -1,0 +1,554 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- 全体設定 --- */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+/* .no-hover クラスのホバー効果を無効にする */
+.no-hover a {
+    color: white !important; 
+    text-decoration: none !important;
+}
+
+.no-hover a:hover {
+    background-color: transparent !important; /* 背景色の変更を無効にする */
+    color: white !important; 
+    cursor: default !important; 
+    text-decoration: none !important;
+}
+
+/* --- コンテナレイアウト --- */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- サイドバー設定 --- */
+.sidebar {
+    background-color: black;
+    color: white;
+    width: 310px;
+    padding: 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.sidebar h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+    width: 100%;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+.sidebar a {
+    color: white;
+    display: block;
+    padding: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #333;
+    text-decoration: none;
+}
+
+.logout {
+    margin-top: auto;
+    padding: 10px;
+}
+
+.logout a {
+    color: white;
+}
+
+.logout a:hover{
+    background-color: transparent !important; 
+    text-decoration: underline;
+}
+
+/* --- メインコンテンツ設定 --- */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+/* --- 個人成績レポート用スタイル --- */
+.individual-report-container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.individual-report-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.report-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.student-select,
+.score-input {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.student-select {
+    margin-right: 20px;
+}
+
+.student-select label,
+.score-input label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.student-select select {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.input-button-group {
+    display: flex;
+    align-items: center;
+}
+
+.score-input input {
+    width: 40px;
+    text-align: center;
+    font-size: 5px;
+    margin-right: 10px;
+    height: 15px;
+    box-sizing: border-box;
+}
+
+.score-input button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.score-input button:hover {
+    background-color: #0056b3;
+}
+
+/* 追加ボタンを横並びで表示 */
+#add-score-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* 他のボタンと同じ高さに */
+    box-sizing: border-box;
+}
+
+#add-score-button:hover {
+    background-color: #0056b3;
+}
+
+.individual-report-container h3 {
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #0056b3;
+}
+
+.link-report {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: center;
+}
+
+.link-report:hover {
+    color: #0056b3;
+}
+
+/* --- スケジュールコンテンツ --- */
+.scheduls-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.scheduls-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.scheduls-content a{
+    color: #0056b3;
+}
+
+.scheduls-content a:hover{
+    text-decoration: underline;
+}
+
+/* --- カレンダー設定 --- */
+.calendar-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.calendar th, .calendar td {
+    width: 14.28%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: top;
+    font-size: 16px;
+}
+
+.calendar th {
+    font-weight: bold;
+}
+
+.calendar th:nth-child(1) {
+    color: red;
+}
+
+.calendar th:nth-child(7) {
+    color: blue;
+}
+
+/* --- イベント表示 --- */
+.day-box {
+    padding: 5px;
+}
+
+.event-item {
+    background-color: #e0f7fa;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.delete-button {
+    color: blue;
+    font-size: 12px;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.delete-button:hover {
+    color: darkred;
+}
+
+/* --- フォームの設定 --- */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+form select, form input[type="text"] {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 14px;
+    width: 200px;
+}
+
+/* --- ボタンのデフォルト設定 --- */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* --- グリッド表示用スタイル（メインメニュー） --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 180px);
+    grid-template-rows: repeat(3, 180px);
+    gap: 20px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 180px;
+    height: 180px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+}
+
+.grid-item a {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.grid-item img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.grid-item p {
+    font-size: 16px;
+    color: black;
+    margin-top: 10px;
+}
+
+.grid-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* --- 全体成績レポート用スタイル --- */
+.overall-report-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overall-report-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.report-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.student-select, .exam-select, .score-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.student-select label, .exam-select label, .score-input label {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.student-select select, .exam-select select, .score-input input {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    margin-top: 5px;
+}
+
+.score-input {
+    display: flex;
+    align-items: center;
+}
+
+.score-input button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.score-input .decrease {
+    color: red;
+}
+
+.score-input .increase {
+    color: green;
+}
+
+#add-score-button {
+    margin-left: 10px;
+    padding: 20px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+#add-score-button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #0056b3;
+}
+
+.link-report {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: center;
+}
+
+.link-report:hover {
+    color: #0056b3;
+}
+
+/* グラフのプレースホルダー */
+.chart-container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}

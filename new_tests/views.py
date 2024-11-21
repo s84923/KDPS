@@ -9,5 +9,5 @@ def new_tests(request):
         if form.is_valid():
             # フォームデータを保存する処理を追加
             # 保存後のリダイレクトやメッセージを表示
-            return render(request, 'exam_success.html')  # 作成成功のテンプレート
+            return render(request, 'new_tests.html')  # 作成成功のテンプレート
     return render(request, 'new_tests/new_tests.html', {'form': form})

@@ -2,116 +2,37 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KDPS 権限編集</title>
-
+    <title>KDPS 試験編集</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSSを読み込み -->
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            align-items: center;
-            padding-top: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 1.8em;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        /* 列の幅を指定 */
-        th:nth-child(5), td:nth-child(5) {
-            width: 10%; /* 操作列を小さめに */
-        }
-
-        th:nth-child(4), td:nth-child(4) {
-            width: 20%; /* 作成教員列を少し大きめに */
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .update-button {
-            width: 100%;
-            padding: 8px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .update-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
-
 <body>
     <!-- サイドバー -->
-    <div class="sidebar">
+    <div class="container">
         {% include 'KDPS/menu.html' %}
-    </div>
 
-    <!-- メインコンテンツ -->
-    <div class="content-wrapper">
-        <h2>試験編集画面</h2>
-        <div class="container">
+        <!-- メインコンテンツ -->
+        <div class="main-content">
+            <h1 class="title">試験編集</h1>
             <form method="POST">
                 {% csrf_token %}
                 <table>
-                    <thead>
-                        <tr>
-                            <th>試験名</th>
-                            <th>対象学年</th>
-                            <th>対象クラス</th>
-                            <th>作成教員</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ form.exam_name }}</td>
-                            <td>{{ form.target_grade }}</td>
-                            <td>{{ form.target_class }}</td>
-                            <td>{{ form.created_by }}</td>
-                            <td><button type="submit" class="update-button">更新</button></td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th>試験ID</th>
+                        <td>{{ form.exam_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>試験名</th>
+                        <td>{{ form.exam_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>作成教員</th>
+                        <td>{{ form.created_by }}</td>
+                    </tr>
                 </table>
+                <button type="submit">更新</button>
             </form>
+            <a href="{% url 'test_list' %}">戻る</a>
         </div>
     </div>
 </body>

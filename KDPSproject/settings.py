@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'test_edit',
     'StudentList',
     'DBzikken',
+    'test_list',
 ]
 
 MIDDLEWARE = [

@@ -104,30 +104,23 @@
     <h1>試験新規作成</h1>
 
     <form method="POST" class="form-container">
-        {% csrf_token %}
         
-        <!-- 1行目左: 学年 -->
+        <!--1行目左: 試験ID -->
         <div class="form-row">
-            <label for="grade">学年:</label>
-            {{ form.grade_select }}
-        </div>
-
-        <!-- 1行目右: クラス -->
-        <div class="form-row">
-            <label for="class_grade">クラス:</label>
-            {{ form.class_grade }}
+            <label class="form-label" for="exam_id">試験ID</label>
+            {{ form.exam_id }}
         </div>
 
         <!-- 2行目左: 試験名 -->
         <div class="form-row">
             <label class="form-label" for="exam">試験名</label>
-            {{ form.teacher_mail }}
+            {{ form.exam }}
         </div>
 
         <!-- 2行目右: 教員ID -->
         <div class="form-row">
             <label class="form-label" for="teacher_id">教員ID</label>
-            {{ form.class_name }}
+            {{ form.teacher_id }}
         </div>
 
         <button type="submit">作成</button>

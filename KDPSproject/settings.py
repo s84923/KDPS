@@ -143,5 +143,5 @@ EMAIL_HOST = 'smtp.gmail.com'  # SMTPサーバーアドレス
 EMAIL_PORT = 587  # SMTPポート
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'oky.KDPS@gmail.com'  # 送信元のメールアドレス
-EMAIL_HOST_PASSWORD = 'babahara0309'  # メールアカウントのパスワード
+EMAIL_HOST_PASSWORD = 'zsny bzbo ghqf mvww'  # メールアカウントのパスワード
 DEFAULT_FROM_EMAIL = 'noreply@gmail.com'  # 送信元名

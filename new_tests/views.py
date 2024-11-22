@@ -1,5 +1,6 @@
 # views.py
 from django.shortcuts import render
+from KDPS.models import Test
 from .forms import ExamCreationForm
 
 def new_tests(request):

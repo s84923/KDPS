@@ -2,128 +2,94 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>試験新規作成</title>
-    <style>
-         /* 全体のスタイル */
-         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
+    <title>KDPS 試験新規作成</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
 
-        /* タイトルのスタイル */
-        h1 {
-            text-align: center;
+    <style>
+        .title {
             font-size: 2em;
+            text-align: center;
             margin-bottom: 20px;
         }
-
-        /* フォームコンテナのスタイル */
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .main-content {
+            flex: 1;
             padding: 20px;
-            background-color: white;
-            border-radius: 5px;
+            background-color: #fff;
+            border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
         }
-
-        /* ラベルと入力フィールドの配置 */
-        .form-row {
-            display: flex;
-            flex-direction: column;
+        form {
+            text-align: center;
+            margin-bottom: 20px;
         }
-
-        /* パスワードフィールドのスタイル（ボタンを横並びに配置） */
-        .password-container {
-            display: flex;
-            align-items: center;
-        }
-
-        /* ラベルのスタイル */
-        .form-label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        /* 入力フィールドのスタイル */
-        input[type="text"], input[type="email"], input[type="password"] {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 70%;
-        }
-
-        /* 学年とクラスの左寄せ */
-        .grade-class-container {
-            display: flex;
-            align-items: flex-start;
-        }
-
-        /* 学年とクラスの入力フィールドのスタイル */
-        .grade-class-container .form-row {
-            margin-right: 10px;
-        }
-
-        /* ボタンのスタイル */
         button {
-            padding: 10px 15px;
+            padding: 10px 20px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 20%;
-            margin-top: 15px;
-            grid-column: 2; /* 2列目に配置 */
-            justify-self: end; /* ボタンを右寄せ */
         }
-
         button:hover {
             background-color: #0056b3;
         }
-
-        /* 表示ボタン（トグルボタン）のスタイル */
-        .toggle-password {
-            margin-left: 8px;
-            cursor: pointer;
-            background-color: #ddd;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 0.9em;
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        td a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>試験新規作成</h1>
+    <div class="container">
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
 
-    <form method="POST" class="form-container">
-        
-        <!--1行目左: 試験ID -->
-        <div class="form-row">
-            <label class="form-label" for="exam_id">試験ID</label>
-            {{ form.exam_id }}
+        <div class="main-content">
+            <h1 class="title">試験新規作成</h1>
+
+            <!-- 生徒一覧表示テーブル -->
+            <form method="post">
+                <table>
+                    <tr>
+                        <th>試験ID</th>
+                        <th>試験名</th>
+                        <th>教員ID</th>
+                    </tr>
+                    {% for test in tests %}
+                        <tr>
+                            <td>{{ form.test_id }}</td>
+                            <td>{{ form.test_name }}</td>
+                            <td>{{ form.teacher_id }}</td>
+                            <td><a href="{% url 'test_edit' test_id=test.test_id %}">編集</a></td>
+                        </tr>
+                    {% empty %}
+                    {% endfor %}
+                </table>
+                <button type="submit">追加</button>
+            </form>
         </div>
-
-        <!-- 2行目左: 試験名 -->
-        <div class="form-row">
-            <label class="form-label" for="exam">試験名</label>
-            {{ form.exam }}
-        </div>
-
-        <!-- 2行目右: 教員ID -->
-        <div class="form-row">
-            <label class="form-label" for="teacher_id">教員ID</label>
-            {{ form.teacher_id }}
-        </div>
-
-        <button type="submit">作成</button>
-   </form>
+    </div>
 </body>
 </html>

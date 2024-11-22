@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from .models import Student, Test, Grades
 import json
 import os
 from django.conf import settings
@@ -110,7 +112,58 @@ def mark(request):
     return render(request, 'KDPS/mark.html')
 
 def individual_report(request):
-    return render(request, 'KDPS/report.html')
+    if request.method == "POST":
+        # 点数の追加
+        test_id = request.POST.get("test_id")
+        student_id = request.POST.get("student_id")
+        score = request.POST.get("score")
+
+        try:
+            student = Student.objects.get(student_id=student_id)
+            test = Test.objects.get(test_id=test_id)
+            Grades.objects.create(test_id=test, student_id=student, score=score)
+        except Exception as e:
+            return JsonResponse({"error": f"データの保存中にエラーが発生しました: {e}"}, status=500)
+
+        return redirect("report")
+
+    # 試験データと成績データを取得
+    students = Student.objects.all()
+    tests = Test.objects.all()
+    grades = Grades.objects.select_related("test_id", "student_id").all()  # 修正済み
+
+    return render(request, "KDPS/report.html", {
+        "students": students,
+        "tests": tests,
+        "grades": grades,
+    })
+
+
+# 保護者に成績レポートを送信
+def send_report_to_parents(request):
+    if request.method == "POST":
+        student_id = request.POST.get("student_id")
+        try:
+            student = Student.objects.get(student_id=student_id)
+            grades = Grades.objects.filter(student=student)
+
+            subject = f"{student.student_name}さんの成績レポート"
+            message = f"{student.student_name}さんの成績:\n"
+            for grade in grades:
+                message += f"試験名: {grade.test.test_name}, 点数: {grade.score}\n"
+
+            send_mail(
+                subject,
+                message,
+                "noreply@example.com",
+                [student.parent_email],
+            )
+
+            return redirect("report")
+        except Exception as e:
+            return render(request, "KDPS/report.html", {"error": f"レポート送信中にエラーが発生しました: {e}"})
+
+    return redirect("report")
 
 def overall_report(request):
     return render(request, 'KDPS/overall_report.html')

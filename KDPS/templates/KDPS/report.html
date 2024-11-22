@@ -4,65 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人成績レポート</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div class="container">
-        {% include "KDPS/menu.html" %}
+    <h2>個人成績レポート</h2>
 
-        <div class="main-content individual-report-container">
-            <h2>個人成績レポート</h2>
+    <form method="POST" action="{% url 'report' %}">
+        {% csrf_token %}
+        <label for="student_id">生徒を選択:</label>
+        <select name="student_id" id="student_id">
+            {% for student in students %}
+                <option value="{{ student.student_id }}">{{ student.student_name }}</option>
+            {% endfor %}
+        </select>
 
-            <div class="report-content">
-                <div class="student-select">
-                    <label for="student-select">試験名の選択</label>
-                    <select id="student-select">
-                        <option>試験名を選択してください</option>
-                        <option>Java試験</option>
-                        <option>Python試験</option>
-                        <option>JavaScript試験</option>
-                    </select>
-                </div>
+        <label for="test_id">試験を選択:</label>
+        <select name="test_id" id="test_id">
+            {% for test in tests %}
+                <option value="{{ test.test_id }}">{{ test.test_name }}</option>
+            {% endfor %}
+        </select>
 
-                <div class="score-input">
-                    <label for="score-input">試験の点数を入力してください</label>
-                    <div class="input-button-group">
-                        <input type="number" id="score-input" value="80" />
-                        <button id="add-score-button">追加</button>
-                    </div>
-                </div>
-            </div>
+        <label for="score">点数:</label>
+        <input type="number" name="score" id="score" required>
 
-            <h3>大原 太郎</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>試験名</th>
-                        <th>点数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Java試験</td>
-                        <td>78</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Python試験</td>
-                        <td>80</td>
-                    </tr>
-                </tbody>
-            </table>
+        <button type="submit">成績を追加</button>
+    </form>
 
-            <div class="buttons">
-                <button id="save-button">一時保存</button>
-                <button id="distribute-button">配信</button>
-            </div>
-            <a href="{% url 'overall_report' %}" class="link-report">全体成績レポートへ</a>
-        </div>
-    </div>
+    <h3>成績一覧</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>生徒名</th>
+                <th>試験名</th>
+                <th>点数</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.student.student_name }}</td>
+                    <td>{{ grade.test.test_name }}</td>
+                    <td>{{ grade.score }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="POST" action="{% url 'send_report' %}">
+        {% csrf_token %}
+        <label for="student_id_to_send">保護者に送信する生徒:</label>
+        <select name="student_id" id="student_id_to_send">
+            {% for student in students %}
+                <option value="{{ student.student_id }}">{{ student.student_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">保護者に送信</button>
+    </form>
 </body>
 </html>

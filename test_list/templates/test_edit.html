@@ -2,41 +2,28 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>KDPS 試験編集</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSSを読み込み -->
+    <title>試験編集</title>
 </head>
 <body>
-    <!-- サイドバー -->
-    <div class="container">
-        {% include 'KDPS/menu.html' %}
-
-        <!-- メインコンテンツ -->
-        <div class="main-content">
-            <h1 class="title">試験編集</h1>
-            <form method="POST">
-                {% csrf_token %}
-                <table>
-                    <!-- 試験ID（表示のみ、編集不可） -->
-                    <tr>
-                        <th>試験ID</th>
-                        <td>{{ form.instance.exam_id }}</td>
-                    </tr>
-                    <!-- 試験名（編集可能） -->
-                    <tr>
-                        <th>試験名</th>
-                        <td>{{ form.exam_name }}</td>
-                    </tr>
-                    <!-- 教員ID（編集可能） -->
-                    <tr>
-                        <th>教員ID</th>
-                        <td>{{ form.teacher_id }}</td>
-                    </tr>
-                </table>
-                <button type="submit">更新</button>
-            </form>
-            <a href="{% url 'test_list' %}">戻る</a>
-        </div>
-    </div>
+    <h1>試験編集</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.test_id.label_tag }}</td>
+                <td>{{ form.test_id }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.test_name.label_tag }}</td>
+                <td>{{ form.test_name }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.teacher_id.label_tag }}</td>
+                <td>{{ form.teacher_id }}</td>
+            </tr>
+        </table>
+        <button type="submit">保存</button>
+    </form>
+    <a href="{% url 'test_list' %}">試験一覧に戻る</a>
 </body>
 </html>

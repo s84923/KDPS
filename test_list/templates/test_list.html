@@ -78,10 +78,10 @@
                 </tr>
                 {% for test in tests %}
                     <tr>
-                        <td>{{ test.exam_id }}</td>
-                        <td>{{ test.exam }}</td>
+                        <td>{{ test.test_id }}</td>
+                        <td>{{ test.test_name }}</td>
                         <td>{{ test.teacher_id }}</td>
-                        <td><a href="{% url 'test_edit' test_id=test.exam_id %}">編集</a></td>
+                        <td><a href="{% url 'test_edit' test_id=test.test_id %}">編集</a></td>
                     </tr>
                 {% empty %}
                     <tr>

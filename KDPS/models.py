@@ -47,13 +47,19 @@ class ErrorLog(models.Model):
     user_id = models.IntegerField()
     error_message = models.TextField(max_length=200)
     timestamp = models.DateTimeField()
+    
+    def __str__(self):
+        return f"Error {self.error_id}: {self.error_message}"
 
 # アクションログ
 class ActionLog(models.Model):
-    log_id = models.IntegerField(primary_key=True)
+    log_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField()
     action = models.CharField(max_length=255)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user_id} - {self.action} - {self.timestamp}"
 
 # 2段階認証
 class AuthTokens(models.Model):

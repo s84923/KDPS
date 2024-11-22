@@ -19,5 +19,7 @@ urlpatterns = [
     path('students/', include('StudentList.urls')),
     path('dbzikken/', include('DBzikken.urls')),  # DB実験アプリのURLを追加
     path('', include('test_list.urls')),
+    path('',include('Log_Action.urls')),
+    path('',include('Log_Error.urls')),
     
 ]

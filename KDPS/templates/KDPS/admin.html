@@ -19,7 +19,7 @@
                     <img src="{% static 'img/自動採点_教員メインメニュー.png' %}" alt="自動採点">
                     <p>権限編集</p>
                 </a>
-                <a href="#" class="grid-item">
+                <a href="{% url 'error_log' %}" class="grid-item">
                     <img src="{% static 'img/成績管理_教員メインメニュー.png' %}" alt="成績管理">
                     <p>エラー管理</p>
                 </a>
@@ -27,7 +27,7 @@
                     <img src="{% static 'img/試験管理_教員メインメニュー.png' %}" alt="試験管理">
                     <p>教員新規登録</p>
                 </a>
-                <a href="#" class="grid-item">
+                <a href="{% url 'action_log' %}" class="grid-item">
                     <img src="{% static 'img/成績一覧_教員メインメニュー.png' %}" alt="成績一覧">
                     <p>ログ確認</p>
                 </a>

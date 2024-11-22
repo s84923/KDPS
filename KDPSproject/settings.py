@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'StudentList',
     'DBzikken',
     'test_list',
+    'Log_Action',
+    'Log_Error',
 ]
 
 MIDDLEWARE = [

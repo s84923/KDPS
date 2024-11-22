@@ -94,12 +94,18 @@
                     <th>テスト名</th>
                     <th>担当教員</th>
                     <th>得点</th>
+                    <th>最高点</th>
+                    <th>中央値</th>
+                    <th>受験人数</th>
                 </tr>
                 {% for result in results %}
                 <tr>
                     <td>{{ result.test_name }}</td>
                     <td>{{ result.teacher_id }}</td>
                     <td>{{ result.score }}</td>
+                    <td>{{ result.max_score }}</td>
+                    <td>{{ result.median_score }}</td>
+                    <td>{{ result.participant_count }}</td>
                 </tr>
                 {% endfor %}
             </table>

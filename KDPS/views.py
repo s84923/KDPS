@@ -152,12 +152,14 @@ def send_report_to_parents(request):
             for grade in grades:
                 message += f"試験名: {grade.test.test_name}, 点数: {grade.score}\n"
 
-            send_mail(
+            # メール送信
+            result = send_mail(
                 subject,
                 message,
-                "noreply@example.com",
-                [student.parent_email],
+                "noreply@example.com",  # 送信元
+                [student.parent_email],  # 保護者のメールアドレス
             )
+            print(f"メール送信結果: {result}")  # ログに結果を出力（成功: 1, 失敗: 0）
 
             return redirect("report")
         except Exception as e:

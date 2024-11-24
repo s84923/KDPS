@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -138,14 +139,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # メール送信設定
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # SMTP バックエンド
 EMAIL_HOST = 'smtp.gmail.com'  # SMTPサーバーアドレス
 EMAIL_PORT = 587  # SMTPポート
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True  # TLSの使用を有効化
 EMAIL_HOST_USER = 'oky.KDPS@gmail.com'  # 送信元のメールアドレス
-
-
-EMAIL_HOST_PASSWORD = 'zsny bzbo ghqf mvww'  # メールアカウントのパスワード
-DEFAULT_FROM_EMAIL = 'noreply@gmail.com'  # 送信元名
-
+EMAIL_HOST_PASSWORD = 'zsny bzbo ghqf mvww'  # Gmailアカウントのアプリパスワード
+DEFAULT_FROM_EMAIL = 'noreply@example.com'  # デフォルト送信者メールアドレス
 

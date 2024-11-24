@@ -60,5 +60,11 @@
         </select>
         <button type="submit">保護者に送信</button>
     </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

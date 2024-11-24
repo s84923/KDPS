@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
+from django.http import JsonResponse
+from django.contrib import messages
 from .models import Student, Test, Grades
 import json
 import os
+import logging
 from django.conf import settings
 import calendar
+
+# ログの設定
+logger = logging.getLogger(__name__)
 
 SCHEDULE_FILE = os.path.join(settings.BASE_DIR, 'KDPS', 'data', 'schedule.json')
 
@@ -42,10 +48,12 @@ def schedule(request):
                 schedule_data.append(new_event)
                 save_schedule(schedule_data)
             except ValueError as e:
-                print(f"Error parsing month or day: {e}")
+                logger.error(f"Error parsing month or day: {e}")
+                messages.error(request, "日付や月の入力にエラーがあります。")
             return redirect('schedule')
         else:
-            print("Error: Month or Day is missing")
+            logger.warning("Month or Day is missing")
+            messages.error(request, "月または日が入力されていません。")
 
     selected_year = int(request.GET.get('year', 2024))
     selected_month = int(request.GET.get('month', 1))
@@ -106,6 +114,7 @@ def delete_schedule(request, event_id):
     schedule_data = load_schedule()
     schedule_data = [event for event in schedule_data if event["id"] != event_id]
     save_schedule(schedule_data)
+    messages.success(request, "スケジュールを削除しました。")
     return redirect('schedule')
 
 def mark(request):
@@ -122,8 +131,10 @@ def individual_report(request):
             student = Student.objects.get(student_id=student_id)
             test = Test.objects.get(test_id=test_id)
             Grades.objects.create(test_id=test, student_id=student, score=score)
+            messages.success(request, "成績が追加されました。")
         except Exception as e:
-            return JsonResponse({"error": f"データの保存中にエラーが発生しました: {e}"}, status=500)
+            logger.error(f"データの保存中にエラーが発生: {e}")
+            messages.error(request, f"データの保存中にエラーが発生しました: {e}")
 
         return redirect("report")
 
@@ -138,32 +149,37 @@ def individual_report(request):
         "grades": grades,
     })
 
-
-# 保護者に成績レポートを送信
 def send_report_to_parents(request):
     if request.method == "POST":
         student_id = request.POST.get("student_id")
         try:
             student = Student.objects.get(student_id=student_id)
-            grades = Grades.objects.filter(student=student)
+            grades = Grades.objects.filter(student_id=student)
 
             subject = f"{student.student_name}さんの成績レポート"
             message = f"{student.student_name}さんの成績:\n"
             for grade in grades:
-                message += f"試験名: {grade.test.test_name}, 点数: {grade.score}\n"
+                message += f"試験名: {grade.test_id.test_name}, 点数: {grade.score}\n"
 
-            # メール送信
-            result = send_mail(
-                subject,
-                message,
-                "noreply@example.com",  # 送信元
-                [student.parent_email],  # 保護者のメールアドレス
-            )
-            print(f"メール送信結果: {result}")  # ログに結果を出力（成功: 1, 失敗: 0）
-
-            return redirect("report")
+            try:
+                result = send_mail(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    [student.parent_email],
+                )
+                if result:
+                    messages.success(request, f"{student.student_name}さんの成績レポートを保護者に送信しました。")
+                else:
+                    messages.error(request, "メール送信に失敗しました。")
+            except BadHeaderError:
+                messages.error(request, "不正なヘッダーが検出されました。")
+            except Exception as e:
+                messages.error(request, f"メール送信中にエラーが発生しました: {e}")
+        except Student.DoesNotExist:
+            messages.error(request, "指定された生徒が見つかりません。")
         except Exception as e:
-            return render(request, "KDPS/report.html", {"error": f"レポート送信中にエラーが発生しました: {e}"})
+            messages.error(request, f"エラーが発生しました: {e}")
 
     return redirect("report")
 

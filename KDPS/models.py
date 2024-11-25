@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # 生徒情報
 class Student(models.Model):
     student_id = models.IntegerField(primary_key=True)
@@ -18,14 +17,23 @@ class Grades(models.Model):
     score = models.IntegerField()
     answer_image = models.BinaryField()
 
-
 # ユーザー情報
 class User(models.Model):
+    ROLE_CHOICES = [
+        ('student', '学生'),
+        ('teacher', '教師'),
+        ('admin', '管理者'),
+    ]
+    
     user_id = models.IntegerField(primary_key=True)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank=True)
     teacher_id = models.CharField(max_length=10, null=True, blank=True)
     password = models.CharField(max_length=12)
     authority = models.IntegerField()
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')  # 役職を追加
+
+    def __str__(self):
+        return f"{self.user_id} - {self.role}"
 
 # 教員情報
 class Teacher(models.Model):
@@ -71,10 +79,9 @@ class AuthTokens(models.Model):
 
 # ユーザープロフィール
 class Profile(models.Model):
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=20, verbose_name="学籍番号")
     grade = models.PositiveIntegerField(verbose_name="学年")
     class_name = models.CharField(max_length=50, verbose_name="クラス")
 
     def __str__(self):
-        return f'{self.user.username}のプロフィール'
+        return f'{self.student_id}のプロフィール'

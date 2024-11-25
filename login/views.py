@@ -1,41 +1,29 @@
-# views.py
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from .forms import LoginForm
-from django import forms
+from django.http import HttpResponse
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            # ログイン処理
-            student_ID = form.cleaned_data['student_ID']
+            student_id = form.cleaned_data['student_id']
             password = form.cleaned_data['password']
-            # ここに認証処理を追加
-            print(f"学籍番号: {student_ID}, パスワード: {password}")
-            # 成功時のリダイレクトを追加
-        else:
-            print("無効なフォームです")
+            user = authenticate(request, username=student_id, password=password)
+            if user is not None:
+                login(request, user)
+                
+                # ユーザーのロールに応じたリダイレクト先
+                if user.role == 'student':
+                    return redirect('student_home')  # 学生用のホーム
+                elif user.role == 'teacher':
+                    return redirect('teacher_home')  # 教師用のホーム
+                elif user.role == 'admin':
+                    return redirect('admin_home')  # 管理者用のホーム
+                else:
+                    return HttpResponse("ユーザーの役職が設定されていません。")
+            else:
+                form.add_error(None, "学籍番号またはパスワードが間違っています。")
     else:
         form = LoginForm()
-
-    return render(request, 'login/login.html', {'form': form})
-
-
-class LoginForm(forms.Form):
-    student_ID = forms.CharField(
-        label="学籍番号(ID)",
-        max_length=20,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': '学籍番号(ID)を入力してください',
-        })
-    )
-    password = forms.CharField(
-        label="パスワード",
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'パスワードを入力してください',
-            'id': 'input_pass'  # JavaScriptで参照するためのID
-        })
-    )
-
+    return render(request, 'login.html', {'form': form})

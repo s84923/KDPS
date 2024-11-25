@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教員新規登録</title>
+    <title>KDPS 教員新規登録</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <style>
         /* 全体のスタイル */
         body {
@@ -102,9 +105,14 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %}
+
+    <div class="main-content">
     <h1>教員新規登録</h1>
 
     <form method="POST" class="form-container">
+        {% csrf_token %}
         
         <!-- 1行目左: 教員氏名 -->
         <div class="form-row">
@@ -127,7 +135,7 @@
 	<!-- 2行目右: 担当クラス -->
         <div class="form-row">
             <label class="form-label" for="id_class_name">担当クラス</label>
-            {{ form.class_name }}
+            {{ form.student_class }}
         </div>
 
 
@@ -148,8 +156,6 @@
             <label class="form-label" for="id_teacher_id">教員ID</label>
             {{ form.teacher_id }}
         </div>
-
-	
 	<br>
 	<button type="submit">登録</button>
    </form>

@@ -2,11 +2,12 @@ from statistics import median
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from KDPS.models import Student, Grades, Test
-from django.db.models import F, Max
+from django.db.models import F, Max, Count, Avg
 from django.template.loader import render_to_string
 from django.core.cache import cache
 from weasyprint import HTML
 import csv
+import pandas as pd
 
 
 def student_scores(request):
@@ -91,7 +92,7 @@ def export_to_csv(results):
     writer.writerow(['テスト名', '担当教員', '点数', '最高点', '中央値', '受験人数'])
     if results:
         for result in results:
-            writer.writerow([
+            writer.writerow([ 
                 result['test_name'],
                 result['teacher_id'],
                 result['score'],
@@ -114,16 +115,74 @@ def export_to_pdf(results, student_name):
     return response
 
 
-def edit_score(request, student_id):
-    # 指定された student_id の成績データを取得
-    grade = get_object_or_404(Grades, student_id=student_id)
-    
-    if request.method == 'POST':
-        form = EditScoreForm(request.POST, instance=grade)
-        if form.is_valid():
-            form.save()
-            return redirect('student_scores')  # 成績一覧画面にリダイレクト
-    else:
-        form = EditScoreForm(instance=grade)
+def edit_student_scores(request):
+    student_id = request.GET.get('student_id', '').strip()
+    results = []
+    error_message = None
+    student_name = None
 
-    return render(request, 'Grades/edit_score.html', {'form': form})
+    if student_id and student_id.isdigit():
+        try:
+            # 学生情報を取得
+            student = Student.objects.get(student_id=student_id)
+            student_name = student.student_name  # 生徒名を取得
+            # 成績を取得
+            results = list(Grades.objects.filter(student_id=student)
+                           .select_related('test_id')  # test_id を含む関連情報を取得
+                           .annotate(test_name=F('test_id__test_name'), teacher_id=F('test_id__teacher_id'))
+                           .values('test_name', 'teacher_id', 'score', 'test_id', 'id'))  # test_id と id を取得
+
+            # 各テストの統計情報を計算
+            for result in results:
+                test_id = result['test_id']
+
+                # 最高点
+                max_score = (
+                    Grades.objects.filter(test_id=test_id)
+                    .aggregate(Max('score'))['score__max']
+                )
+
+                # 中央値
+                scores = list(
+                    Grades.objects.filter(test_id=test_id).values_list('score', flat=True)
+                )
+                median_score = median(scores) if scores else None
+
+                # 受験人数
+                participant_count = len(scores)
+
+                # 結果に追加
+                result['max_score'] = max_score
+                result['median_score'] = median_score
+                result['participant_count'] = participant_count
+
+            # POSTリクエストの場合、得点を更新または削除
+            if request.method == 'POST':
+                grade_id = request.POST.get('grade_id')  # hiddenフィールドからgrade_idを取得
+                new_score = request.POST.get('new_score')  # 新しい得点
+                if 'update' in request.POST and grade_id and new_score is not None:
+                    try:
+                        grade = Grades.objects.get(id=grade_id)
+                        grade.score = new_score  # 新しい得点に更新
+                        grade.save()  # 保存
+                    except Grades.DoesNotExist:
+                        error_message = "指定された成績が見つかりません。"
+                elif 'delete' in request.POST and grade_id:
+                    try:
+                        grade = Grades.objects.get(id=grade_id)
+                        grade.delete()  # 成績を削除
+                    except Grades.DoesNotExist:
+                        error_message = "指定された成績が見つかりません。"
+
+                # 更新または削除後、再度GETリクエストとしてリダイレクトして最新のデータを表示
+                return redirect(f'/edit_student_scores/?student_id={student_id}')  # リダイレクト
+
+        except Student.DoesNotExist:
+            error_message = "指定された学籍番号の生徒が見つかりません。"
+
+    return render(request, 'Grades/edit_student_scores.html', {
+        'results': results,
+        'student_id': student_id,
+        'student_name': student_name,  # 生徒名をテンプレートに渡す
+        'error_message': error_message,
+    })

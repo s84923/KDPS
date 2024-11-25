@@ -63,3 +63,9 @@ source venv/bin/activate
 
 競合した時リセットしたくない場合
 git pull origin main --rebase
+
+DB追加例
+http://localhost:8000/dbzikken/add/
+
+DB表示例
+http://localhost:8000/dbzikken/user_list/

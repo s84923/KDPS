@@ -23,26 +23,63 @@
             background-color: #f9f9f9;
         }
 
-        .h1 {
-            font-size: large;
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
         }
 
         .box {
-            border: 1px solid #007BFF;
-            /* ボーダーの太さ、スタイル、色 */
+            border: 2px dashed #007BFF;
             display: flex;
-            /* Flexboxを使用 */
+            flex-direction: column;
             justify-content: center;
-            /* 横方向の中央揃え */
             align-items: center;
-            /* 縦方向の中央揃え */
             height: 240px;
-            /* ボックスの高さ */
             width: 240px;
-            /*ボックスの幅*/
             background-color: #f8f9fa;
-            /* 背景色 */
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
         }
+
+        .box img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .box button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .box button:hover {
+            background-color: #0056b3;
+        }
+
+        .box button:focus {
+            outline: none;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* ドラッグ時のスタイル */
+        .box.dragover {
+            border: 2px solid #28a745;
+            background-color: #e9f7e8;
+        }
+
     </style>
 </head>
 
@@ -51,12 +88,54 @@
         {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
         <div class="main-content-individual-upload-container">
             <h1>答案のアップロード</h1>
-            <div class="box">
+            <div class="box" id="dropBox" ondrop="handleDrop(event)" ondragover="allowDrop(event)">
                 <img src="{% static 'img/05答案アップロード_教員メインメニュー.png' %}" alt="採点アイコン" title="採点アイコン">
                 <button type="button">または答案を選択</button>
+                <input type="file" id="fileInput" style="display:none" onchange="handleFileSelect(event)">
             </div>
+            <div class="file-name" id="fileName"></div>
         </div>
     </div>
+
+    <script>
+        // ドラッグオーバー時の挙動
+        function allowDrop(event) {
+            event.preventDefault();
+            // ドラッグしているときにボックスにドラッグしてきたファイルを示す
+            document.getElementById("dropBox").classList.add("dragover");
+        }
+
+        // ドロップしたときの挙動
+        function handleDrop(event) {
+            event.preventDefault();
+            // ドラッグオーバー時のクラスを削除
+            document.getElementById("dropBox").classList.remove("dragover");
+
+            // ドロップしたファイルを取得
+            var files = event.dataTransfer.files;
+            if (files.length > 0) {
+                displayFileName(files[0]);
+            }
+        }
+
+        // ファイル選択時の挙動
+        function handleFileSelect(event) {
+            var files = event.target.files;
+            if (files.length > 0) {
+                displayFileName(files[0]);
+            }
+        }
+
+        // ファイル名を表示する関数
+        function displayFileName(file) {
+            document.getElementById("fileName").textContent = "選択されたファイル: " + file.name;
+        }
+
+        // ボタンをクリックしたときにファイル選択を開く
+        document.querySelector('.box button').addEventListener('click', function () {
+            document.getElementById("fileInput").click();
+        });
+    </script>
 </body>
 
 </html>

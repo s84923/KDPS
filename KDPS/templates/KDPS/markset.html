@@ -19,13 +19,7 @@
             margin: 20px;
         }
 
-        .question,
-        .score {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
+
 
         .counter-wrapper {
             display: flex;
@@ -75,7 +69,7 @@
         }
 
         table {
-            width: 80%;
+            width: 70%;
             border-collapse: collapse;
         }
 
@@ -92,9 +86,41 @@
         }
 
         input[type="number"] {
-            font-size: 30px;
+            font-size: 20px;
             text-align: center;
-            width: 100px;
+            width: 60px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            /* 左右に分ける */
+            width: 100%;
+            max-width: 1200px;
+            /* 最大幅を設定 */
+        }
+
+        .left-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 48%;
+            /* 左側の幅 */
+        }
+
+        /* 右側のコンテンツ */
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 48%;
+            /* 右側の幅 */
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
         }
 
     </style>
@@ -219,21 +245,30 @@
                     </div>
                 </div>
             </div>
-
-            <table id="marksetTable">
-                <thead>
-                    <tr>
-                        <th>問題数</th>
-                        <th>点数</th>
-                        <th>部分点</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 行が動的に追加されます -->
-                </tbody>
-            </table>
-
-            <button type="submit">登録</button>
+            <div class="form-container">
+                <div class="left-container">
+                    <table id="marksetTable">
+                        <thead>
+                            <tr>
+                                <th>問題数</th>
+                                <th>点数</th>
+                                <th>部分点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 行が動的に追加されます -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="right-container">
+                    <button type="submit">登録</button>
+                    <div class="checkbox-container">
+                        <label>
+                            <input type="checkbox" id="confirmCheck"> 次回もこの採点基準を使用する
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

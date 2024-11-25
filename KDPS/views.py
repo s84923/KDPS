@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
-from django.http import JsonResponse
 from django.contrib import messages
-from .models import Student, Test, Grades
+from .models import Student, Grades
 import json
 import os
 import logging
@@ -121,37 +120,28 @@ def mark(request):
     return render(request, 'KDPS/mark.html')
 
 def individual_report(request):
-    if request.method == "POST":
-        # 点数の追加
-        test_id = request.POST.get("test_id")
-        student_id = request.POST.get("student_id")
-        score = request.POST.get("score")
-
-        try:
-            student = Student.objects.get(student_id=student_id)
-            test = Test.objects.get(test_id=test_id)
-            Grades.objects.create(test_id=test, student_id=student, score=score)
-            messages.success(request, "成績が追加されました。")
-        except Exception as e:
-            logger.error(f"データの保存中にエラーが発生: {e}")
-            messages.error(request, f"データの保存中にエラーが発生しました: {e}")
-
-        return redirect("report")
-
-    # 試験データと成績データを取得
+    selected_student_id = request.GET.get("student_id", None)
     students = Student.objects.all()
-    tests = Test.objects.all()
-    grades = Grades.objects.select_related("test_id", "student_id").all()  # 修正済み
+    grades = None
+
+    if selected_student_id:
+        try:
+            selected_student = Student.objects.get(student_id=selected_student_id)
+            grades = Grades.objects.filter(student_id=selected_student)
+        except Student.DoesNotExist:
+            messages.error(request, "指定された生徒が見つかりません。")
 
     return render(request, "KDPS/report.html", {
         "students": students,
-        "tests": tests,
         "grades": grades,
+        "selected_student_id": int(selected_student_id) if selected_student_id else None,
     })
 
 def send_report_to_parents(request):
     if request.method == "POST":
         student_id = request.POST.get("student_id")
+        evaluation = request.POST.get("evaluation", "").strip()
+
         try:
             student = Student.objects.get(student_id=student_id)
             grades = Grades.objects.filter(student_id=student)
@@ -160,26 +150,26 @@ def send_report_to_parents(request):
             message = f"{student.student_name}さんの成績:\n"
             for grade in grades:
                 message += f"試験名: {grade.test_id.test_name}, 点数: {grade.score}\n"
+            if evaluation:
+                message += f"\n評価文:\n{evaluation}"
 
-            try:
-                result = send_mail(
-                    subject,
-                    message,
-                    settings.EMAIL_HOST_USER,
-                    [student.parent_email],
-                )
-                if result:
-                    messages.success(request, f"{student.student_name}さんの成績レポートを保護者に送信しました。")
-                else:
-                    messages.error(request, "メール送信に失敗しました。")
-            except BadHeaderError:
-                messages.error(request, "不正なヘッダーが検出されました。")
-            except Exception as e:
-                messages.error(request, f"メール送信中にエラーが発生しました: {e}")
+            send_mail(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [student.parent_email],
+            )
+            messages.success(request, f"{student.student_name}さんの成績レポートと評価文を保護者に送信しました。")
+            logger.info(f"メール送信成功: {subject} to {student.parent_email}")
+
         except Student.DoesNotExist:
+            logger.error("指定された生徒が見つかりません")
             messages.error(request, "指定された生徒が見つかりません。")
         except Exception as e:
+            logger.error(f"エラーが発生しました: {e}")
             messages.error(request, f"エラーが発生しました: {e}")
+
+        return redirect("report")
 
     return redirect("report")
 

@@ -55,6 +55,9 @@
         .form-container {
             text-align: center;
             margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
         .form-container input[type="text"] {
             padding: 10px;
@@ -68,9 +71,24 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 150px;  /* ボタンの幅を揃える */
         }
         .form-container button:hover {
             background-color: #0056b3;
+        }
+
+        /* 編集画面へのリンクボタンスタイル */
+        .edit-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 150px;  /* ボタンの幅を揃える */
+        }
+        .edit-button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -84,10 +102,14 @@
             <h1>個人成績確認</h1>
             <div class="form-container">
                 <form method="get">
-                    <input type="text" name="student_id" placeholder="学籍番号を入力してください">
+                    <input type="text" name="student_id" placeholder="学籍番号を入力してください" value="{{ student_id }}">
                     <button type="submit">検索</button>
+                    {% if student_id %}
+                    <button type="submit" class="edit-button" formaction="{% url 'edit_student_scores' %}?student_id={{ student_id }}">個人成績編集画面</button>
+                    {% endif %}
                 </form>
             </div>
+
             {% if results %}
             <table>
                 <tr>

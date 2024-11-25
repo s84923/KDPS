@@ -91,6 +91,8 @@
         .form-container button:hover {
             background-color: #0056b3;
         }
+
+        
     </style>
 </head>
 <body>
@@ -104,6 +106,7 @@
             <form method="get">
                 <input type="text" name="student_id" placeholder="学籍番号を入力してください" value="{{ student_id }}">
                 <button type="submit">検索</button>
+                <button type="submit" class="back-button" formaction="{% url 'student_scores' %}?student_id={{ student_id }}">個人成績確認画面</button>
             </form>
             {% if results %}
                 <table>

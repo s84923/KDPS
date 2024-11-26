@@ -9,8 +9,7 @@ class Student(models.Model):
     email = models.CharField(max_length=30)
     parent_email = models.CharField(max_length=30)
     address = models.CharField(max_length=30)
-    password = models.CharField(max_length=128)  # パスワードフィールド
-
+    
 # 成績情報
 class Grades(models.Model):
     test_id = models.ForeignKey('Test', on_delete=models.CASCADE)  # Test を文字列で指定
@@ -43,7 +42,6 @@ class Teacher(models.Model):
     school_year = models.IntegerField()
     student_class = models.CharField(max_length=3)
     post = models.CharField(max_length=10)
-    password = models.CharField(max_length=128)  # パスワードフィールド
 
 # 試験情報
 class Test(models.Model):

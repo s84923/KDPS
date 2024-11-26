@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('test_list.urls')),
     path('',include('Log_Action.urls')),
     path('',include('Log_Error.urls')),
+    path('',include('login.urls')),
     
 ]

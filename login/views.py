@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method == 'POST':
@@ -14,12 +15,12 @@ def login_view(request):
                 login(request, user)
                 
                 # ユーザーのロールに応じたリダイレクト先
-                if user.role == 'student':
-                    return redirect('student_home')  # 学生用のホーム
-                elif user.role == 'teacher':
-                    return redirect('teacher_home')  # 教師用のホーム
-                elif user.role == 'admin':
-                    return redirect('admin_home')  # 管理者用のホーム
+                if user.profile.role == 'student':
+                    return redirect('student_dashboard')  # 学生用ダッシュボード
+                elif user.profile.role == 'teacher':
+                    return redirect('teacher_dashboard')  # 教師用ダッシュボード
+                elif user.profile.role == 'admin':
+                    return redirect('admin_dashboard')  # 管理者用ダッシュボード
                 else:
                     return HttpResponse("ユーザーの役職が設定されていません。")
             else:
@@ -27,3 +28,15 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+@login_required
+def login_redirect(request):
+    # ユーザーが生徒の場合は生徒ダッシュボードへ
+    if request.user.profile.role == 'student':
+        return redirect('student_dashboard')
+    # ユーザーが教師の場合は教師用ダッシュボードへ
+    elif request.user.profile.role == 'teacher':
+        return redirect('teacher_dashboard')
+    else:
+        # デフォルトのリダイレクト先（管理者用）
+        return redirect('admin_dashboard')

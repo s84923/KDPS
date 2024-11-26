@@ -16,11 +16,11 @@ def login_view(request):
                 
                 # ユーザーのロールに応じたリダイレクト先
                 if user.profile.role == 'student':
-                    return redirect('student_dashboard')  # 学生用ダッシュボード
+                    return render(request, 'studentmenu/studentmenu.html')  # 生徒用画面
                 elif user.profile.role == 'teacher':
-                    return redirect('teacher_dashboard')  # 教師用ダッシュボード
+                    return render(request, 'KDPS/index.html')  # 教員用画面
                 elif user.profile.role == 'admin':
-                    return redirect('admin_dashboard')  # 管理者用ダッシュボード
+                    return redirect('admin_dashboard')  # 管理者用（必要なURLに変更）
                 else:
                     return HttpResponse("ユーザーの役職が設定されていません。")
             else:
@@ -31,12 +31,14 @@ def login_view(request):
 
 @login_required
 def login_redirect(request):
-    # ユーザーが生徒の場合は生徒ダッシュボードへ
+    # ユーザーが生徒の場合は生徒用画面にリダイレクト
     if request.user.profile.role == 'student':
-        return redirect('student_dashboard')
-    # ユーザーが教師の場合は教師用ダッシュボードへ
+        return render(request, 'studentmenu/studentmenu.html')  # 生徒用画面
+
+    # ユーザーが教師の場合は教師用画面にリダイレクト
     elif request.user.profile.role == 'teacher':
-        return redirect('teacher_dashboard')
+        return render(request, 'KDPS/index.html')  # 教員用画面
+
+    # その他の場合（管理者用など）
     else:
-        # デフォルトのリダイレクト先（管理者用）
-        return redirect('admin_dashboard')
+        return redirect('admin_dashboard')  # 管理者用（必要なURLに変更）

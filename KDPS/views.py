@@ -7,6 +7,9 @@ import os
 import logging
 from django.conf import settings
 import calendar
+from django.contrib.auth import logout
+from django.contrib import messages
+
 
 # ログの設定
 logger = logging.getLogger(__name__)
@@ -181,3 +184,13 @@ def upload(request):
 
 def markset(request):
     return render(request, 'KDPS/markset.html')
+
+def logout_view(request):
+    # ログアウト処理
+    logout(request)
+
+    # ログアウトしたことをユーザーに通知
+    messages.success(request, "ログアウトしました")
+
+    # ログイン画面にリダイレクト
+    return redirect('login')

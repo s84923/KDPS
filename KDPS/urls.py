@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='index'),  # メインメニュー
@@ -13,4 +14,5 @@ urlpatterns = [
     path('overall_report/', views.overall_report, name='overall_report'),  # 全体成績レポート
     path('upload/', views.upload, name='upload'),  # ファイルアップロード
     path('markset.html', views.markset, name='markset'),  # 採点設定画面
+    path('logout/', auth_views.LogoutView.as_view(), name='logout')
 ]

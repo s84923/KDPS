@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>全体成績確認</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        /* サイドバーの文字を上に移動 */
+        .sidebar {
+            padding-top: 0px; /* 上に余白を追加 */
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 0px; /* サイドバーとの隙間を調整 */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            background-color: #fff;
+        }
+        .form-container {
+            text-align: center;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .form-container input[type="text"] {
+            padding: 10px;
+            width: 150px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 150px;  /* ボタンの幅を揃える */
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 編集画面へのリンクボタンスタイル */
+        .edit-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 150px;  /* ボタンの幅を揃える */
+        }
+        .edit-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %}
+        
+        <div class="main-content">
+            <h1>全体成績確認</h1>
+            <div class="form-container">
+                <form method="get">
+                    <input type="text" name="school_year" placeholder="学年" value="{{ school_year }}">
+                    <input type="text" name="student_class" placeholder="クラス" value="{{ student_class }}">
+                    <button type="submit">検索</button>
+                </form>
+            </div>
+
+            {% if results %}
+            <table>
+                <tr>
+                    <th>テスト名</th>
+                    <th>担当教員</th>
+                    <th>最高点</th>
+                    <th>中央値</th>
+                    <th>受験人数</th>
+                </tr>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.test_id__test_name }}</td>
+                    <td>{{ result.test_id__teacher_id }}</td>
+                    <td>{{ result.max_score }}</td>
+                    <td>{{ result.median_score }}</td>
+                    <td>{{ result.participant_count }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="form-container">
+                <form method="get" action="{% url 'export_overall_student_scores' %}">
+                    <label for="export_format">フォーマットを選択:</label>
+                    <select name="export_format" id="export_format">
+                        <option value="csv">CSV</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                    <button type="submit" name="export">エクスポート</button>
+                </form>                                                                     
+            </div>
+            {% else %}
+            <p>該当するデータがありません。</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

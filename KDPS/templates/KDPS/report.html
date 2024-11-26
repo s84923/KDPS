@@ -1,60 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    {% load static %}  <!-- これを追加 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人成績レポート</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h2>個人成績レポート</h2>
+    <div class="container">
+        <!-- サイドバーの読み込み -->
+        {% include 'KDPS/menu.html' %}
 
-    <!-- 成績と評価文送信フォーム -->
-    <form method="GET" action="{% url 'report' %}">
-        <label for="student_id">生徒を選択:</label>
-        <select name="student_id" id="student_id" required>
-            {% for student in students %}
-                <option value="{{ student.student_id }}" {% if selected_student_id == student.student_id %}selected{% endif %}>
-                    {{ student.student_name }}
-                </option>
-            {% endfor %}
-        </select>
-        <button type="submit">表示</button>
-    </form>
+        <!-- メインコンテンツ -->
+        <div class="main-content">
+            <h2>個人成績レポート</h2>
 
-    <form method="POST" action="{% url 'send_report' %}">
-        {% csrf_token %}
-        <input type="hidden" name="student_id" value="{{ selected_student_id }}">
-        <label for="evaluation">評価文:</label>
-        <textarea name="evaluation" id="evaluation" rows="4" cols="50" required></textarea>
-        <button type="submit">成績と評価を送信</button>
-    </form>
+            <!-- 生徒選択フォーム -->
+            <form method="GET" action="{% url 'report' %}">
+                <label for="student_id">生徒を選択:</label>
+                <select name="student_id" id="student_id" required>
+                    {% for student in students %}
+                        <option value="{{ student.student_id }}" {% if selected_student_id == student.student_id %}selected{% endif %}>
+                            {{ student.student_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit">表示</button>
+            </form>
 
-    {% if grades %}
-        <h3>成績一覧</h3>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>試験名</th>
-                    <th>点数</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for grade in grades %}
-                    <tr>
-                        <td>{{ grade.test_id.test_name }}</td>
-                        <td>{{ grade.score }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>選択された生徒の成績はありません。</p>
-    {% endif %}
+            <!-- 成績送信フォーム -->
+            <form method="POST" action="{% url 'send_report' %}">
+                {% csrf_token %}
+                <input type="hidden" name="student_id" value="{{ selected_student_id }}">
+                <label for="evaluation">評価文:</label>
+                <textarea name="evaluation" id="evaluation" rows="4" cols="50" required></textarea>
+                <button type="submit">成績と評価を送信</button>
+            </form>
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+            <!-- 成績一覧 -->
+            {% if grades %}
+                <h3>成績一覧</h3>
+                <table class="score-table">
+                    <thead>
+                        <tr>
+                            <th>試験名</th>
+                            <th>点数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for grade in grades %}
+                            <tr>
+                                <td>{{ grade.test_id.test_name }}</td>
+                                <td>{{ grade.score }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>選択された生徒の成績はありません。</p>
+            {% endif %}
+
+            <!-- メッセージ表示 -->
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            
+           
+        </div>
+    </div>
 </body>
 </html>

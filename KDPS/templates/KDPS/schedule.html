@@ -88,14 +88,16 @@
         </form>
 
         <h2>スケジュール一覧</h2>
-        {% for event in schedules %}
-            <div>
-                {{ event.month }}月{{ event.day }}日: {{ event.event_name }}
-                <a href="{% url 'delete_schedule' event.id %}">削除</a>
-            </div>
-        {% empty %}
-            <p>スケジュールはありません。</p>
-        {% endfor %}
+        <div class="schedule-list">
+            {% for event in schedules %}
+                <div>
+                    {{ event.month }}月{{ event.day }}日: {{ event.event_name }}
+                    <a href="{% url 'delete_schedule' event.id %}">削除</a>
+                </div>
+            {% empty %}
+                <p>スケジュールはありません。</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 </body>

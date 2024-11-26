@@ -100,80 +100,99 @@ a {
 }
 
 /* --- 個人成績レポート用スタイル --- */
-.individual-report-container {
-    padding: 20px;
-    width: 100%;
-    max-width: 1200px;
-}
-
-.individual-report-container h2 {
-    text-align: center;
+h2 {
     font-size: 28px;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.report-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+form {
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
 }
 
-.student-select,
-.score-input {
-    display: flex;
-    align-items: center;
-    flex: 1;
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
-.student-select {
-    margin-right: 20px;
-}
-
-.student-select label,
-.score-input label {
-    font-size: 18px;
-    margin-right: 10px;
-}
-
-.student-select select {
+select, textarea, input[type="text"] {
+    width: 100%;
     padding: 10px;
     font-size: 16px;
-    width: 200px;
-    height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
-.input-button-group {
-    display: flex;
-    align-items: center;
-}
-
-.score-input input {
-    width: 40px;
-    text-align: center;
-    font-size: 5px;
-    margin-right: 10px;
-    height: 15px;
-    box-sizing: border-box;
-}
-
-.score-input button {
-    padding: 10px 20px;
-    font-size: 18px;
+button {
     background-color: #007bff;
     color: white;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    height: 40px;
-    box-sizing: border-box;
 }
 
-.score-input button:hover {
+button:hover {
     background-color: #0056b3;
 }
 
+.score-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.score-table th, .score-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.score-table th {
+    background-color: #f4f4f4;
+}
+
+textarea {
+    resize: none;
+}
+
+p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.messages {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.messages p {
+    margin-bottom: 5px;
+}
+
+.link-report {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.link-report:hover {
+    color: #0056b3;
+}
 /* 追加ボタンを横並びで表示 */
 #add-score-button {
     margin-left: 10px;
@@ -252,7 +271,6 @@ table th {
 .link-report:hover {
     color: #0056b3;
 }
-
 /* --- スケジュールコンテンツ --- */
 .scheduls-content {
     flex: 1;

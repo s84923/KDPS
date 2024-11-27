@@ -75,19 +75,29 @@ a {
 }
 
 .logout {
-    margin-top: auto !important;
-    padding: 10px !important;
+    margin-top: auto;
+    padding: 10px;
+}
+
+.logout button {
+    background-color: transparent; /* ボタン背景を透明に */
+    color: white; /* ボタン文字色を白に */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    font-size: 16px; /* 文字サイズ調整 */
+    padding: 0; /* 余白を削除 */
+    text-decoration: underline; /* 下線を追加 */
 }
 
 .logout button:focus {
-    color: white !important;
-    outline: none !important;
-    box-shadow: none !important;
+    outline: none; /* フォーカス時の青枠を削除 */
+    box-shadow: none; /* ボックスシャドウを削除 */
 }
 
-.logout button:hover{
-    background-color: transparent !important; 
-    text-decoration: underline !important;
+.logout button:hover {
+    text-decoration: underline; /* ホバー時も下線を維持 */
+    background-color: transparent; /* 背景色を変更しない */
+    color: white; /* ホバー時の文字色を白に固定 */
 }
 
 /* --- メインコンテンツ設定 --- */

@@ -187,11 +187,11 @@ def edit_student_scores(request):
         'error_message': error_message,
     })
 
-
 def overall_student_scores(request):
     results = []
     student_class = request.GET.get('student_class', '')
     school_year = request.GET.get('school_year', '')
+    export_format = request.GET.get('export_format', '')
 
     if student_class and school_year:
         # 学年とクラスで絞り込む
@@ -220,7 +220,13 @@ def overall_student_scores(request):
         # キャッシュにデータを保存（5分間保持）
         cache.set('overall_student_scores_data', results, timeout=300)
 
+    if export_format == 'csv':
+        return export_to_csv_overall(request)
+    elif export_format == 'pdf':
+        return export_to_pdf_overall(request)
+    
     return render(request, 'Grades/overall_student_scores.html', {'results': results, 'student_class': student_class, 'school_year': school_year})
+
 
 def export_to_csv_overall(request):
     # GETパラメータを取得
@@ -269,5 +275,91 @@ def export_to_csv_overall(request):
             result.get('median_score', ''),
             result['participant_count'],
         ])
+
+    return response
+
+# def export_to_pdf_overall(request):
+#     # GETパラメータを取得
+#     student_class = request.GET.get('student_class', '')
+#     school_year = request.GET.get('school_year', '')
+
+#     # 空文字の場合、クエリパラメータを使わない
+#     filter_conditions = {}
+#     if student_class:
+#         filter_conditions['student_id__student_class'] = student_class
+#     if school_year:
+#         filter_conditions['student_id__school_year'] = school_year
+
+#     # 学年とクラスで絞り込んだデータを取得
+#     results = (
+#         Grades.objects.filter(**filter_conditions)
+#         .select_related('test_id')  # test_id に関連する情報を取得
+#         .values('test_id__test_name', 'test_id__teacher_id', 'test_id')  # test_id も含める
+#         .annotate(
+#             max_score=Max('score'),
+#             participant_count=Count('score')
+#         )
+#     )
+
+#     # 各テストの中央値を計算
+#     for result in results:
+#         test_id = result['test_id']  # ここで正しく 'test_id' を参照できるように修正
+
+#         # 対象テストのスコアを絞り込んだ学年とクラスの結果のみ取得
+#         scores = list(Grades.objects.filter(test_id=test_id, **filter_conditions).values_list('score', flat=True))
+#         if scores:
+#             result['median_score'] = median(scores)  # 中央値を計算
+
+#     # PDFとしてエクスポート
+#     html = render_to_string('Grades/overall_student_scores_pdf.html', {'results': results})
+#     pdf = HTML(string=html).write_pdf()
+
+#     response = HttpResponse(pdf, content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="overall_student_scores.pdf"'
+
+#     return response
+
+def export_to_pdf_overall(request):
+    # GETパラメータを取得
+    student_class = request.GET.get('student_class', '')
+    school_year = request.GET.get('school_year', '')
+
+    # 空文字の場合、クエリパラメータを使わない
+    filter_conditions = {}
+    if student_class:
+        filter_conditions['student_id__student_class'] = student_class
+    if school_year:
+        filter_conditions['student_id__school_year'] = school_year
+
+    # 学年とクラスで絞り込んだデータを取得
+    results = (
+        Grades.objects.filter(**filter_conditions)
+        .select_related('test_id')  # test_id に関連する情報を取得
+        .values('test_id__test_name', 'test_id__teacher_id', 'test_id')  # test_id も含める
+        .annotate(
+            max_score=Max('score'),
+            participant_count=Count('score')
+        )
+    )
+
+    # 各テストの中央値を計算
+    for result in results:
+        test_id = result['test_id']  # ここで正しく 'test_id' を参照できるように修正
+
+        # 対象テストのスコアを絞り込んだ学年とクラスの結果のみ取得
+        scores = list(Grades.objects.filter(test_id=test_id, **filter_conditions).values_list('score', flat=True))
+        if scores:
+            result['median_score'] = median(scores)  # 中央値を計算
+
+    # PDFとしてエクスポート
+    html = render_to_string('Grades/overall_student_scores_pdf.html', {
+        'results': results,
+        'student_class': student_class,  # 学年
+        'school_year': school_year,  # クラス
+    })
+    pdf = HTML(string=html).write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="overall_student_scores.pdf"'
 
     return response

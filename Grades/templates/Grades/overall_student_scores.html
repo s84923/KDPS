@@ -124,14 +124,13 @@
                 {% endfor %}
             </table>
             <div class="form-container">
-                <form method="get" action="{% url 'export_overall_student_scores' %}">
-                    <label for="export_format">フォーマットを選択:</label>
-                    <select name="export_format" id="export_format">
-                        <option value="csv">CSV</option>
-                        <option value="pdf">PDF</option>
-                    </select>
-                    <button type="submit" name="export">エクスポート</button>
-                </form>                                                                     
+                <!-- 検索ボタンの近くにエクスポートボタンを追加 -->
+            <form method="get" action="{% url 'export_overall_student_scores' %}">
+                <input type="hidden" name="school_year" value="{{ school_year }}">
+                <input type="hidden" name="student_class" value="{{ student_class }}">
+                <input type="hidden" name="export_format" value="csv">
+                <button type="submit">CSVエクスポート</button>
+            </form>
             </div>
             {% else %}
             <p>該当するデータがありません。</p>

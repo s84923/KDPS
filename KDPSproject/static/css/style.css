@@ -86,7 +86,7 @@ a {
     cursor: pointer; /* カーソルをポインターに変更 */
     font-size: 16px; /* 文字サイズ調整 */
     padding: 0; /* 余白を削除 */
-    text-decoration: underline; /* 下線を追加 */
+    text-decoration: none; /* 下線を削除 */
 }
 
 .logout button:focus {
@@ -95,7 +95,7 @@ a {
 }
 
 .logout button:hover {
-    text-decoration: underline; /* ホバー時も下線を維持 */
+    text-decoration: underline; /* ホバー時も下線を削除 */
     background-color: transparent; /* 背景色を変更しない */
     color: white; /* ホバー時の文字色を白に固定 */
 }

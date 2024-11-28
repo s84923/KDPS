@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from KDPS.models import Student
 from django import forms
+from django.http import HttpResponse
 
 # フォーム定義
 class StudentForm(forms.ModelForm):
@@ -36,3 +37,12 @@ def edit_student(request, student_id):
     else:
         form = StudentForm(instance=student)
     return render(request, 'StudentList/edit_student.html', {'form': form, 'student': student})
+
+
+# 生徒削除機能
+def delete_student(request, student_id):
+    student = get_object_or_404(Student, student_id=student_id)
+    if request.method == 'POST':
+        student.delete()
+        return redirect('student_list')  # 削除後に生徒一覧ページへリダイレクト
+    return HttpResponse(status=405)  # POST以外のリクエストは許可しない

@@ -5,55 +5,73 @@
     <title>KDPS 生徒新規登録</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
 </head>
 <body>
     <div class="container">
-    {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
 
-    <div class="main-content">
-    <h1 class="title">生徒新規登録</h1>
+        <div class="main-content">
+            <h1 class="title">生徒新規登録</h1>
 
-    <form method="POST" class="form-container">
-        {% csrf_token %}
+            <form method="POST" class="form-container">
+                {% csrf_token %}
 
-        <div class="form-row">
-            <label class="form-label" for="id_student_id">学籍番号</label>
-            {{ form.student_id }}
+                <div class="form-row">
+                    <label class="form-label" for="id_student_id">学籍番号</label>
+                    {{ form.student_id }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_student_name">生徒氏名</label>
+                    {{ form.student_name }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_school_year">学年</label>
+                    {{ form.school_year }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_student_class">クラス</label>
+                    {{ form.student_class }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_email">メールアドレス</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_parent_email">保護者メールアドレス</label>
+                    {{ form.parent_email }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_address">住所</label>
+                    {{ form.address }}
+                </div>
+
+                <!-- ユーザー情報 -->
+                <h2>ユーザー情報</h2>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_password">パスワード</label>
+                    {{ user_form.password }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_authority">権限</label>
+                    {{ user_form.authority }}
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="id_role">役職</label>
+                    {{ user_form.role }}
+                </div>
+
+                <button type="submit">登録</button>
+            </form>
         </div>
-
-        <div class="form-row">
-            <label class="form-label" for="id_student_name">生徒氏名</label>
-            {{ form.student_name }}
-        </div>
-
-        <div class="form-row">
-            <label class="form-label" for="id_school_year">学年</label>
-            {{ form.school_year }}
-        </div>
-
-        <div class="form-row">
-            <label class="form-label" for="id_student_class">クラス</label>
-            {{ form.student_class }}
-        </div>
-
-        <div class="form-row">
-            <label class="form-label" for="id_email">メールアドレス</label>
-            {{ form.email }}
-        </div>
-
-        <div class="form-row">
-            <label class="form-label" for="id_parent_email">保護者メールアドレス</label>
-            {{ form.parent_email }}
-        </div>
-
-        <div class="form-row">
-            <label class="form-label" for="id_address">住所</label>
-            {{ form.address }}
-        </div>
-
-        <br>
-        <button type="submit">登録</button>
-    </form>
+    </div>
 </body>
 </html>

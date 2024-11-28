@@ -40,6 +40,7 @@ class Teacher(models.Model):
     teacher_id = models.CharField(max_length=10, primary_key=True)
     teacher_name = models.CharField(max_length=20)
     school_year = models.IntegerField()
+    email = models.CharField(max_length=30)
     student_class = models.CharField(max_length=3)
     post = models.CharField(max_length=10)
 

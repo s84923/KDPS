@@ -15,4 +15,5 @@ urlpatterns = [
     path('upload/', views.upload, name='upload'),  # ファイルアップロード
     path('markset.html', views.markset, name='markset'),  # 採点設定画面
     path('logout/', auth_views.LogoutView.as_view(), name='logout')
+
 ]

@@ -155,6 +155,7 @@ EMAIL_HOST_USER = 'oky.KDPS@gmail.com'  # 送信元のメールアドレス
 EMAIL_HOST_PASSWORD = 'zsny bzbo ghqf mvww'  # Gmailアカウントのアプリパスワード
 DEFAULT_FROM_EMAIL = 'noreply@example.com'  # デフォルト送信者メールアドレス
 
+LOGOUT_REDIRECT_URL = '/login'
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 

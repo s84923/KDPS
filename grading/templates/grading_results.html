@@ -1,0 +1,21 @@
+<h2>全体の採点結果</h2>
+<table>
+    <thead>
+        <tr>
+            <th>日時</th>
+            <th>問題文</th>
+            <th>ユーザー解答</th>
+            <th>フィードバック</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for history in histories %}
+        <tr>
+            <td>{{ history.timestamp }}</td>
+            <td>{{ history.question_text }}</td>
+            <td>{{ history.user_answer }}</td>
+            <td>{{ history.feedback }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'your-secret-key-here'
+SECRET_KEY = 'django-insecure-403mua#8lr^m1a*t%+n=so&!*r3%zxqlg-s@z#f)^u#8lpw9%2'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,6 +55,7 @@ INSTALLED_APPS = [
     'test_list',
     'Log_Action',
     'Log_Error',
+    'grading',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +155,32 @@ EMAIL_HOST_USER = 'oky.KDPS@gmail.com'  # 送信元のメールアドレス
 EMAIL_HOST_PASSWORD = 'zsny bzbo ghqf mvww'  # Gmailアカウントのアプリパスワード
 DEFAULT_FROM_EMAIL = 'noreply@example.com'  # デフォルト送信者メールアドレス
 
+
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+# 環境変数からAPIキーを取得
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+# その他の設定
+SIMILARITY_THRESHOLD_HIGH = 0.9
+SIMILARITY_THRESHOLD_MEDIUM = 0.7
+
+# ログ設定
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'errors.log'),
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

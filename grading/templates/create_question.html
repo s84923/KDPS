@@ -1,0 +1,26 @@
+<h2>新しい問題を作成</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="test">試験名:</label>
+    {{ form.test }}<br>
+    
+    <label for="content">問題文:</label>
+    {{ form.content }}<br>
+    
+    <label for="question_type">問題の種類:</label>
+    {{ form.question_type }}<br>
+    
+    <label for="correct_answer">模範解答:</label>
+    {{ form.correct_answer }}<br>
+    
+    <label for="choices">選択肢（選択問題のみ）:</label>
+    {{ form.choices }}<br>
+    
+    <label for="score">配点:</label>
+    <input type="number" name="score" min="1" value="10" required><br>
+    
+    <label for="partial_scoring_conditions">部分点条件（記述問題のみ）:</label>
+    {{ form.partial_scoring_conditions }}<br>
+    
+    <button type="submit">作成</button>
+</form>

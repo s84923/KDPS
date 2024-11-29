@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提出完了</title>
+</head>
+<body>
+    <h1>すべての解答が送信されました</h1>
+    <ul>
+        {% for answer in answers %}
+            <li>{{ answer.question.text }}: {{ answer.answer_text }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'question_detail' 1 %}">最初の問題に戻る</a>
+</body>
+</html>

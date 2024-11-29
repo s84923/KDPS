@@ -27,17 +27,18 @@
                     {{ form.teacher_name }}
                 </div>
 
+                <!-- メールアドレス -->
+                <div class="form-row">
+                    <label class="form-label" for="id_teacher_mail">メールアドレス</label>
+                    {{ form.email }}
+                </div>
+
                 <!-- 担当学年 -->
                 <div class="form-row">
                     <label class="form-label" for="id_grade">担当学年</label>
                     {{ form.school_year }}
                 </div>
 
-                <!-- メールアドレス -->
-                <div class="form-row">
-                    <label class="form-label" for="id_teacher_mail">メールアドレス</label>
-                    {{ form.teacher_mail }}
-                </div>
 
                 <!-- 担当クラス -->
                 <div class="form-row">
@@ -51,10 +52,11 @@
                     {{ form.password }}
                 </div>
 
+
                 <!-- 役職 -->
                 <div class="form-row">
                     <label class="form-label" for="id_role">役職</label>
-                    {{ form.role }}
+                    {{ form.post }}
                 </div>
 
                 <!-- 教員ID -->

@@ -1,14 +1,10 @@
+# forms.py
 from django import forms
-from KDPS.models import Teacher
+from KDPS.models import Teacher, User
 
 class TeacherForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'パスワード'}))
+
     class Meta:
         model = Teacher
-        fields = ['teacher_id', 'teacher_name', 'school_year', 'student_class', 'post']
-        widgets = {
-            'teacher_id': forms.TextInput(attrs={'placeholder': '教員ID'}),
-            'teacher_name': forms.TextInput(attrs={'placeholder': '教員氏名'}),
-            'school_year': forms.NumberInput(attrs={'placeholder': '担当学年'}),
-            'student_class': forms.TextInput(attrs={'placeholder': '担当クラス'}),
-            'post': forms.TextInput(attrs={'placeholder': '役職'}),
-        }
+        fields = ['teacher_name', 'school_year', 'email', 'student_class', 'post', 'teacher_id', 'password']

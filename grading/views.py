@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Question, Test, TempAnswer, ConversationHistory, GradingCriteria
+from KDPS.models import Question, GeminiTest, TempAnswer, ConversationHistory, GradingCriteria
 from .forms import QuestionForm
 from .scoring import grade_question  # scoring.pyから採点機能をインポート
 
 # ホーム画面 - 試験リストを表示
 def home(request):
-    tests = Test.objects.all()
+    tests = GeminiTest.objects.all()
     return render(request, "home.html", {"tests": tests})
 
 # 問題作成画面
@@ -30,12 +30,12 @@ def create_question(request):
 
 # 試験選択画面
 def select_test(request):
-    tests = Test.objects.all()
+    tests = GeminiTest.objects.all()
     return render(request, "select_test.html", {"tests": tests})
 
 # 試験開始画面 - 問題リストを表示
 def start_test(request, test_id):
-    test = get_object_or_404(Test, id=test_id)
+    test = get_object_or_404(GeminiTest, id=test_id)
     questions = test.questions.all()
     return render(request, "start_test.html", {"test": test, "questions": questions})
 
@@ -152,7 +152,7 @@ def submit_answers(request, test_id):
         # 一時保存データを削除
         temp_answers.delete()
 
-        test = get_object_or_404(Test, id=test_id)
+        test = get_object_or_404(GeminiTest, id=test_id)
         test.total_score = total_score
         test.save()
 
@@ -160,7 +160,7 @@ def submit_answers(request, test_id):
 
 # 採点結果表示画面
 def show_results(request, test_id):
-    test = get_object_or_404(Test, id=test_id)
+    test = get_object_or_404(GeminiTest, id=test_id)
     history = ConversationHistory.objects.filter(question__test=test)
     total_score = sum([entry.score for entry in history if entry.score is not None])
     return render(request, "show_results.html", {
@@ -172,7 +172,7 @@ def show_results(request, test_id):
 
 # 採点基準設定画面
 def set_grading_criteria(request, test_id):
-    test = get_object_or_404(Test, id=test_id)
+    test = get_object_or_404(GeminiTest, id=test_id)
     criteria = GradingCriteria.objects.filter(test=test).first()
 
     if request.method == "POST":

@@ -1,6 +1,6 @@
 from django.db import models
 
-class Test(models.Model):
+class GeminiTest(models.Model):
     name = models.CharField(max_length=255)  # 試験名
     total_score = models.IntegerField(default=100)  # 試験の満点
 
@@ -13,7 +13,7 @@ class Question(models.Model):
         ('objective', '選択問題'),
         ('descriptive', '記述問題'),
     )
-    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='questions', default=1)  # 試験との紐付け
+    test = models.ForeignKey(GeminiTest, on_delete=models.CASCADE, related_name='questions', default=1)  # 試験との紐付け
     content = models.TextField()  # 問題文
     question_type = models.CharField(max_length=20, choices=QUESTION_TYPES, default='descriptive')
     correct_answer = models.TextField()  # 正解（記述問題の場合）

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Question, Test
+from KDPS.models import Question
 
 class QuestionForm(forms.ModelForm):
     class Meta:

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDPS 教員新規登録</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* 必要なスタイルがあればここに記載 */
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+
+        <div class="main-content">
+            <h1>教員新規登録</h1>
+
+            <form method="POST" class="form-container">
+                {% csrf_token %}
+
+                <!-- 教員氏名 -->
+                <div class="form-row">
+                    <label class="form-label" for="id_teacher_name">教員氏名</label>
+                    {{ form.teacher_name }}
+                </div>
+
+                <!-- 担当学年 -->
+                <div class="form-row">
+                    <label class="form-label" for="id_grade">担当学年</label>
+                    {{ form.school_year }}
+                </div>
+
+                <!-- メールアドレス -->
+                <div class="form-row">
+                    <label class="form-label" for="id_teacher_mail">メールアドレス</label>
+                    {{ form.teacher_mail }}
+                </div>
+
+                <!-- 担当クラス -->
+                <div class="form-row">
+                    <label class="form-label" for="id_class_name">担当クラス</label>
+                    {{ form.student_class }}
+                </div>
+
+                <!-- パスワード -->
+                <div class="form-row">
+                    <label class="form-label" for="id_password">パスワード</label>
+                    {{ form.password }}
+                </div>
+
+                <!-- 役職 -->
+                <div class="form-row">
+                    <label class="form-label" for="id_role">役職</label>
+                    {{ form.role }}
+                </div>
+
+                <!-- 教員ID -->
+                <div class="form-row">
+                    <label class="form-label" for="id_teacher_id">教員ID</label>
+                    {{ form.teacher_id }}
+                </div>
+                <br>
+                <button type="submit">登録</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

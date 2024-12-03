@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>採点基準の設定</title>
+    {% load static %} <!-- static タグをロード -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .title {
+            font-size: 40px;
+        }
+
+        .quecounter-input {
+            font-size: 30px;
+            text-align: right;
+            width: 100px;
+            margin: 20px;
+        }
+
+
+
+        .counter-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .counter-wrapper span {
+            font-size: 30px;
+            margin-left: 10px;
+        }
+
+        .counter-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        .counter-que,
+        .counter-max {
+            display: flex;
+            align-items: center;
+        }
+
+        .scorecounter-input,
+        .partialscore-input {
+            font-size: 30px;
+            text-align: center;
+            width: 100px;
+            margin: 20px;
+        }
+
+        .main-content-individual-markset-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .marksetcontainer {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        table {
+            width: 70%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            font-size: 20px;
+            text-align: center;
+            width: 60px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            /* 左右に分ける */
+            width: 100%;
+            max-width: 1200px;
+            /* 最大幅を設定 */
+        }
+
+        .left-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 48%;
+            /* 左側の幅 */
+        }
+
+        /* 右側のコンテンツ */
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 48%;
+            /* 右側の幅 */
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+    </style>
+
+    <script>
+        let quenumber = 0;
+
+        function queupdateCounter() {
+            document.getElementById("quecounter").value = quenumber;
+        }
+
+        function queincrease() {
+            quenumber++;
+            queupdateCounter();
+            updateTable(); // テーブル更新
+        }
+
+        function quedecrease() {
+            if (quenumber > 0) {
+                quenumber--;
+                queupdateCounter();
+                updateTable(); // テーブル更新
+            }
+        }
+
+        let scorenumber = 0;
+
+        function scoreupdateCounter() {
+            document.getElementById("scorecounter").value = scorenumber;
+        }
+
+        function scoreincrease() {
+            scorenumber++;
+            scoreupdateCounter();
+        }
+
+        function scoredecrease() {
+            if (scorenumber > 0) {
+                scorenumber--;
+                scoreupdateCounter();
+            }
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('marksetTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = ''; // tbodyをクリア
+
+            for (let i = 0; i < quenumber; i++) {
+                const row = document.createElement('tr');
+                // 問題列
+                const questionCell = document.createElement('td');
+                questionCell.textContent = `問題${i + 1}`;
+                row.appendChild(questionCell);
+
+                // 点数列：inputフィールドを追加（ユーザーが変更可能）
+                const ScoreCell = document.createElement('td');
+                const ScoreInput = document.createElement('input');
+                ScoreInput.type = 'number';
+                ScoreInput.value = scorenumber; // 初期値は満点点数
+                ScoreInput.min = 0; // 点数は0以上
+                ScoreCell.appendChild(ScoreInput);
+                const ScoreSpan = document.createElement('span');
+                ScoreSpan.textContent = '点'; // 常に「点」を表示
+                ScoreCell.appendChild(ScoreSpan);
+                row.appendChild(ScoreCell);
+
+                // 部分点列：inputフィールドを追加
+                const partialScoreCell = document.createElement('td');
+                const partialScoreInput = document.createElement('input');
+                partialScoreInput.type = 'number';
+                partialScoreInput.value = 0; // 部分点は初期0
+                partialScoreInput.min = 0; // 部分点は0以上
+                partialScoreCell.appendChild(partialScoreInput);
+                const partialScoreSpan = document.createElement('span');
+                partialScoreSpan.textContent = '点'; // 常に「点」を表示
+                partialScoreCell.appendChild(partialScoreSpan);
+                row.appendChild(partialScoreCell);
+
+                tbody.appendChild(row);
+            }
+        }
+
+        // 初期設定でテーブルを表示
+        document.addEventListener('DOMContentLoaded', () => {
+            queupdateCounter(); // 初期状態をセット
+            scoreupdateCounter(); // 初期状態をセット
+        });
+
+        // 問題数を直接入力して行を更新
+        document.getElementById("quecounter").addEventListener("input", function () {
+            quenumber = parseInt(this.value, 10);
+            if (quenumber > 0) {
+                updateTable(); // テーブル更新
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="marksetcontainer">
+        {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
+        <div class="main-content-individual-markset-container">
+            <h1 class="title">採点基準の設定</h1><br>
+            <div class="counter-container">
+                <div class="question">
+                    <h3>問題数を入力してください</h3>
+                    <div class="counter-que">
+                        <button onclick="quedecrease()">-</button>
+                        <input type="number" class="quecounter-input" min="1" id="quecounter" value="0">
+                        <span>問</span> <!-- 常に「問」を表示 -->
+                        <button onclick="queincrease()">+</button>
+                    </div>
+                </div>
+                <div class="score">
+                    <h3>満点になる点数を入力してください</h3>
+                    <div class="counter-max">
+                        <button onclick="scoredecrease()">-</button>
+                        <input type="number" class="scorecounter-input" min="1" id="scorecounter" value="0">
+                        <span>点</span> <!-- 常に「点」を表示 -->
+                        <button onclick="scoreincrease()">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="left-container">
+                    <table id="marksetTable">
+                        <thead>
+                            <tr>
+                                <th>問題数</th>
+                                <th>点数</th>
+                                <th>部分点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 行が動的に追加されます -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="right-container">
+                    <button type="submit">登録</button>
+                    <div class="checkbox-container">
+                        <label>
+                            <input type="checkbox" id="confirmCheck"> 次回もこの採点基準を使用する
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

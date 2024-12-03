@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績一覧</title>
+    <style>
+        @font-face {
+            font-family: 'Noto Sans JP';
+            src: url('file:///vsc_workspace/KDPSproject/static/fonts/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+        }
+        body {
+            font-family: 'Noto Sans JP', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
+        .student-info {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>成績一覧</h1>
+    <div class="student-info">
+        <p><strong>学年:</strong> {{ school_year }}</p>
+        <p><strong>クラス:</strong> {{ student_class }}</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>テスト名</th>
+                <th>担当教員</th>
+                <th>最高点</th>
+                <th>中央値</th>
+                <th>受験人数</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.test_id__test_name }}</td>
+                    <td>{{ result.test_id__teacher_id }}</td>
+                    <td>{{ result.max_score }}</td>
+                    <td>{{ result.median_score }}</td>
+                    <td>{{ result.participant_count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

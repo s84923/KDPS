@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ test.name }} - 採点結果</title>
+</head>
+<body>
+    <h1>{{ test.name }} - 採点結果</h1>
+    <p>合計得点: {{ total_score }} / {{ max_score }}</p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>問題</th>
+                <th>フィードバック</th>
+                <th>得点</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in history %}
+            <tr>
+                <td>{{ entry.question.content }}</td>
+                <td>{{ entry.feedback }}</td>
+                <td>{{ entry.score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'home' %}">ホームに戻る</a>
+</body>
+</html>

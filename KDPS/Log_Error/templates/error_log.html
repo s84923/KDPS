@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>エラーログの表示</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .container {
+            display: flex;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %}  <!-- サイドバー -->
+
+        <div class="main-content">
+            <h1>エラーログの表示</h1>
+            <table>
+                <tr>
+                    <th>エラーID</th>
+                    <th>ユーザーID</th>
+                    <th>エラーメッセージ</th>
+                    <th>発生日時</th>
+                </tr>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.error_id }}</td>
+                    <td>{{ log.user_id }}</td>
+                    <td>{{ log.error_message }}</td>
+                    <td>{{ log.timestamp|date:"Y/m/d H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">エラーログがありません。</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

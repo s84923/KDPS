@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KDPS{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- サイドバー -->
+        {% include 'KDPS/menu.html' %}
+        
+        <!-- ページごとのコンテンツ -->
+        <div class="main-content">
+            {% block content %}
+            <!-- ページ固有のコンテンツ -->
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

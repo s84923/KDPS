@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>試験管理画面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* h1 を少し左にずらす */
+        .title {
+            font-size: 2em;
+            color: #333;
+            margin-left: -205px; /* 左に205pxずらす */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <!-- サイドバー -->
+        {% include 'KDPS/menu.html' %}
+        
+        <!-- タイトルとメインコンテンツ -->
+        <div class="main-content">
+            <h1 class="title">試験管理</h1>
+            <div class="grid-container">
+                
+                <a href="{% url 'new_tests' %}" class="grid-item">
+                    <img src="{% static 'img/試験01試験新規作成_試験管理画面.png' %}" alt="試験新規作成">
+                    <p>試験新規作成</p>
+                </a>
+
+                <a href="{% url 'test_list' %}" class="grid-item">
+                    <img src="{% static 'img/試験02試験情報編集_試験管理画面.png' %}" alt="試験情報編集">
+                    <p>試験情報編集</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/your_font_awesome_kit.js" crossorigin="anonymous"></script>
+</body>
+</html>

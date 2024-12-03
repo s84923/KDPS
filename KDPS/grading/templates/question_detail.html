@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解答入力</title>
+</head>
+<body>
+    <h1>{{ question.text }}</h1>
+    <form method="post" action="{% url 'save_answer' question.id %}">
+        {% csrf_token %}
+        <label for="answer_text">解答:</label>
+        <textarea id="answer_text" name="answer_text">{% if answer %}{{ answer.answer_text }}{% endif %}</textarea>
+        <button type="submit">保存</button>
+    </form>
+    <a href="{% url 'submit_all_answers' %}">まとめて送信</a>
+</body>
+</html>

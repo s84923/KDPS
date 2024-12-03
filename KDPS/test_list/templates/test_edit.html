@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>試験編集</title>
+</head>
+<body>
+    <h1>試験編集</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.test_id.label_tag }}</td>
+                <td>{{ form.test_id }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.test_name.label_tag }}</td>
+                <td>{{ form.test_name }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.teacher_id.label_tag }}</td>
+                <td>{{ form.teacher_id }}</td>
+            </tr>
+        </table>
+        <button type="submit">保存</button>
+    </form>
+    <a href="{% url 'test_list' %}">試験一覧に戻る</a>
+</body>
+</html>

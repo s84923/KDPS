@@ -1,0 +1,71 @@
+
+※注意！！！
+作業を行う可能性がある人は統計情報ページを開かないでください！！
+ページ起動時に、グラフを保存した画像を生成しているので、
+複数人が変更を加えた判定になり、衝突します
+
+
+プル
+git pull
+
+ファイルのステージ(一覧用)
+git add .
+
+コミット
+git commit -m "コミットメッセージ"
+
+プッシュ
+git push
+
+手順
+１.プル
+２.ステージ
+３.コミット
+４.プッシュ
+(プッシュとコミットは、衝突の可能性あるから、一声かけてやろう！)
+
+
+モジュールのimportについて
+多分、オーナー以外も出来ると思う。
+
+手順
+１.必要なモジュールをpipする。
+２.pip freeze -> requirements.txt　このコマンドを実行する
+３.終わり(requirements.txtにモジュール情報が保存される)
+４.インストールする場合
+５.pip install -r requirements.txt
+
+
+現在の変更をコミットまたはスタッシュ：
+git commit -am "Save changes"
+# または
+git stash
+
+リモートブランチを手動でマージ：
+git pull --no-rebase
+
+自分の変更をリセットして最新の状態にするときは
+git reset --hard
+git pull
+
+分岐が発生した場合
+git fetch origin
+git reset --hard origin/main
+
+ポート開放
+netstat -ano | findstr :8000(8000はポート番号)
+これを実行して出てきた最後の数字を<PID>に入れる
+taskkill /F /PID <PID>
+
+
+仮想環境
+source venv/bin/activate
+
+競合した時リセットしたくない場合
+git pull origin main --rebase
+
+DB追加例
+http://localhost:8000/dbzikken/add/
+
+DB表示例
+http://localhost:8000/dbzikken/user_list/

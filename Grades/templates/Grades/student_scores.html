@@ -90,6 +90,50 @@
         .edit-button:hover {
             background-color: #218838;
         }
+
+        /* トースト通知スタイル */
+        .toast {
+            visibility: hidden;
+            width: 300px;  /* 幅を300pxに設定 */
+            position: fixed;
+            z-index: 1;
+            left: 87%;
+            top: 15px;  /* 画面の上部に表示 */
+            transform: translateX(-50%); /* 左右中央に配置 */
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
+        }
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
+        }
     </style>
 </head>
 <body>
@@ -138,7 +182,7 @@
                         <option value="csv">CSV</option>
                         <option value="pdf">PDF</option>
                     </select>
-                    <button type="submit" name="export">エクスポート</button>
+                    <button type="submit" name="export" onclick="showToast()">エクスポート</button>
                 </form>
             </div>
             {% else %}
@@ -146,5 +190,16 @@
             {% endif %}
         </div>
     </div>
+
+    <!-- トースト通知 -->
+    <div id="toast" class="toast">エクスポートされました！</div>
+
+    <script>
+        function showToast() {
+            var toast = document.getElementById("toast");
+            toast.className = "toast show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
 </body>
 </html>

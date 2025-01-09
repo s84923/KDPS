@@ -26,21 +26,18 @@
             padding: 0;
         }
 
-
-        /* サイドバーの設定 */
         .sidebar {
-            width: 310px; /* サイドバーの幅 */
+            width: 310px;
             background-color: #000;
             padding-top: 0px;
-            position: fixed; /* 固定配置 */
-            height: 100vh; /* ビューポートの高さに合わせる */
+            position: fixed;
+            height: 100vh;
             color: #fff;
         }
 
-        /* メインコンテンツ */
         .main-content {
             flex: 1;
-            margin-left: 250px; /* サイドバー分のスペース */
+            margin-left: 250px;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -92,7 +89,29 @@
             background-color: #0056b3;
         }
 
-        
+        .toast {
+            visibility: hidden;
+            width: 300px;
+            position: fixed;
+            z-index: 1;
+            left: 87%;
+            top: 15px;
+            transform: translateX(-50%);
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -103,11 +122,17 @@
             <div class="student-info">
                 <p><strong>生徒名:</strong> {{ student_name }}</p>
             </div>
+
+            {% for message in messages %}
+                <div id="toast" class="toast">{{ message }}</div>
+            {% endfor %}
+            
             <form method="get">
                 <input type="text" name="student_id" placeholder="学籍番号を入力してください" value="{{ student_id }}">
                 <button type="submit">検索</button>
                 <button type="submit" class="back-button" formaction="{% url 'student_scores' %}?student_id={{ student_id }}">個人成績確認画面</button>
             </form>
+
             {% if results %}
                 <table>
                     <tr>
@@ -143,5 +168,18 @@
             {% endif %}
         </div>
     </div>
+
+    <script>
+        // トースト通知を3秒間表示
+        window.onload = function() {
+            var toast = document.getElementById("toast");
+            if (toast) {
+                toast.className = "toast show";
+                setTimeout(function() {
+                    toast.className = toast.className.replace("show", "");
+                }, 3000);  // 3秒間表示
+            }
+        };
+    </script>
 </body>
 </html>

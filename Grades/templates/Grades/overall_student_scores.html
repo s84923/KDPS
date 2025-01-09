@@ -22,14 +22,9 @@
             margin: 0;
             padding: 0;
         }
-        /* サイドバーの文字を上に移動 */
-        .sidebar {
-            padding-top: 0px; /* 上に余白を追加 */
-        }
         .main-content {
             flex: 1;
             padding: 20px;
-            margin-left: 0px; /* サイドバーとの隙間を調整 */
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -69,28 +64,59 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 150px;  /* ボタンの幅を揃える */
+            width: 150px;
         }
         .form-container button:hover {
             background-color: #0056b3;
         }
 
-        /* 編集画面へのリンクボタンスタイル */
-        .edit-button {
-            padding: 10px 20px;
-            background-color: #28a745;
+        /* トースト通知スタイル */
+        .toast {
+            visibility: hidden;
+            width: 300px;  /* 幅を300pxに設定 */
+            position: fixed;
+            z-index: 1;
+            left: 87%;
+            top: 15px;  /* 画面の上部に表示 */
+            transform: translateX(-50%); /* 左右中央に配置 */
+            background-color: #000000;
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 150px;  /* ボタンの幅を揃える */
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
         }
-        .edit-button:hover {
-            background-color: #218838;
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {top: 0; opacity: 0;}
+            to {top: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {top: 30px; opacity: 1;}
+            to {top: 0; opacity: 0;}
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         {% include 'KDPS/menu.html' %}
         
@@ -123,26 +149,34 @@
                 </tr>
                 {% endfor %}
             </table>
+
             <div class="form-container">
-                <!-- 検索ボタンの近くにエクスポートボタンを追加 -->
                 <form method="get" action="{% url 'overall_student_scores' %}">
                     <input type="hidden" name="school_year" value="{{ school_year }}">
                     <input type="hidden" name="student_class" value="{{ student_class }}">
-                    <!-- エクスポート形式選択 -->
                     <label for="export_format">エクスポート形式:</label>
                     <select name="export_format" id="export_format">
                         <option value="csv" {% if export_format == 'csv' %}selected{% endif %}>CSV</option>
                         <option value="pdf" {% if export_format == 'pdf' %}selected{% endif %}>PDF</option>
                     </select>
-                
-                    <!-- 検索ボタン -->
-                    <button type="submit">エクスポート</button>
-                </form>                
+                    <button type="submit" onclick="showToast()">エクスポート</button>
+                </form>
             </div>
             {% else %}
             <p>該当するデータがありません。</p>
             {% endif %}
         </div>
     </div>
+
+    <!-- トースト通知 -->
+    <div id="toast" class="toast">エクスポートされました！</div>
+
+    <script>
+        function showToast() {
+            var toast = document.getElementById("toast");
+            toast.className = "toast show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
 </body>
 </html>

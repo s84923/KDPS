@@ -8,7 +8,7 @@ from django.core.cache import cache
 from weasyprint import HTML
 import csv
 import pandas as pd
-
+from django.contrib import messages
 
 def student_scores(request):
     student_id = request.GET.get('student_id', '').strip()
@@ -165,12 +165,14 @@ def edit_student_scores(request):
                         grade = Grades.objects.get(id=grade_id)
                         grade.score = new_score  # 新しい得点に更新
                         grade.save()  # 保存
+                        messages.success(request, '更新されました!')  # 成功メッセージを表示
                     except Grades.DoesNotExist:
                         error_message = "指定された成績が見つかりません。"
                 elif 'delete' in request.POST and grade_id:
                     try:
                         grade = Grades.objects.get(id=grade_id)
                         grade.delete()  # 成績を削除
+                        messages.success(request, '削除されました!')  # 成功メッセージを表示
                     except Grades.DoesNotExist:
                         error_message = "指定された成績が見つかりません。"
 

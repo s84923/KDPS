@@ -18,3 +18,12 @@ class LoginForm(forms.Form):
             'required': 'required'
         })
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        student_ID = cleaned_data.get("student_ID")
+        password = cleaned_data.get("password")
+
+        if not student_ID or not password:
+            raise forms.ValidationError("学籍番号(ID)とパスワードを両方入力してください。")
+

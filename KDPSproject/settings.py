@@ -78,6 +78,7 @@ TEMPLATES = [
             BASE_DIR / 'KDPS/templates',        # KDPSの全体テンプレートディレクトリ
             BASE_DIR / 'KDPS/templates/KDPS',  # KDPS配下のテンプレートディレクトリ
             BASE_DIR / 'DBzikken/templates',   # DBzikkenのテンプレートディレクトリ
+            BASE_DIR / 'login/templates',
         ],
         'APP_DIRS': True,  # 各アプリケーションのテンプレートディレクトリを自動で検出
         'OPTIONS': {

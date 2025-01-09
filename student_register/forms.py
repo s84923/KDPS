@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from KDPS.models import Student
+from KDPS.models import Student, User
 
 class StudentForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'パスワード'}))

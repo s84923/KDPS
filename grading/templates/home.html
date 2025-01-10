@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ホーム - 試験リスト</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
 </head>
+
 <body>
-    <h2>試験を選択してください</h2>
-
-    <!-- Testモデルから取得した試験 -->
-    <h3>試験リスト</h3>
-    <ul>
-        {% for test in tests %}
-            <li><a href="{% url 'start_test' test.test_id %}">{{ test.test_name }}</a></li>
-        {% empty %}
-            <p>利用可能な試験はありません。</p>
-        {% endfor %}
-    </ul>
-
-    <a href="{% url 'create_question' %}">新しい問題を作成</a>
+    <div class="container">
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+        <div class="grading-container">
+            <h2>試験を選択してください</h2>
+            <ul>
+                {% for test in tests %}
+                <li><a href="{% url 'start_test' test.id %}">{{ test.name }}</a></li>
+                {% empty %}
+                <p>現在、利用可能な試験はありません。</p>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'create_question' %}">新しい問題を作成</a>
+        </div>
+    </div>
 </body>
+
 </html>

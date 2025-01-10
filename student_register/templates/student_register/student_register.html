@@ -9,6 +9,7 @@
 
     <style>
         /* 必要なスタイルがあればここに記載 */
+
         .title {
             font-size: 2em;
             text-align: center;
@@ -20,16 +21,11 @@
         }
 
         .main-content {
-            background-color: white;
+            flex: 1;
             padding: 20px;
+            background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1.title {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
         }
 
         /* フォームのレイアウト（フォームコンテナのみ動かす） */
@@ -58,15 +54,16 @@
         }
 
         button {
-            grid-column: span 2;  /* ボタンを2列分の幅に設定 */
-            padding: 10px 15px;
+            /* grid-column: span 2;  /* ボタンを2列分の幅に設定 */
+            /*padding: 10px 15px; */
+            padding: 10px 20px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 50%;
-            margin-top: 20px;
+            /* width: 50%;
+            margin-top: 20px; */
         }
 
         button:hover {

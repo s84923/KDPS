@@ -14,7 +14,6 @@ urlpatterns = [
     path('', include('two_step_verification.urls')), 
     path('', include('student_register.urls')),
     path('', include('teacher_register.urls')),
-    path('', include('new_tests.urls')),
     path('', include('permissions.urls')),
     path('students/', include('StudentList.urls')),
     path('dbzikken/', include('DBzikken.urls')),  # DB実験アプリのURLを追加

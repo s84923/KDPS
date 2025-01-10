@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'login',
     'student_register',
     'teacher_register',
-    'new_tests',
     'permissions',
     'StudentList',
     'DBzikken',

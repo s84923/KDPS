@@ -80,42 +80,42 @@
 <body>
     <div class="login-container">
         <h2>ログイン</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
             <div class="form-group">
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="button" id="btn_passview">表示</button>
-                </form>                
+                <label for="student_id">学籍番号(ID):</label>
+                <input type="text" id="student_id" name="student_id" required>
             </div>
-
-            <div>
-                <a href="/accounts/templates/accounts/register.html">新規登録はこちら</a>
+            <div class="form-group">
+                <label for="input_pass">パスワード:</label>
+                <input type="password" id="input_pass" name="password" required>
+            </div>
+            <div class="toggle-password">
+                <button type="button" id="btn_passview">表示</button>
             </div>
             <button type="submit">ログイン</button>
         </form>
+        <div>
+            <a href="{% url 'register' %}">新規登録はこちら</a>
+        </div>
     </div>
 
     <script>
         document.getElementById('btn_passview').addEventListener('click', function () {
             const input_pass = document.getElementById('input_pass');
-            if (input_pass.type === 'password') {
-                input_pass.type = 'text';
-                this.textContent = '非表示';
+            if (input_pass) {
+                if (input_pass.type === 'password') {
+                    input_pass.type = 'text';
+                    this.textContent = '非表示';
+                } else {
+                    input_pass.type = 'password';
+                    this.textContent = '表示';
+                }
             } else {
-                input_pass.type = 'password';
-                this.textContent = '表示';
+                console.error('パスワード入力フィールドが見つかりません');
             }
         });
     </script>
-    
 </body>
 
 </html>
-
-{% if messages %}
-    <div class="alert">
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-{% endif %}

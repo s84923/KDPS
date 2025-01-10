@@ -7,7 +7,6 @@ class LoginForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': '学籍番号(ID)を入力して下さい',
-            'required': 'required'
         })
     )
     password = forms.CharField(
@@ -15,7 +14,6 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'パスワードを入力して下さい',
-            'required': 'required'
         })
     )
 
@@ -24,6 +22,7 @@ class LoginForm(forms.Form):
         student_ID = cleaned_data.get("student_ID")
         password = cleaned_data.get("password")
 
-        if not student_ID or not password:
-            raise forms.ValidationError("学籍番号(ID)とパスワードを両方入力してください。")
-
+        if not student_ID:
+            raise forms.ValidationError("学籍番号(ID)を入力してください。")
+        if not password:
+            raise forms.ValidationError("パスワードを入力してください。")

@@ -14,45 +14,41 @@ def login_view(request):
             student_id = form.cleaned_data.get('student_ID')
             password = form.cleaned_data.get('password')
 
-            try:
-                # 学籍番号でユーザーを検索
-                user = AuthUser.objects.get(username=student_id)
-
-                if user.check_password(password):  # パスワード認証
-                    login(request, user)
-
-                    if hasattr(user, 'profile'):
-                        if user.profile.role == 'student':
-                            return render(request, 'studentmenu/studentmenu.html')  # 生徒用画面
-                        elif user.profile.role == 'teacher':
-                            return render(request, 'KDPS/index.html')  # 教員用画面
-                        elif user.profile.role == 'admin':
-                            return redirect('admin_dashboard')  # 管理者用
-                        else:
-                            messages.error(request, "ユーザーの役職が設定されていません。")
+            # Djangoの標準認証システムを使用
+            user = authenticate(request, username=student_id, password=password)
+            if user is not None:
+                login(request, user)
+                # ログイン後のリダイレクト先をユーザーの役職で変更
+                if hasattr(user, 'profile'):
+                    if user.profile.role == 'student':
+                        return redirect('student_dashboard')  # 生徒用画面
+                    elif user.profile.role == 'teacher':
+                        return redirect('teacher_dashboard')  # 教員用画面
+                    elif user.profile.role == 'admin':
+                        return redirect('admin_dashboard')  # 管理者用画面
                     else:
-                        messages.error(request, "ユーザーのプロフィールが設定されていません。")
+                        messages.error(request, "ユーザーの役職が設定されていません。")
                 else:
-                    messages.error(request, "学籍番号またはパスワードが間違っています。")
-            except AuthUser.DoesNotExist:
+                    messages.error(request, "ユーザーのプロフィールが設定されていません。")
+            else:
                 messages.error(request, "学籍番号またはパスワードが間違っています。")
         else:
             messages.error(request, "入力データが正しくありません。")
-        
         return render(request, 'login.html', {'form': form})
-    
+
+    # GETリクエスト時の処理
     form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-# ログイン後にリダイレクトするビュー
+# ログイン後にリダイレクトするビュー（例）
 @login_required
-def login_redirect(request):
-    if hasattr(request.user, 'profile'):
-        if request.user.profile.role == 'student':
-            return render(request, 'studentmenu/studentmenu.html')  # 生徒用画面
-        elif request.user.profile.role == 'teacher':
-            return render(request, 'KDPS/index.html')  # 教員用画面
-        else:
-            return redirect('admin_dashboard')  # 管理者用
-    else:
-        return HttpResponse("ユーザーのプロフィールが設定されていません。")
+def student_dashboard(request):
+    return render(request, 'studentmenu/studentmenu.html')
+
+@login_required
+def teacher_dashboard(request):
+    return render(request, 'KDPS/index.html')
+
+@login_required
+def admin_dashboard(request):
+    return HttpResponse("管理者用ダッシュボード")

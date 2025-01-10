@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生徒一覧</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
-
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
-        .title {
+.title {
             font-size: 2em;
             text-align: center;
             margin-bottom: 20px;
@@ -67,14 +66,47 @@
         td form button:hover {
             background-color: #c0392b;
         }
+
+        /* トースト通知スタイル */
+        .toast {
+            visibility: hidden;
+            width: 300px;  /* 幅を300pxに設定 */
+            position: fixed;
+            z-index: 1;
+            left: 87%;
+            top: 15px;  /* 画面の上部に表示 */
+            transform: translateX(-50%); /* 左右中央に配置 */
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
+        }
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+        {% include 'KDPS/menu.html' %}
 
         <div class="main-content">
             <h1 class="title">生徒一覧</h1>
+
+            <!-- トースト通知 -->
+            {% if messages %}
+                <div class="toast-container">
+                    {% for message in messages %}
+                        <div class="toast">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             <!-- 検索フォーム -->
             <form method="get">
@@ -105,7 +137,7 @@
                             <td>{{ student.address }}</td>
                             <td><a href="{% url 'edit_student' student_id=student.student_id %}">編集</a></td>
                             <td>
-                                <form action="{% url 'delete_student' student_id=student.student_id %}" method="post">
+                                <form action="{% url 'delete_student' student.student_id %}" method="post">
                                     {% csrf_token %}
                                     <button type="submit">削除</button>
                                 </form>
@@ -118,5 +150,22 @@
             {% endif %}
         </div>
     </div>
+
+    <!-- トースト通知を表示するためのJavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toast = document.querySelector('.toast');
+            
+            if (toast) {
+                // トースト通知があれば表示
+                toast.classList.add('show');
+                
+                // 3秒後に通知を非表示にする
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3000); // 3秒後に消える
+            }
+        });
+    </script>
 </body>
 </html>

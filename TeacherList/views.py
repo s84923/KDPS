@@ -26,6 +26,7 @@ def teacher_list(request):
     return render(request, 'TeacherList/teacher_list.html', {'teachers': teachers})
 # 生徒編集機能
 def edit_teacher(request, teacher_id):
+    # teacher_idが文字列として渡されるので、そのまま文字列で検索
     teacher = get_object_or_404(Teacher, teacher_id=teacher_id)
     if request.method == 'POST':
         form = TeacherForm(request.POST, instance=teacher)
@@ -39,9 +40,10 @@ def edit_teacher(request, teacher_id):
 
 # 生徒削除機能
 def delete_teacher(request, teacher_id):
+    # teacher_idが文字列として渡されるので、そのまま文字列で検索
     teacher = get_object_or_404(Teacher, teacher_id=teacher_id)
     if request.method == 'POST':
         teacher.delete()
         messages.success(request, '削除されました')  # 削除後にメッセージを表示
-        return redirect('teacher_list')  # 削除後に生徒一覧ページへリダイレクト
+        return redirect('teacher_list')  # 削除後に教師一覧ページへリダイレクト
     return HttpResponse(status=405)  # POST以外のリクエストは許可しない

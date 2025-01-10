@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教員一覧</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+.title {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+        td form button {
+            background-color: #e74c3c;
+        }
+        td form button:hover {
+            background-color: #c0392b;
+        }
+
+        /* トースト通知スタイル */
+        .toast {
+            visibility: hidden;
+            width: 300px;  /* 幅を300pxに設定 */
+            position: fixed;
+            z-index: 1;
+            left: 87%;
+            top: 15px;  /* 画面の上部に表示 */
+            transform: translateX(-50%); /* 左右中央に配置 */
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
+        }
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %}
+
+        <div class="main-content">
+            <h1 class="title">KDPS 教員一覧</h1>
+
+            <!-- トースト通知 -->
+            {% if messages %}
+                <div class="toast-container">
+                    {% for message in messages %}
+                        <div class="toast">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- 生徒一覧表示テーブル -->
+            {% if teachers %}
+                <table>
+                    <tr>
+                        <th>教員番号</th>
+                        <th>名前</th>
+                        <th>担当学年</th>
+                        <th>担当クラス</th>
+                        <th>役職</th>
+                        <th>メールアドレス</th>
+                        <th>編集</th>
+                        <th>削除</th>
+                    </tr>
+                    {% for teacher in teachers %}
+                        <tr>
+                            <td>{{ teacher.teacher_id }}</td>
+                            <td>{{ teacher.teacher_name }}</td>
+                            <td>{{ teacher.school_year }}</td>
+                            <td>{{ teacher.student_class }}</td>
+                            <td>{{ teacher.post }}</td>
+                            <td>{{ teacher.email }}</td>
+                            <td><a href="{% url 'edit_student' student_id=student.student_id %}">編集</a></td>
+                            <td>
+                                <form action="{% url 'delete_student' student.student_id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit">削除</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+        </div>
+    </div>
+
+    <!-- トースト通知を表示するためのJavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toast = document.querySelector('.toast');
+            
+            if (toast) {
+                // トースト通知があれば表示
+                toast.classList.add('show');
+                
+                // 3秒後に通知を非表示にする
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3000); // 3秒後に消える
+            }
+        });
+    </script>
+</body>
+</html>

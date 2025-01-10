@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>KDPS 教員編集</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %}
+
+        <div class="main-content">
+            <h1 class="title">KDPS 教員編集</h1>
+            
+            <!-- トースト通知 -->
+            {% if messages %}
+                <div class="toast-container">
+                    {% for message in messages %}
+                        <div class="toast">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>教員番号</th>
+                        <td>{{ teacher.teacher_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>名前</th>
+                        <td>{{ form.teacher_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>担当学年</th>
+                        <td>{{ form.school_year }}</td>
+                    </tr>
+                    <tr>
+                        <th>担当クラス</th>
+                        <td>{{ form.student_class }}</td>
+                    </tr>
+                    <tr>
+                        <th>役職</th>
+                        <td>{{ form.post }}</td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td>{{ form.email }}</td>
+                    </tr>
+                </table>
+                <button type="submit">保存</button>
+            </form>
+            <a href="{% url 'teacher_list' %}">戻る</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toast = document.querySelector('.toast');
+            
+            if (toast) {
+                toast.classList.add('show');
+                
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3000); // 3秒後に消える
+            }
+        });
+    </script>
+</body>
+</html>

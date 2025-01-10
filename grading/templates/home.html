@@ -6,13 +6,17 @@
 </head>
 <body>
     <h2>試験を選択してください</h2>
+
+    <!-- Testモデルから取得した試験 -->
+    <h3>試験リスト</h3>
     <ul>
         {% for test in tests %}
-            <li><a href="{% url 'start_test' test.id %}">{{ test.name }}</a></li>
+            <li><a href="{% url 'start_test' test.test_id %}">{{ test.test_name }}</a></li>
         {% empty %}
-            <p>現在、利用可能な試験はありません。</p>
+            <p>利用可能な試験はありません。</p>
         {% endfor %}
     </ul>
+
     <a href="{% url 'create_question' %}">新しい問題を作成</a>
 </body>
 </html>

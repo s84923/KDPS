@@ -5,16 +5,18 @@
     <title>試験開始</title>
 </head>
 <body>
-    <h1>{{ test.name }} - 問題リスト</h1>
+    <h1>{{ test.test_name }} - 問題リスト</h1>
     <ul>
         {% for question in questions %}
             <li>
                 <a href="{% url 'answer_question' question.id %}">{{ question.content }}</a>
             </li>
+        {% empty %}
+            <p>この試験には問題がありません。</p>
         {% endfor %}
     </ul>
 
-    <form method="POST" action="{% url 'submit_answers' test.id %}">
+    <form method="POST" action="{% url 'submit_answers' test.test_id %}">
         {% csrf_token %}
         <button type="submit">全ての解答を最終提出する</button>
     </form>

@@ -1,8 +1,0 @@
-<h2>試験を選択してください</h2>
-<ul>
-    {% for test in tests %}
-        <li><a href="{% url 'start_test' test.id %}">{{ test.name }}</a></li>
-    {% empty %}
-        <p>利用可能な試験がありません。</p>
-    {% endfor %}
-</ul>

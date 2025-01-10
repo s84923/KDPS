@@ -2,10 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>{{ test.name }} - 採点結果</title>
+    <title>{{ test.test_name }} - 採点結果</title>
 </head>
 <body>
-    <h1>{{ test.name }} - 採点結果</h1>
+    <h1>{{ test.test_name }} - 採点結果</h1>
     <p>合計得点: {{ total_score }} / {{ max_score }}</p>
     <table border="1">
         <thead>
@@ -21,6 +21,10 @@
                 <td>{{ entry.question.content }}</td>
                 <td>{{ entry.feedback }}</td>
                 <td>{{ entry.score }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">採点結果がありません。</td>
             </tr>
             {% endfor %}
         </tbody>

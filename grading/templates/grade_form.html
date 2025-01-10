@@ -1,7 +1,0 @@
-<h2>{{ question.content }}</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="answer">解答を入力してください:</label>
-    <textarea id="answer" name="answer" rows="4"></textarea>
-    <button type="submit">採点</button>
-</form>

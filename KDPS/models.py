@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # 生徒情報
 class Student(models.Model):
@@ -80,12 +81,18 @@ class AuthTokens(models.Model):
 
 # ユーザープロフィール
 class Profile(models.Model):
-    student_id = models.CharField(max_length=20, verbose_name="学籍番号")
-    grade = models.PositiveIntegerField(verbose_name="学年")
-    class_name = models.CharField(max_length=50, verbose_name="クラス")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    student_id = models.CharField(max_length=20, unique=True, blank=True, null=True)  # 学籍番号
+    grade = models.IntegerField(blank=True, null=True)  # 学年
+    class_name = models.CharField(max_length=50, blank=True, null=True)  # クラス名
+    role = models.CharField(max_length=20, choices=(
+        ('student', 'Student'),
+        ('teacher', 'Teacher'),
+        ('admin', 'Admin'),
+    ), default='student')
 
     def __str__(self):
-        return f'{self.student_id}のプロフィール'
+        return f"{self.user.username} - {self.role}"
 
 #自動採点関連
 class GeminiTest(models.Model):

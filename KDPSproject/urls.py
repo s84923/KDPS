@@ -23,5 +23,6 @@ urlpatterns = [
     path('',include('Log_Error.urls')),
     path('',include('login.urls')),
     path('', include('grading.urls')),
+    path('teachers/', include('TeacherList.urls')),
     
 ]

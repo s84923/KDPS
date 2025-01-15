@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>KDPS 試験編集</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSSを読み込み -->
+
+    <style>
+        .toast-container {
+            position: fixed;
+            z-index: 9999;
+            top: 10px;
+            right: 10px;
+        }
+
+        .toast {
+            visibility: hidden;
+            width: 300px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            font-size: 17px;
+            margin-bottom: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </head>
+
 <body>
     <!-- サイドバー -->
     <div class="container">
@@ -35,5 +65,30 @@
             <a href="{% url 'test_list' %}">戻る</a>
         </div>
     </div>
+    <!-- トースト通知 -->
+    <div class="toast-container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="toast show">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toasts = document.querySelectorAll('.toast');
+
+            toasts.forEach(function (toast) {
+                toast.classList.add('show'); // トーストを表示
+
+                // 3秒後に非表示にする
+                setTimeout(function () {
+                    toast.classList.remove('show');
+                }, 3000); // 3秒後に消える
+            });
+        });
+    </script>
+
 </body>
+
 </html>

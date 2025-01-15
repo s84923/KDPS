@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import StudentForm
 from KDPS.models import User, Student
 from django.db.models import Max
+from django.contrib import messages
 
 def student_register(request):
     if request.method == 'POST':
@@ -22,6 +23,9 @@ def student_register(request):
                 role='student',  # Roleを学生に設定
             )
             user.save()  # Userデータベースに保存
+
+            # 登録成功のメッセージ
+            messages.success(request, '生徒が新規登録されました。')
 
             return redirect('student_register')  # 登録成功後のページへリダイレクト
     else:

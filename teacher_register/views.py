@@ -1,9 +1,10 @@
-# views.py
 from django.shortcuts import render, redirect
 from .forms import TeacherForm
 from KDPS.models import Teacher, User
 from django.db.models import Max
+from django.contrib import messages  # messagesをインポート
 
+# 教員登録処理
 def teacher_register(request):
     if request.method == 'POST':
         form = TeacherForm(request.POST)
@@ -23,9 +24,11 @@ def teacher_register(request):
             )
             user.save()  # Userデータベースに保存
 
-            # 登録後に一覧ページにリダイレクト
-            # return redirect('teacher_list')
+            # メッセージをトースト通知用に保存
+            messages.success(request, '教員が登録されました。')
 
+            # 登録後に教員登録画面にリダイレクト
+            return redirect('teacher_register')  # ここを変更
     else:
         form = TeacherForm()  # GETリクエスト時には空のフォームを表示
 

@@ -7,6 +7,37 @@
     <title>ホーム - 試験リスト</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
+    <style>
+        .grading-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            color: #f8f9fa;
+            background-color: #007BFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,16 +46,20 @@
         <div class="grading-container">
             <h2>試験を選択してください</h2>
             <ul>
-                <ul>
-                    {% for test in tests %}
-                        <li>
-                            試験ID: {{ test.test_id }} - <a href="{% url 'start_test' test.test_id %}">{{ test.test_name }}</a>
-                        </li>
-                    {% empty %}
-                        <p>利用可能な試験がありません。</p>
-                    {% endfor %}
-                </ul>
-            <a href="{% url 'create_question' %}">新しい問題を作成</a>
+                {% for test in tests %}
+                    <li>
+                        試験ID: {{ test.test_id }} - 
+                        <a href="{% url 'start_test' test.test_id %}">{{ test.test_name }}</a>
+                    </li>
+                {% empty %}
+                    <p>利用可能な試験がありません。</p>
+                {% endfor %}
+            </ul>
+
+            <!-- 新しい問題作成リンクボタン -->
+            <a href="{% url 'create_question' %}">
+                <button>新しい問題を作成</button>
+            </a>
         </div>
     </div>
 </body>

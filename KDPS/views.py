@@ -119,8 +119,7 @@ def delete_schedule(request, event_id):
     messages.success(request, "スケジュールを削除しました。")
     return redirect('schedule')
 
-def mark(request):
-    return render(request, 'KDPS/mark.html')
+
 
 def individual_report(request):
     selected_student_id = request.GET.get("student_id", None)

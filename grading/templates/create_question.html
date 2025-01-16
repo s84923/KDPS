@@ -1,26 +1,74 @@
-<h2>新しい問題を作成</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="test">試験名:</label>
-    {{ form.test }}<br>
-    
-    <label for="content">問題文:</label>
-    {{ form.content }}<br>
-    
-    <label for="question_type">問題の種類:</label>
-    {{ form.question_type }}<br>
-    
-    <label for="correct_answer">模範解答:</label>
-    {{ form.correct_answer }}<br>
-    
-    <label for="choices">選択肢（選択問題のみ）:</label>
-    {{ form.choices }}<br>
-    
-    <label for="score">配点:</label>
-    <input type="number" name="score" min="1" value="10" required><br>
-    
-    <label for="partial_scoring_conditions">部分点条件（記述問題のみ）:</label>
-    {{ form.partial_scoring_conditions }}<br>
-    
-    <button type="submit">作成</button>
-</form>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
+    <style>
+        .grading-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            color: #f8f9fa;
+            background-color: #007BFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+        <div class="grading-container">
+            <h2>新しい問題を作成</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="test">試験名:</label>
+                {{ form.test }}<br>
+
+                <label for="content">問題文:</label>
+                {{ form.content }}<br>
+
+                <label for="question_type">問題の種類:</label>
+                {{ form.question_type }}<br>
+
+                <label for="correct_answer">模範解答:</label>
+                {{ form.correct_answer }}<br>
+
+                <label for="choices">選択肢（選択問題のみ）:</label>
+                {{ form.choices }}<br>
+
+                <label for="score">配点:</label>
+                <input type="number" name="score" min="1" value="10" required><br>
+
+                <label for="partial_scoring_conditions">部分点条件（記述問題のみ）:</label>
+                {{ form.partial_scoring_conditions }}<br>
+
+                <button type="submit">作成</button>
+            </form>
+        </div>
+    </div>
+</body>

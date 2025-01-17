@@ -161,19 +161,18 @@ def send_report_to_parents(request):
                 settings.EMAIL_HOST_USER,
                 [student.parent_email],
             )
-            messages.success(request, f"{student.student_name}さんの成績レポートと評価文を保護者に送信しました。")
-            logger.info(f"メール送信成功: {subject} to {student.parent_email}")
+            # 成功時にメッセージを追加
+            messages.success(request, f"送信されました")
 
         except Student.DoesNotExist:
-            logger.error("指定された生徒が見つかりません")
             messages.error(request, "指定された生徒が見つかりません。")
         except Exception as e:
-            logger.error(f"エラーが発生しました: {e}")
             messages.error(request, f"エラーが発生しました: {e}")
 
         return redirect("report")
 
     return redirect("report")
+
 
 def overall_report(request):
     return render(request, 'KDPS/overall_report.html')

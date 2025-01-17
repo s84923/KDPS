@@ -11,6 +11,15 @@
     <div class="container">
         <!-- サイドバー -->
         {% include 'KDPS/menu.html' %}
+
+        <!-- メッセージ表示（トースト通知） -->
+        <div id="toast-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="toast">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
         
         <!-- ページごとのコンテンツ -->
         <div class="main-content">
@@ -19,5 +28,20 @@
             {% endblock %}
         </div>
     </div>
+
+    <!-- トースト通知のJavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function () {
+                const toasts = document.querySelectorAll('.toast');
+                toasts.forEach(function (toast) {
+                    toast.style.opacity = '0';  // 透明にする
+                    setTimeout(function () {
+                        toast.style.display = 'none';  // 500ms後に完全に非表示
+                    }, 500);  // opacityが変化した後にdisplayをnoneに設定
+                });
+            }, 3000);  // 3秒後に通知を消す
+        });
+    </script>
 </body>
 </html>

@@ -5,6 +5,28 @@
     <title>スケジュール設定</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        #toast-container {
+            position: fixed;
+            top: 15px; /* トースト通知を上部に近づける */
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background-color: #000000;
+            color: white;
+            display: inline-block;
+            opacity: 1;
+            transition: opacity 0.3s ease-out;
+            margin-bottom: 15px;
+            text-align: center;
+            width: 300px;
+            border-radius: 5px;
+            padding: 16px;
+            font-size: 17px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -17,6 +39,15 @@
             <a href="?year={{ previous_year }}&month={{ previous_month }}">前の月</a>
             <span>{{ selected_year }}年{{ selected_month }}月</span>
             <a href="?year={{ next_year }}&month={{ next_month }}">次の月</a>
+        </div>
+
+        <!-- トースト通知 -->
+        <div id="toast-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="toast">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
         </div>
 
         <form method="get">
@@ -100,5 +131,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    // トースト通知を3秒後に非表示にする
+    setTimeout(function () {
+        const toast = document.querySelector('.toast');
+        if (toast) {
+            toast.style.opacity = '0';  // 透明にする
+            setTimeout(function () {
+                toast.style.display = 'none';  // 500ms後に完全に非表示
+            }, 500);
+        }
+    }, 3000);
+</script>
 </body>
 </html>

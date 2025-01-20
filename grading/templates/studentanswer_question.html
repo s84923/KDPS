@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
     <title>問題解答</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
     <style>
         .grading-container {
@@ -17,10 +17,11 @@
             background-color: #f9f9f9;
         }
     </style>
+    
 </head>
 <body>
     <div class="container">
-        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+        {% include 'studentmenu/studentsidebar.html' %} <!-- サイドバー -->
         <div class="grading-container">
             <h2>{{ question.content }}</h2>
             <p>解答:</p>
@@ -53,7 +54,7 @@
 
             <!-- 戻るボタン -->
             <br>
-            <a href="{% url 'start_test' test.test_id %}">戻る</a>
+            <a href="{% url 'studentstart_test' test.test_id %}">戻る</a>
 
             {% if error_message %}
                 <p style="color: red;">{{ error_message }}</p>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム - 試験リスト</title>
     <title>{{ test.test_name }} - 採点結果</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- サイドバー用の外部CSS -->
@@ -22,7 +23,7 @@
 
 <body>
     <div class="container">
-        {% include 'KDPS/menu.html' %} <!-- サイドバー -->
+        {% include 'studentmenu/studentsidebar.html' %} <!-- サイドバー -->
         <div class="grading-container">
             <h1>{{ test.test_name }} - 採点結果</h1>
             <p>合計得点: {{ total_score }} / {{ max_score }}</p>
@@ -48,7 +49,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{% url 'home' %}">ホームに戻る</a>
+            <a href="{% url 'studenthome' %}">ホームに戻る</a>
         </div>
     </div>
 </body>

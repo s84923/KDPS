@@ -323,7 +323,7 @@ def studentshow_results(request, test_id):
     # 最大得点を計算（質問ごとの配点を合計）
     max_score = sum(question.score for question in test.questions.all())
 
-    return render(request, "studentshow_results.html", {
+    return render(request, "studentshow_result.html", {
         "test": test,
         "history": history,
         "total_score": total_score,

@@ -5,11 +5,10 @@ from KDPS.models import Profile
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-    if created:
+    if created and isinstance(instance, User):
         Profile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
-    # Profileが存在する場合のみsave()を呼び出す
     if hasattr(instance, 'profile'):
         instance.profile.save()

@@ -24,8 +24,6 @@ def login_view(request):
                         return redirect('student_dashboard')  # 生徒用画面
                     elif user.profile.role == 'teacher':
                         return redirect('teacher_dashboard')  # 教員用画面
-                    elif user.profile.role == 'admin':
-                        return redirect('admin_dashboard')  # 管理者用画面
                     else:
                         messages.error(request, "ユーザーの役職が設定されていません。")
                 else:
@@ -48,7 +46,3 @@ def student_dashboard(request):
 @login_required
 def teacher_dashboard(request):
     return render(request, 'KDPS/index.html')
-
-@login_required
-def admin_dashboard(request):
-    return HttpResponse("管理者用ダッシュボード")

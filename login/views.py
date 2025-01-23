@@ -40,7 +40,7 @@ def teacher_login_view(request):
 
             try:
                 teacher = Teacher.objects.get(teacher_id=teacher_id)
-                if teacher.password == password:  # 単純比較に変更（非常に危険）
+                if teacher.password == password:  
                     # ログイン成功
                     request.session['user_type'] = 'teacher'
                     request.session['user_id'] = teacher.teacher_id

@@ -78,7 +78,7 @@ TEMPLATES = [
             BASE_DIR / 'KDPS/templates',        # KDPSの全体テンプレートディレクトリ
             BASE_DIR / 'KDPS/templates/KDPS',  # KDPS配下のテンプレートディレクトリ
             BASE_DIR / 'DBzikken/templates',   # DBzikkenのテンプレートディレクトリ
-            BASE_DIR / 'login/templates',
+            BASE_DIR / 'login/templates',  # loginアプリのテンプレートディレクトリを追加
         ],
         'APP_DIRS': True,  # 各アプリケーションのテンプレートディレクトリを自動で検出
         'OPTIONS': {
@@ -92,7 +92,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'KDPSproject.wsgi.application'
 

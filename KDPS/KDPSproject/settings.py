@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'login',
     'student_register',
     'teacher_register',
-    'new_tests',
     'permissions',
     'StudentList',
     'DBzikken',
@@ -56,6 +55,7 @@ INSTALLED_APPS = [
     'Log_Action',
     'Log_Error',
     'grading',
+    'TeacherList',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +78,7 @@ TEMPLATES = [
             BASE_DIR / 'KDPS/templates',        # KDPSの全体テンプレートディレクトリ
             BASE_DIR / 'KDPS/templates/KDPS',  # KDPS配下のテンプレートディレクトリ
             BASE_DIR / 'DBzikken/templates',   # DBzikkenのテンプレートディレクトリ
+            BASE_DIR / 'login/templates',  # loginアプリのテンプレートディレクトリを追加
         ],
         'APP_DIRS': True,  # 各アプリケーションのテンプレートディレクトリを自動で検出
         'OPTIONS': {
@@ -91,7 +92,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'KDPSproject.wsgi.application'
 
@@ -120,6 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTH_USER_MODEL = 'auth.User'
 
 
 # Internationalization

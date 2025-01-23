@@ -1,28 +1,21 @@
 from django import forms
 
-class LoginForm(forms.Form):
-    student_ID = forms.CharField(
-        label="学籍番号(ID)",
-        max_length=20,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': '学籍番号(ID)を入力して下さい',
-        })
+class StudentLoginForm(forms.Form):
+    student_id = forms.IntegerField(
+        label="学籍番号",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '学籍番号を入力してください'})
     )
     password = forms.CharField(
         label="パスワード",
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'パスワードを入力して下さい',
-        })
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'パスワードを入力してください'})
     )
 
-    def clean(self):
-        cleaned_data = super().clean()
-        student_ID = cleaned_data.get("student_ID")
-        password = cleaned_data.get("password")
-
-        if not student_ID:
-            raise forms.ValidationError("学籍番号(ID)を入力してください。")
-        if not password:
-            raise forms.ValidationError("パスワードを入力してください。")
+class TeacherLoginForm(forms.Form):
+    teacher_id = forms.CharField(
+        label="教員ID",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '教員IDを入力してください'})
+    )
+    password = forms.CharField(
+        label="パスワード",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'パスワードを入力してください'})
+    )

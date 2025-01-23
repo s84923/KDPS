@@ -1,15 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password, check_password
 
 # 生徒情報
 class Student(models.Model):
-    student_id = models.IntegerField(primary_key=True)
-    student_name = models.CharField(max_length=20)
-    school_year = models.IntegerField()
-    student_class = models.CharField(max_length=3)
-    email = models.CharField(max_length=30)
-    parent_email = models.CharField(max_length=30)
-    address = models.CharField(max_length=30)
+    student_id = models.IntegerField(primary_key=True)  # 学籍番号
+    student_name = models.CharField(max_length=20)  # 生徒名
+    school_year = models.IntegerField()  # 学年
+    student_class = models.CharField(max_length=3)  # クラス
+    email = models.CharField(max_length=30)  # メールアドレス
+    parent_email = models.CharField(max_length=30)  # 保護者メールアドレス
+    address = models.CharField(max_length=30)  # 住所
+    password = models.CharField(max_length=128)  # パスワード（ハッシュ化）
+
+    def set_password(self, raw_password):
+        """生徒のパスワードをハッシュ化して保存"""
+        self.password = make_password(raw_password)
+        self.save()
+
+    def check_password(self, raw_password):
+        """パスワードを検証"""
+        return check_password(raw_password, self.password)
+
+    def __str__(self):
+        return self.student_name
+
     
 # 成績情報
 class Grades(models.Model):
@@ -37,13 +52,28 @@ class User(models.Model):
         return f"{self.user_id} - {self.role}"
 
 # 教員情報
+# 教員情報
 class Teacher(models.Model):
-    teacher_id = models.CharField(max_length=10, primary_key=True)
-    teacher_name = models.CharField(max_length=20)
-    school_year = models.IntegerField()
-    email = models.CharField(max_length=30, default='')
-    student_class = models.CharField(max_length=3)
-    post = models.CharField(max_length=10)
+    teacher_id = models.CharField(max_length=10, primary_key=True)  # 教員ID
+    teacher_name = models.CharField(max_length=20)  # 教員名
+    school_year = models.IntegerField()  # 学年
+    email = models.CharField(max_length=30, default='')  # メールアドレス
+    student_class = models.CharField(max_length=3)  # 担当クラス
+    post = models.CharField(max_length=10)  # 役職
+    password = models.CharField(max_length=128)  # パスワード（ハッシュ化）
+
+    def set_password(self, raw_password):
+        """教員のパスワードをハッシュ化して保存"""
+        self.password = make_password(raw_password)
+        self.save()
+
+    def check_password(self, raw_password):
+        """パスワードを検証"""
+        return check_password(raw_password, self.password)
+
+    def __str__(self):
+        return self.teacher_name
+
 
 # 試験情報
 class Test(models.Model):

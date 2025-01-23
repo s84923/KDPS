@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規アカウント作成</title>
+</head>
+<body>
+    <h2>新規アカウント作成</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="user_type">アカウントタイプ:</label><br>
+        <input type="radio" name="user_type" value="student" required> 生徒<br>
+        <input type="radio" name="user_type" value="teacher" required> 教員<br>
+
+        <label for="username">ユーザー名:</label>
+        <input type="text" name="username" required><br>
+        <label for="password">パスワード:</label>
+        <input type="password" name="password" required><br>
+
+        <div id="student-fields">
+            <label for="student_id">学籍番号:</label>
+            <input type="text" name="student_id"><br>
+        </div>
+
+        <div id="teacher-fields">
+            <label for="teacher_id">教員コード:</label>
+            <input type="text" name="teacher_id"><br>
+        </div>
+
+        <button type="submit">登録</button>
+    </form>
+    {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+</body>
+</html>

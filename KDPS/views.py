@@ -9,6 +9,8 @@ from django.conf import settings
 import calendar
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 
 # ログの設定

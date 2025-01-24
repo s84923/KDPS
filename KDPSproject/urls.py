@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),  # Django 管理画面
     path('', lambda request: redirect('student_login'), name='root'),  # ルートをログインページへリダイレクト
-    path('', include('KDPS.urls')), 
+    path('teachermenu/', include('KDPS.urls')), 
     # 各アプリのURLパターンを整理
     path('accounts/', include('accounts.urls')),
     path('auth/', include('django.contrib.auth.urls')),  # Django 標準認証用URL

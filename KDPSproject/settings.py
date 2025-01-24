@@ -156,7 +156,11 @@ EMAIL_HOST_USER = 'oky.KDPS@gmail.com'  # 送信元のメールアドレス
 EMAIL_HOST_PASSWORD = 'zsny bzbo ghqf mvww'  # Gmailアカウントのアプリパスワード
 DEFAULT_FROM_EMAIL = 'noreply@example.com'  # デフォルト送信者メールアドレス
 
-LOGOUT_REDIRECT_URL = '/login'
+
+LOGIN_URL = '/login/student_login/'  # 未ログイン時のリダイレクト先
+LOGOUT_REDIRECT_URL = '/login/student_login/'  # ログアウト後のリダイレクト先
+LOGIN_REDIRECT_URL = '/login/studentmenu/'  # ログイン後のデフォルトリダイレクト先
+
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 

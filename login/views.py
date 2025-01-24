@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import StudentLoginForm, TeacherLoginForm
 from KDPS.models import Student, Teacher
+from django.contrib.auth import login  # 追加
+
 
 # 生徒ログインビュー
 def student_login_view(request):

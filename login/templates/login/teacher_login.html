@@ -5,37 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>教員ログイン</title>
-    {% load static %} <!-- static タグをロード -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- CSS ファイルのパスを指定 -->
     <style>
         .grading-container {
             display: flex;
-            /* フレックスボックスを使用 */
             flex-direction: column;
-            /* 縦方向に並べる */
             justify-content: center;
-            /* 縦方向の中央揃え */
             align-items: center;
-            /* 横方向の中央揃え */
             background-color: #f9f9f9;
             height: 100vh;
-            /* ビューポートの高さに合わせる */
+            padding: 20px; /* コンテナ内の余白 */
+            box-sizing: border-box; /* パディングを幅に含める */
         }
-
+    
         form {
-            width: 300px;
-            /* フォームの幅 */
+            width: 100%;
+            max-width: 400px; /* フォームの最大幅を指定 */
             background-color: white;
-            /* フォームの背景色 */
             padding: 20px;
-            /* フォーム内の余白 */
             border-radius: 8px;
-            /* 角丸を追加 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+            box-sizing: border-box;
         }
-
+    
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+    
         button {
             width: 100%;
-            /* ボタンをフォームの幅いっぱいに */
             padding: 10px;
             background-color: #007BFF;
             color: white;
@@ -43,23 +47,24 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-
+    
         button:hover {
             background-color: #0056b3;
-            /* ホバー時に色を変える */
         }
-
+    
         a {
+            display: block;
             margin-top: 10px;
+            text-align: center;
             text-decoration: none;
             color: #007BFF;
-            /* リンクの色 */
+            font-size: 14px;
         }
-
+    
         a:hover {
             text-decoration: underline;
-            /* リンクにホバーした際に下線を追加 */
         }
     </style>
 </head>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <h1>自動採点の設定</h1>
+        {% load static %} <!-- static タグをロード -->
+    </head>
+    <body>
+        {% include 'KDPS/menu.html' %} <!-- サイドバーの読み込み -->
+        <h2>問題数を入力してください</h2>
+        <button type="button">-</button>
+        <textarea name="Number of questions" id="Number of questions"></textarea>
+        <button type="button">+</button>
+        <h2>満点になる点数を入力してください</h2>
+        <button type="button">-</button>
+        <textarea name="full score" id="fullscore"></textarea>
+        <button type="button">+</button>
+        
+    </body>
+</html>

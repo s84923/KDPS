@@ -81,6 +81,9 @@ class Test(models.Model):
     test_name = models.CharField(max_length=20)
     teacher_id = models.CharField(max_length=10)
 
+    def __str__(self):
+        return self.test_name  # ここで試験名を返すようにする
+
 # エラーログ
 class ErrorLog(models.Model):
     error_id = models.IntegerField(primary_key=True)

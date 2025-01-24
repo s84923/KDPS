@@ -9,6 +9,10 @@
         
     </ul>
     <div class="logout">
-        <a href="#">ログアウト</a>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">ログアウト</button>
+        </form>
+        
     </div>
 </div>

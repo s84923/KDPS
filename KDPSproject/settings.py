@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'Log_Error',
     'grading',
     'TeacherList',
+    'StudentGrades',
 ]
 
 MIDDLEWARE = [

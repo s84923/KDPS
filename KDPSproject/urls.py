@@ -27,6 +27,8 @@ urlpatterns = [
     path('log_error/', include('Log_Error.urls')),  # エラーログ
     path('grading/', include('grading.urls')),  # 採点
     path('teachers/', include('TeacherList.urls')),  # 教員リスト
+    path('studentgrades/', include('StudentGrades.urls')),  # StudentGradesをインクルード
+
 ]
 
 # 開発環境での静的ファイルの提供

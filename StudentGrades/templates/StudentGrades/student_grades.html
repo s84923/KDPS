@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績表示</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 0px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% include 'studentmenu/studentsidebar.html' %}
+
+        <div class="main-content">
+            <h1>成績表示</h1>
+            {% if results %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>テスト名</th>
+                        <th>担当教員</th>
+                        <th>得点</th>
+                        <th>最高点</th>
+                        <th>中央値</th>
+                        <th>受験人数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.test_name }}</td>
+                        <td>{{ result.teacher_id }}</td>
+                        <td>{{ result.score }}</td>
+                        <td>{{ result.max_score }}</td>
+                        <td>{{ result.median_score }}</td>
+                        <td>{{ result.participant_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align: center;">成績データがありません。</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

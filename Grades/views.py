@@ -177,7 +177,7 @@ def edit_student_scores(request):
                         error_message = "指定された成績が見つかりません。"
 
                 # 更新または削除後、再度GETリクエストとしてリダイレクトして最新のデータを表示
-                return redirect(f'/edit_student_scores/?student_id={student_id}')  # リダイレクト
+                return redirect(f'/grades/edit_student_scores/?student_id={student_id}')  # リダイレクト
 
         except Student.DoesNotExist:
             error_message = "指定された学籍番号の生徒が見つかりません。"

@@ -6,6 +6,7 @@ from django.contrib.auth import login  # 追加
 
 
 # 生徒ログインビュー
+# 生徒ログインビュー
 def student_login_view(request):
     if request.method == 'POST':
         form = StudentLoginForm(request.POST)
@@ -21,16 +22,13 @@ def student_login_view(request):
                     request.session['user_id'] = student.student_id
                     # messages.success(request, "ログイン成功")
                     return redirect('studentmenu')  # 生徒用メニューへリダイレクト
-                else:
-                    messages.error(request, "パスワードが正しくありません")
             except Student.DoesNotExist:
-                messages.error(request, "学籍番号が存在しません")
-        else:
-            messages.error(request, "フォームの入力が正しくありません")
+                pass
     else:
         form = StudentLoginForm()
 
     return render(request, 'login/student_login.html', {'form': form})
+
 
 # 教員ログインビュー
 def teacher_login_view(request):
@@ -48,16 +46,13 @@ def teacher_login_view(request):
                     request.session['user_id'] = teacher.teacher_id
                     # messages.success(request, "ログイン成功")
                     return redirect('teachermenu')  # 教員用メニューへリダイレクト
-                else:
-                    messages.error(request, "パスワードが正しくありません")
             except Teacher.DoesNotExist:
-                messages.error(request, "教員IDが存在しません")
-        else:
-            messages.error(request, "フォームの入力が正しくありません")
+                pass
     else:
         form = TeacherLoginForm()
 
     return render(request, 'login/teacher_login.html', {'form': form})
+
 
 # 生徒用メニュー
 def student_menu_view(request):

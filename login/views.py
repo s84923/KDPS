@@ -19,7 +19,7 @@ def student_login_view(request):
                     # ログイン成功
                     request.session['user_type'] = 'student'
                     request.session['user_id'] = student.student_id
-                    messages.success(request, "ログイン成功")
+                    # messages.success(request, "ログイン成功")
                     return redirect('studentmenu')  # 生徒用メニューへリダイレクト
                 else:
                     messages.error(request, "パスワードが正しくありません")
@@ -46,7 +46,7 @@ def teacher_login_view(request):
                     # ログイン成功
                     request.session['user_type'] = 'teacher'
                     request.session['user_id'] = teacher.teacher_id
-                    messages.success(request, "ログイン成功")
+                    # messages.success(request, "ログイン成功")
                     return redirect('teachermenu')  # 教員用メニューへリダイレクト
                 else:
                     messages.error(request, "パスワードが正しくありません")
@@ -76,5 +76,5 @@ def teacher_menu_view(request):
 # ログアウトビュー
 def logout_view(request):
     request.session.flush()  # セッションのクリア
-    messages.success(request, "ログアウトしました")
+    # messages.success(request, "ログアウトしました")
     return redirect('student_login')  # ログインページにリダイレクト

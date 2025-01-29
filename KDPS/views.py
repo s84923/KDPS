@@ -190,7 +190,7 @@ def logout_view(request):
     logout(request)
 
     # ログアウトしたことをユーザーに通知
-    messages.success(request, "ログアウトしました")
+    # messages.success(request, "ログアウトしました")
 
     # ログイン画面にリダイレクト
     return redirect('login')

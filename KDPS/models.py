@@ -51,7 +51,7 @@ class User(models.Model):
     def __str__(self):
         return f"{self.user_id} - {self.role}"
 
-# 教員情報
+
 # 教員情報
 class Teacher(models.Model):
     teacher_id = models.CharField(max_length=10, primary_key=True)  # 教員ID

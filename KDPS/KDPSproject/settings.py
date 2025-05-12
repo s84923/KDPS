@@ -138,10 +138,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# 静的ファイルのディレクトリを指定
 STATICFILES_DIRS = [
-    BASE_DIR / 'KDPSproject' / 'static',  # KDPSproject の static ディレクトリを指定
-]
+    os.path.join(BASE_DIR, "static")]
+# 静的ファイルのディレクトリを指定
+
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
